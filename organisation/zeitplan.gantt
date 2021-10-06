@@ -1,0 +1,58 @@
+@startgantt gantt.png
+
+Project starts the 2021/10/29
+
+-- Statusmeldungen --
+[Ergebnisse Literatur]                              happens 14 days after start
+[Status-Report 1]                        happens 21 days after start
+[Status-Report 2]                        happens 42 days after start
+[Status-Report 3]                        happens 63 days after start
+[Status-Report 4]                        happens 84 days after start
+[Status-Report 5]                        happens 105 days after start
+[Status-Report 6]                        happens 126 days after start
+[Status-Report 7]                        happens 147 days after start
+[Status-Report 8]                        happens 168 days after start
+
+-- Durchführung --
+[Anforderungsanalyse und Lit.-Recherche] lasts 10 days
+then [Präs. Literaturrecherche]          happens 14 days after start
+then [Aufgabe 1]                         lasts 5 days 
+then [Aufgabe 2]                         lasts 3 days 
+then [Aufgabe 3]                         lasts 5 days 
+then [Aufgabe 4]                         lasts 2 days 
+then [Aufgabe 5]                         lasts 5 days
+[Aufgabe 6]                              lasts 3 days 
+[Aufgabe 4] -> [Aufgabe 6]
+[Aufgabe 7]                              lasts 1 days 
+[Aufgabe 5] -> [Aufgabe 7]
+[Aufgabe 6] -> [Aufgabe 7]
+then [Aufgabe 8]                         lasts 2 days 
+then [Aufgabe 9]                         lasts 6 days 
+then [Aufgabe 10]                        lasts 3 days 
+then [Aufgabe 11]                        lasts 5 days 
+
+-- Endredaktion --
+then [Abgabe Entwurf]                    happens 150 days after start
+[eigene Korrektur]                       lasts 7 days
+[auf Feedback warten]                    lasts 7 days
+[Feedback einarbeiten]                   lasts 20 days
+[Feinschliff]                            lasts 2 day
+[drucken und binden]                     lasts 1 day
+[Abgabe]                                 happens 180 days after start
+
+[Abgabe Entwurf]                         -> [auf Feedback warten]
+[Abgabe Entwurf]                         -> [eigene Korrektur]
+[auf Feedback warten]                    -> [Feedback einarbeiten]
+[eigene Korrektur]                       -> [Feinschliff]
+[Feedback einarbeiten]                   -> [Feinschliff]
+[Feinschliff]                            -> [drucken und binden]
+[drucken und binden]                     -> [Abgabe]
+
+[Anforderungsanalyse und Lit.-Recherche] is colored in lightblue
+[eigene Korrektur]                       is colored in lightblue
+[auf Feedback warten]                    is colored in lightblue
+[Feedback einarbeiten]                   is colored in lightblue
+[Feinschliff]                            is colored in lightblue
+[drucken und binden]                     is colored in lightblue
+
+@endgantt
