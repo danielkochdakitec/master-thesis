@@ -4,14 +4,14 @@
 
 Bei der Entwicklung neuer Web- & Mobile Apps müssen sich Entwickler um Aufgaben kümmern, die in fast jedem Projekt gleichermaßen benötigt werden, wie beispielsweise:
 
-** Entwicklung **
+**Entwicklung**
 
 - Benutzerverwaltung mit verschiedenen Login-Mechanismen (E-Mail, Phone, Facebook, Google etc.) und Sicherheitseinstellungen (Passwortkomplexität, MFA)
 - Entwicklung von REST- und GraphQL-APIs
 - todo...
 - Synchronisation von Offline-Daten
 
-** Bereitstellung **
+**Bereitstellung**
 
 - Setup der Hosting-Umgebung inbegriffen Setup des DNS, des Monitoring, des Logging und der Access Controls
 - Setup des Continuous Deployments inbegriffen Vorschau von Pull-Requests und Benachrichtigungen bei Builds
