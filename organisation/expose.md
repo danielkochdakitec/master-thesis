@@ -2,19 +2,22 @@
 
 ## Problemstellung und Kontext
 
-Bei der Entwicklung einer neuen Web- & Mobile App müssen sich Entwickler um Aufgaben kümmern, die bereits in vorherigen Projekten erledigt wurden. Diese sind zum Beispiel für die **Entwicklung**, die folgenden Aufgaben:
+Bei der Entwicklung einer neuen Web-/Mobile Applikation müssen sich Entwickler um Aufgaben kümmern, die bereits in vorherigen Projekten ähnlich erledigt wurden. Ohne eine Wiederverwendung der vorherigen Artefakte erscheint das nicht sehr effizient.
+
+Im Bereich der **Entwicklung** lassen sich die folgenden wiederkehrenden Aufgaben finden:
 
 - Benutzerverwaltung mit verschiedenen Login-Mechanismen (E-Mail, Phone, Facebook, Google etc.) und Sicherheitseinstellungen (Passwortkomplexität, MFA)
 - Entwicklung von REST- und GraphQL-APIs
-- todo...
 - Synchronisation von Offline-Daten
 
-Außerdem werden auch für die **Bereitstellung** wiederkehrende Aufgaben erledigt:
+Im Bereich der **Bereitstellung** lassen sich auch wiederkehrende Aufgaben finden:
 
 - Setup der Hosting-Umgebung inbegriffen Setup des DNS, des Monitoring, des Logging und der Access Controls
 - Setup des Continuous Deployments inbegriffen Vorschau von Pull-Requests und Benachrichtigungen bei Builds
 
-Zwar sind die Aufgaben bei einer neuen Entwicklung sehr individuell, doch gibt es immer gewisse Schnittmengen, die bisher kaum wiederverwendet werden. Dabei soll eine Serverless-Technologie wie AWS Amplify unterstützen und die Entwicklung von Web- & Mobile Apps beschleunigen.
+Die Aufgaben sind bei einer neuen Applikation sehr individuell. Dennoch gibt es immer eine gewisse Schnittmenge, die wiederverwendet werden kann.
+
+Der Cloud Service AWS Amplify von Amazon Webservices hat sich die schnelle Entwicklung von skalierbaren Web- & Mobile Apps zum Ziel gesetzt, indem sie die genannten Aufgaben in ein Serverless-Framework als Function as a Service (FaaS) bündelt und anbietet. AWS Amplify nutzt dazu AWS CloudFormation, um gebündelt etliche Cloud-Dienste wie AppSync, DynamoDB, Cognito, API Gateway, S3, Amazon Location Service und viele mehr über AWS Amplify anbieten zu können.
 
 ## Zielsetzung
 eine Beschreibung des/der Ergebniss/e der Abschlussarbeit: Welche “Liefergegenstände” (engl. Deliverables) liegen am Ende der Arbeit vor? Was soll erreicht werden? (z.B. Entwicklung einer Komponente für …, Portierung eines Systems für … von … nach …, Evaluation einer Technologie namens …)
