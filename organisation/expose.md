@@ -10,12 +10,12 @@ Im Bereich der **Entwicklung** lassen sich die folgenden wiederkehrenden Aufgabe
 - Entwicklung von REST- und GraphQL-APIs
 - Synchronisation von Offline-Daten
 
-Im Bereich der **Bereitstellung** lassen sich auch wiederkehrende Aufgaben finden:
+Im Bereich der **Bereitstellung** lassen sich ebenfalls wiederkehrende Aufgaben finden:
 
 - Setup der Hosting-Umgebung inbegriffen Setup des DNS, des Monitoring, des Logging und der Access Controls
 - Setup des Continuous Deployments inbegriffen Vorschau von Pull-Requests und Benachrichtigungen bei Builds
 
-Die Aufgaben sind bei einer neuen Applikation sehr individuell. Dennoch gibt es immer eine gewisse Schnittmenge, die wiederverwendet werden kann.
+Die Aufgaben bei einer neuen Applikation sind zwar immer sehr individuell, dennoch gibt es eine gewisse Schnittmenge, die wiederverwendet werden kann.
 
 Der Cloud Service AWS Amplify von Amazon Webservices hat sich die schnelle Entwicklung von skalierbaren Web- & Mobile Apps zum Ziel gesetzt, indem sie die genannten Aufgaben in ein Serverless-Framework als Function as a Service (FaaS) bündelt und anbietet. AWS Amplify nutzt dazu AWS CloudFormation, um gebündelt etliche Cloud-Dienste wie AppSync, DynamoDB, Cognito, API Gateway, S3, Amazon Location Service und viele mehr über AWS Amplify anbieten zu können.
 
