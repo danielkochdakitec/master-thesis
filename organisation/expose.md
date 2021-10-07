@@ -2,16 +2,14 @@
 
 ## Problemstellung und Kontext
 
-Bei der Entwicklung neuer Web- & Mobile Apps müssen sich Entwickler um Aufgaben kümmern, die in fast jedem Projekt gleichermaßen benötigt werden, wie beispielsweise:
-
-**Entwicklung**
+Bei der Entwicklung einer neuen Web- & Mobile App müssen sich Entwickler um Aufgaben kümmern, die bereits in vorherigen Projekten erledigt wurden. Diese sind zum Beispiel für die **Entwicklung**, die folgenden Aufgaben:
 
 - Benutzerverwaltung mit verschiedenen Login-Mechanismen (E-Mail, Phone, Facebook, Google etc.) und Sicherheitseinstellungen (Passwortkomplexität, MFA)
 - Entwicklung von REST- und GraphQL-APIs
 - todo...
 - Synchronisation von Offline-Daten
 
-**Bereitstellung**
+Außerdem werden auch für die **Bereitstellung** wiederkehrende Aufgaben erledigt:
 
 - Setup der Hosting-Umgebung inbegriffen Setup des DNS, des Monitoring, des Logging und der Access Controls
 - Setup des Continuous Deployments inbegriffen Vorschau von Pull-Requests und Benachrichtigungen bei Builds
