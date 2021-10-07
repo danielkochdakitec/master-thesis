@@ -17,7 +17,7 @@ Im Bereich der **Bereitstellung** lassen sich ebenfalls wiederkehrende Aufgaben 
 
 Die Aufgaben bei einer neuen Applikation sind zwar immer sehr individuell, dennoch gibt es eine gewisse Schnittmenge, die wiederverwendet werden kann.
 
-Der Cloud Service AWS Amplify von Amazon Webservices hat sich die schnelle Entwicklung von skalierbaren Web- & Mobile Apps zum Ziel gesetzt, indem sie die genannten Aufgaben in ein Serverless-Framework als Function as a Service (FaaS) bündelt und anbietet. AWS Amplify nutzt dazu AWS CloudFormation, um gebündelt etliche Cloud-Dienste wie AppSync, DynamoDB, Cognito, API Gateway, S3, Amazon Location Service und viele mehr über AWS Amplify anbieten zu können.
+Der Cloud Service AWS Amplify von Amazon Webservices hat sich die schnelle Entwicklung von skalierbaren Web- & Mobile Apps zum Ziel gesetzt, indem sie die genannten Aufgaben in ein Serverless-Framework als Function-as-a-Service (FaaS) bündelt und anbietet. AWS Amplify nutzt dazu als Basis die AWS CloudFormation, um gebündelt etliche Cloud-Dienste wie AppSync, DynamoDB, Cognito, API Gateway, S3, Amazon Location Service und viele mehr über AWS Amplify anbieten zu können.
 
 ## Zielsetzung
 eine Beschreibung des/der Ergebniss/e der Abschlussarbeit: Welche “Liefergegenstände” (engl. Deliverables) liegen am Ende der Arbeit vor? Was soll erreicht werden? (z.B. Entwicklung einer Komponente für …, Portierung eines Systems für … von … nach …, Evaluation einer Technologie namens …)
