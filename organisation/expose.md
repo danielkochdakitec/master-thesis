@@ -22,7 +22,7 @@ Der Cloud Service AWS Amplify von Amazon Webservices hat sich die schnelle Entwi
 
 ## Zielsetzung
 
-Das Ziel der Arbeit ist es, eine Web-Applikation mit AWS Amplify zu entwickeln. Damit soll evaluiert werden, ob AWS Amplify für künftige Web-Applikationen in (Kunden-)Projekten eingesetzt werden soll.
+Das Ziel der Arbeit ist es, eine Web-Applikation mit AWS Amplify zu entwickeln. Damit soll evaluiert werden, ob AWS Amplify für künftige Web-Applikationen in (Kunden-)Projekten sinnvoll ist und eingesetzt werden soll.
 
 Um ein möglichst reales Szenario abzubilden, soll es sich bei der Web-Applikation um eine Video-Plattform handeln. Im folgenden wird eine erste Skizze der Plattform dargestellt:
 
