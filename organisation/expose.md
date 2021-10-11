@@ -6,24 +6,77 @@ Bei der Entwicklung einer neuen Web-/Mobile Applikation müssen sich Entwickler 
 
 Im Bereich der **Entwicklung** lassen sich die folgenden wiederkehrenden Aufgaben finden:
 
-- Benutzerverwaltung mit verschiedenen Login-Mechanismen (E-Mail, Phone, Facebook, Google etc.) und Sicherheitseinstellungen (Passwortkomplexität, MFA)
+- Benutzerverwaltung mit verschiedenen Login-Mechanismen (E-Mail, Phone, Facebook, Google etc.) und Sicherheitseinstellungen (Passwortkomplexität, MFA) und Rollensystemen
 - Entwicklung von REST- und GraphQL-APIs
 - Synchronisation von Offline-Daten
 
 Im Bereich der **Bereitstellung** lassen sich ebenfalls wiederkehrende Aufgaben finden:
 
-- Setup der Hosting-Umgebung inbegriffen Setup des DNS, des Monitoring, des Logging und der Access Controls
-- Setup des Continuous Deployments inbegriffen Vorschau von Pull-Requests und Benachrichtigungen bei Builds
+- Setup der Hosting-Umgebung inklusive Setup des DNS, des Monitoring, des Logging und der Access Controls
+- Setup des Continuous Deployments inklusive Vorschau von Pull-Requests und Benachrichtigungen bei Builds
+- Skalierung der Applikation bei erhöhter Last
 
-Die Aufgaben bei einer neuen Applikation sind zwar immer sehr individuell, dennoch gibt es eine gewisse Schnittmenge, die wiederverwendet werden kann.
+Die Aufgaben für die Entwicklung und Bereitstellung einer neuen Applikation sind zwar immer sehr individuell, dennoch gibt es eine gewisse Schnittmenge, die wiederverwendet werden kann.
 
-Der Cloud Service AWS Amplify von Amazon Webservices hat sich die schnelle Entwicklung von skalierbaren Web- & Mobile Apps zum Ziel gesetzt, indem sie die genannten Aufgaben in ein Serverless-Framework als Function-as-a-Service (FaaS) bündelt und anbietet. AWS Amplify nutzt dazu als Basis die AWS CloudFormation, um gebündelt etliche Cloud-Dienste wie AppSync, DynamoDB, Cognito, API Gateway, S3, Amazon Location Service und viele mehr über AWS Amplify anbieten zu können.
+Der Cloud Service AWS Amplify von Amazon Webservices hat sich die schnelle Entwicklung von skalierbaren Web- & Mobile Apps zum Ziel gesetzt, indem sie die genannten Aufgaben in ein Serverless-Framework als Function-as-a-Service (FaaS) bündelt und anbietet. AWS Amplify nutzt dazu als Basis die AWS CloudFormation, um gebündelt Cloud-Dienste wie AppSync, DynamoDB, Cognito, API Gateway, S3, Amazon Location Service  über AWS Amplify anbieten zu können. Auch weitere Cloud-Services von AWS können angeschlossen werden.
 
 ## Zielsetzung
-eine Beschreibung des/der Ergebniss/e der Abschlussarbeit: Welche “Liefergegenstände” (engl. Deliverables) liegen am Ende der Arbeit vor? Was soll erreicht werden? (z.B. Entwicklung einer Komponente für …, Portierung eines Systems für … von … nach …, Evaluation einer Technologie namens …)
 
+Das Ziel der Arbeit ist es, eine Web-Applikation mit AWS Amplify zu entwickeln. Damit soll evaluiert werden, ob AWS Amplify für künftige Web-Applikationen in (Kunden-)Projekten eingesetzt werden soll.
+
+Um ein möglichst reales Szenario abzubilden, soll es sich bei der Web-Applikation um eine Video-Plattform handeln. Im folgenden wird eine erste Skizze der Plattform dargestellt:
+
+**Modelle:**
+
+- Video:
+  - Titel
+  - Beschreibung
+  - Datei
+  - Ersteller (= User)
+- User:
+  - Email
+  - Passwort
+  - Rolle (admin, user)
+  
+**Funktionen:**
+- Video-Upload:
+  - Ein User kann ein neues Videos hochladen.
+  - Voraussetzungen:
+    - Der User ist eingeloggt
+- Videos auflisten:
+  - Ein User sieht eine Liste aller Videos
+  - Die Videos können nach den folgenden Kriterien gefiltert werden (Meine Videos, Heute hochgeladen).
+  - Voraussetzungen:
+    - Der User ist eingeloggt
+- Video bearbeiten:
+  - Die Attribute Titel und Beschreibung können bearbeitet werden.
+  - Voraussetzungen:
+    - Der User ist eingeloggt
+    - Der User ist entweder admin oder der Ersteller des Videos
+- Video löschen:
+  - Videos können gelöscht werden. 
+  - Voraussetzungen:
+    - Der User ist eingeloggt
+    - Der User ist entweder admin oder der Ersteller des Videos
+
+Auf Grund der Anforderungen ist ein großes Spektrum mit AWS Amplify abgedeckt, da die folgenden Features/Cloud-Services genutzt werden können:
+
+- AWS Amplify: als Framework
+- AWS AppSync: GraphQL-API & Resolver
+- Amazon DynamoDB: NoSQL-Datenbank
+- AWS Lambda: Serverless-Umgebung
+- Amazon Cognito: "Einfache und sichere Registrierung und Anmeldung von Benutzern und Zugriffskontrolle"
+- Amazon S3: "Objektspeicher zum Speichern und Abrufen beliebiger Datenmengen aus allen Speicherorten"
+- AWS Elemental MediaConvert: "Verarbeiten Sie Videodateien und -clips, um On-Demand-Inhalte zur Verteilung oder Archivierung vorzubereiten."
+
+Quelle der Service-Beschreibungen: https://aws.amazon.com/de
 
 ## Forschungsfragen
+
+- Wie muss eine Architektur in AWS Amplify aufgebaut werden?
+- Kann durch AWS Amplify und weitere AWS-Dienste Entwicklungszeit und Ressourcen eingespart werden?
+- Können durch die Serverless-Architektur von AWS Amplify monatliche Bereitstellungskosten verringert werden?
+- Welche zusätzlichen Risiken entstehen durch die Verwendung von AWS Amplify (z.B exorbitante Cloud-Kosten bei Fehlern, Vendor Lock-In, zu starres Framework etc.)
 
 Welche wiederkehrende Fragestellung soll beantwortet werden. Hier ist es entscheidend, die Einschränkung der Gültigkeit zu spezifizieren (z.B. Anwendbarkeit eines Verfahrens für einen bestimmten Nutzerkreis – Auftragsmanagement für Außendienstmitarbeiter von KMU im Baugewerbe im ländlichen Bereich)
 
@@ -33,7 +86,7 @@ Wie soll das erreicht werden? (z.B. durch Anwendung aspektorientierter Programmi
 
 ## Scope der Arbeit
 
-Festlegung des Scopes der Arbeit, also was gehört zur erfolgreichen Bearbeitung, was nicht.
+Festlegung des Scopes deer Arbeit, also was gehört zur erfolgreichen Bearbeitung, was nicht.
 
 ## (Arbeits)-Titel
 
@@ -44,11 +97,3 @@ Web & Mobile apps with AWS Amplify - a serverless and developer oriented approac
 ## Eigene Notizen
 
 - es ist angewandten Forschung / spezifisch: Untersuchung der Anwendbarkeit einer Methodik
-
-- Vorstellung verschiedener Architekturen: Der Standard, Microservice, Serverless
-- Was sind Vorteile, um eine Serverless-Architektur zu adaptieren? Kosten? Performance? Verwaltungsaufwand?
-- Welche Herausforderungen hat eine Serverless-Architektur? 
-- Welche Nachteile gibt es?
-- Was ist Amplify in dem Zusammenhang?
-- Wie muss eine Architektur aussehen, wenn sie in der Cloud / AWS Amplify liegt.
-- Evaluierung von AWS Amplify
