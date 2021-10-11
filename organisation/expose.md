@@ -1,4 +1,8 @@
-# Expose
+# Expose Master-Thesis
+
+Student: Daniel Koch
+
+Matrikelnummer: 2060256
 
 ## Problemstellung und Kontext
 

@@ -15,7 +15,9 @@ Project starts the 2021/10/29
 -- Durchführung --
 [Literatur-Recherche]                    lasts 14 days
 then [Präsentation Literaturrecherche]   happens 14 days after start
-then [Schreiben der Arbeit, weiter spezifizieren] lasts 122 days 
+then [Entwicklung Video-Plattform]       lasts 41 days
+then [Schreiben der Arbeit]              lasts 80 days
+
 
 -- Endredaktion --
 then [Abgabe Entwurf]                    happens 150 days after start
