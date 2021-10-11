@@ -87,7 +87,7 @@ Durch die Untersuchung der Anwendbarkeit AWS Amplify als Serverless-Framework.
 
 ## Scope der Arbeit
 
-Der Scope der Arbeit umfasst die Konzeption und Entwicklung der genannten Web-Plattform sowie die Untersuchung der genannten Frameworks. Die Arbeit hat jedoch nicht zum Ziel, AWS Amplify mit anderen Serverless-Frameworks zu vergleichen oder andere Cloud-Anbieter zu beleuchten.
+Der Scope der Arbeit umfasst die Konzeption und Entwicklung der genannten Web-Plattform sowie die Untersuchung des genannten Frameworks. Die Arbeit hat jedoch nicht zum Ziel, AWS Amplify mit anderen Serverless-Frameworks zu vergleichen oder andere Cloud-Anbieter zu beleuchten.
 
 ## (Arbeits)-Titel
 
