@@ -28,6 +28,7 @@ Das Ziel der Arbeit ist es, eine Web-Applikation mit AWS Amplify zu konzipieren 
 Um ein möglichst reales Szenario abzubilden, soll es sich bei der Web-Applikation um eine Video-Plattform handeln. Im folgenden wird eine erste Skizze der Plattform dargestellt:
 
 **Objekte**
+
 - Video:
   - Titel
   - Beschreibung
@@ -40,6 +41,7 @@ Um ein möglichst reales Szenario abzubilden, soll es sich bei der Web-Applikati
   - Rolle (admin, user)
   
 **Funktionale Anforderungen:**
+
 - Videos auflisten:
   - Ein User sieht eine Liste aller Videos
   - Die Videos können nach den folgenden Kriterien gefiltert werden (Meine Videos wenn eingeloggt, heute hochgeladen).
@@ -59,6 +61,7 @@ Um ein möglichst reales Szenario abzubilden, soll es sich bei der Web-Applikati
     - Der User ist entweder admin oder der Ersteller des Videos
 
 **Nicht funktionale Anforderungen:**
+
 - Das Frontend soll Inhalte in Echtzeit aktualisieren, das heißt, wenn ein anderer User ein neues Video hochlädt, bearbeitet oder löscht, wird jedes laufende Frontend benachrichtigt und dementsprechend aktualisiert.
 
 Auf Grund der Anforderungen ist ein großes Spektrum der Funktionen von AWS Amplify abgedeckt, da die folgenden Features/Cloud-Services genutzt werden können:
@@ -83,7 +86,7 @@ Quelle der Service-Beschreibungen: https://aws.amazon.com/de
 
 ## Methodik
 
-Durch die Untersuchung der Anwendbarkeit AWS Amplify als Serverless-Framework.
+Durch die Untersuchung der Anwendbarkeit AWS Amplify als Serverless-Framework mit einer induktiven Argumentationsweise.
 
 ## Scope der Arbeit
 
