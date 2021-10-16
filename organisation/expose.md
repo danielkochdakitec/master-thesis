@@ -37,11 +37,14 @@ Um ein möglichst reales Szenario abzubilden, soll es sich bei der Web-Applikati
   - Titel
   - Beschreibung
   - Datei
+  - Thumbnail
   - Ersteller (= User)
   - Erstelldatum
 - User:
   - Email
   - Passwort
+  - Vorname
+  - Nachname
   - Rolle (admin, user)
   
 **Funktionale Anforderungen:**
@@ -50,7 +53,7 @@ Um ein möglichst reales Szenario abzubilden, soll es sich bei der Web-Applikati
   - Ein User sieht eine Liste aller Videos
   - Die Videos können nach den folgenden Kriterien gefiltert werden (Meine Videos wenn eingeloggt, heute hochgeladen).
 - Video-Upload:
-  - Ein User lädt ein neues Video hoch.
+  - Ein User lädt ein neues Video hoch. Dabei soll das Video automatisch transcodiert und ein Wasserzeichen gesetzt werden. Im Anschluss wird das Video dann freigeschalten. Außerdem soll ein Thumbnail generiert werden.
   - Voraussetzungen:
     - Der User ist eingeloggt
 - Video bearbeiten:
