@@ -50,8 +50,9 @@ Um ein möglichst reales Szenario abzubilden, soll es sich bei der Web-Applikati
 **Funktionale Anforderungen:**
 
 - Videos auflisten:
-  - Ein User sieht eine Liste aller Videos
+  - Ein User sieht eine Liste aller Videos.
   - Die Videos können nach den folgenden Kriterien gefiltert werden (Meine Videos wenn eingeloggt, heute hochgeladen).
+  - Die Videos können auch nach dem Titel gesucht werden.
 - Video-Upload:
   - Ein User lädt ein neues Video hoch. Dabei soll das Video automatisch transcodiert und ein Wasserzeichen gesetzt werden. Im Anschluss wird das Video dann freigeschalten. Außerdem soll ein Thumbnail generiert werden.
   - Voraussetzungen:
