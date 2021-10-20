@@ -67,6 +67,10 @@ Um ein möglichst reales Szenario abzubilden, soll es sich bei der Web-Applikati
   - Voraussetzungen:
     - Der User ist eingeloggt
     - Der User ist entweder admin oder der Ersteller des Videos
+- Profil bearbeiten
+  - Der eigene Vor- und Nachname können geändert werden
+  - Voraussetzungen:
+    - Der User ist eingeloggt
 
 **Nicht funktionale Anforderungen:**
 

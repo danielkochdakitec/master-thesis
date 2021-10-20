@@ -15,9 +15,14 @@ Project starts the 2021/10/29
 -- Durchführung --
 [Literatur-Recherche]                    lasts 14 days
 then [Präsentation Literaturrecherche]   happens 14 days after start
-then [Entwicklung Video-Plattform]       lasts 41 days
-then [Schreiben der Arbeit]              lasts 80 days
 
+then [Kapitel: Anforderungsanalyse]                                 lasts 7 days
+then [Kapitel: Implementierung für AWS Amplify + Implementierung]   lasts 28 days
+then [Kapitel: Implementierung für Firebase + Implementierung]      lasts 42 days
+then [Kapitel: Vergleich]                                           lasts 21 days
+then [Kapitel: Grundlagen]                                          lasts 21 days
+then [Kapitel: Zusammenfassung + Ausblick]                          lasts 7 days
+then [Kapitel: Einleitung]                                          lasts 3 days
 
 -- Endredaktion --
 then [Abgabe Entwurf]                    happens 150 days after start
