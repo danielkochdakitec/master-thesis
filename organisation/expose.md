@@ -91,3 +91,29 @@ Der Scope der Arbeit umfasst die Konzeption und Entwicklung der genannten Web-Pl
 ## Arbeitstitel
 
 Vergleich von AWS Amplify und Firebase als Backend-as-a-Service Plattformen
+
+## Grober Aufbau der Arbeit
+
+Vergleich von AWS Amplify und Firebase als Backend-as-a-Service Plattformen
+
+- Einleitung
+    - Motivation
+    - Aufgabenstellung
+    - Methodik
+    - Aufbau der Arbeit
+- Grundlagen
+- Anforderungsanalyse
+    - Funktionale Anforderungen
+    - Nicht funktionale Anforderungen
+    - Rahmenbedingungen
+- Implementierung
+    - AWS Amplify
+    - Firebase
+- Vergleich
+    - Heuristisken
+    - Heuristik 1
+    - Heuristik 2
+    - Heuristik 3
+    - Ergebnisse
+- Zusammenfassung
+- Ausblick
