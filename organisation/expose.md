@@ -110,6 +110,7 @@ Vergleich von AWS Amplify und Firebase als Backend-as-a-Service Plattformen
     - AWS Amplify
     - Firebase
 - Vergleich
+    - Nutzungsprofile
     - Heuristisken
     - Heuristik 1
     - Heuristik 2
