@@ -1,0 +1,171 @@
+% *******************************************************************
+% STOP - Bitte zuerst lesen, bevor Sie weitermachen
+%
+% Einige Dinge müssen Sie an Ihre Bedürfnisse (und die Vorgaben Ihres
+% Betreuers anpassen).
+%
+% 1. Sprache
+% Das Template unterstützt Deutsch und Englisch, Standard ist Deutsch.
+% Wenn Sie Englisch verwenden wollen, ändern Sie bitte direkt am Anfang
+% dieser Datei den Eintrag
+%    \newcommand{\hsmasprache}{de}
+% auf
+%    \newcommand{\hsmasprache}{en}
+%
+% 2. Zitierstil
+% Abhängig von dem gewünschten Zitierstil passen Sie bitte in
+% preambel.tex die Einstellungen bei \usepackage[backend=biber...
+% an. Wie ist dort genau erklärt.
+% Achtung: Wenn Sie als Zitierstil Fußnoten wählen bzw. generell
+% -------  mit Fußnoten arbeiten, dann beachten Sie bitte, dass
+%          Fußnoten in Bildunterschriften und Tabellenüberschriften
+%          nicht funktionieren.
+%          Siehe hierzu https://texfaq.org/FAQ-ftncapt
+%          und https://texfaq.org/FAQ-footintab
+%          Sinnvollerweise verzichten Sie auf Fußnoten an diesen
+%          Stellen und fügen Quellen einfach per \parancite ein.
+%
+% 3. Doppelseitiger oder einseitiger Druck
+% Das Template ist für doppelseitigen Druck eingestellt. Wollen Sie
+% einseitig drucken, müssen Sie in preambel.tex die Einstellungen
+% für \documentclass ändern. Und zwar von twoside=on auf twoside=off.
+%
+% 4. Abkürzungen auf richtige Breite einstellen und sortieren
+% In der Datei kapitel/abkuerzungen.tex müssen Sie die _längste_
+% Abkürzung in die eckigen Klammern von \begin{acronym} schreiben,
+% sonst werden die Abkürzungen nicht richtig ausgerichtet.
+% Also z.B. \begin{acronym}[DSGVO].
+% Außerdem müssen Sie die Abkürzungen selbst (manuell) sortieren,
+% da dies nicht automatisch passiert. Am einfachsten verwenden Sie
+% hierzu die Sortierfunktion Ihres Texteditors.
+%
+% 5. Unnötige Teile entfernen
+% Entfernen Sie die Teile, die Sie nicht brauchen, z.B. Anhänge,
+% Quelltextverzeichnis etc. Siehe unten
+%
+% 6. Silbentrennung
+% LaTeX führt eine automatische Silbentrennung durch. Allerdings
+% werden Wörter, die bereits einen Bindestrich enthalten nicht
+% getrennt, z.B. Datenschutz-Grundverordnung. Wenn Sie Ihren Text auf
+% Deutsch schreiben, können Sie dann alternativ "= für den Bindestrich
+% im Wort verwenden, z.B. Datenschutz"=Grundverordnung, damit LaTeX
+% weiterhin richtig trennt.
+% Ist die Silbentrennung aus einem anderen Grund nicht erfolgt, sodass
+% das Wort über den rechten Rand hinaussteht oder wenn Sie eine weitere
+% Trennstelle wollen, können Sie LaTeX helfen, indem Sie weitere
+% Trennstellen angeben. Dies geschieht durch "- als Zeichen, z.B.
+% Staats"-vertrag.
+%
+% 7. Nummerierung der Fußnoten
+% LaTeX beginnt die Nummerierung der Fußnoten in jedem Kapitel wieder
+% bei 1. Manche Dozenten wollen aber eine durchlaufende Nummerierung
+% über die gesamte Arbeit. In diesem Fall gehen Sie in die preambel.tex
+% und kommentieren den Befehl \counterwithout{footnote}{chapter} ein.
+% *******************************************************************
+
+% Sprache für das Dokument festlegen
+\newcommand{\hsmasprache}{de} % de oder en für Deutsch oder Englisch
+
+% Preambel mit Einstellungen importieren
+\input{preambel}
+
+% Dokumenteninfos importieren
+\input{docinfo.tex}
+
+% Literatur-Datenbank
+\addbibresource{literatur.bib}   % BibLaTeX-Datei mit Literaturquellen einbinden
+
+% Anfang des Dokuments
+\begin{document}
+\frontmatter
+
+% Römische Ziffern für die "Front-Matter"
+\setcounter{page}{0}
+\changefont{ptm}{m}{n}  % Times New Roman für den Fließtext
+\renewcommand{\rmdefault}{ptm}
+
+% Titelblatt
+\input{titelblatt}
+
+% Inhaltsverzeichnis erzeugen
+\cleardoublepage
+\pdfbookmark{\contentsname}{Contents}
+\tableofcontents
+
+% Korrigiert Nummerierung bei mehrseitigem Inhaltsverzeichnis
+\cleardoublepage
+\newcounter{frontmatterpage}
+\setcounter{frontmatterpage}{\value{page}}
+
+% Arabische Zahlen für den Hauptteil
+\mainmatter
+
+% Den Hauptteil mit vergrößertem Zeilenabstand setzen
+\onehalfspacing
+
+% ------------------------------------------------------------------
+% Hauptteil der Arbeit
+\input{kapitel/kapitel1} % Externe Datei einbinden
+\input{kapitel/kapitel2} % Externe Datei einbinden
+\input{kapitel/kapitel3} % Externe Datei einbinden
+\input{kapitel/kapitel4} % Externe Datei einbinden
+% ------------------------------------------------------------------
+
+\label{lastpage}
+
+% Neue Seite
+\cleardoublepage
+
+% Backmatter mit normalem Zeilenabstand setzen
+\singlespacing
+
+% Römische Ziffern für die "Back-Matter", fortlaufend mit "Front-Matter"
+\pagenumbering{roman}
+\setcounter{page}{\value{frontmatterpage}}
+
+% Abkürzungsverzeichnis
+\addchap{\hsmaabbreviations}
+\input{kapitel/abkuerzungen}
+
+% Tabellenverzeichnis erzeugen
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\hsmalistoftables}
+\listoftables
+
+% Abbildungsverzeichnis erzeugen
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\hsmalistoffigures}
+\listoffigures
+
+% Listingverzeichnis erzeugen. Wenn Sie keine Listings haben,
+% entfernen Sie einfach diesen Teil.
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\hsmalistings}
+\lstlistoflistings
+
+% Literaturverzeichnis erzeugen
+\begingroup
+\cleardoublepage
+\begin{flushleft}
+\let\clearpage\relax % Fix für leere Seiten (issue #25)
+\printbibliography
+\end{flushleft}
+\endgroup
+
+% Index ausgeben. Wenn Sie keinen Index haben, entfernen Sie einfach
+% diesen Teil. Die meisten Abschlussarbeiten haben *keinen* Index.
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\hsmaindex}
+\printindex
+
+% Anhang. Wenn Sie keinen Anhang haben, entfernen Sie einfach
+% diesen Teil.
+\appendix
+\input{kapitel/anhang-a}
+\input{kapitel/anhang-b}
+
+\end{document}
