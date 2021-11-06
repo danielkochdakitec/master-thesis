@@ -2,11 +2,12 @@
 
 Die nichtfunktionalen Anforderungen beschreiben die Qualitätsmerkmale der zu entwickelnden Video-Plattform.
 
-\begin{description}
+\begin{description}[H]
    \item[NF1 - Verfügbarkeit] Das System muss zu 99,9\% pro Jahr verfügbar sein. Ein Deployment darf nicht zu einem Systemausfall führen.
    \item[NF2 - Skalierbarkeit] Das System muss bei Lastspitzen automatisch skalieren.
    \item[NF3 - Analysierbarkeit] Das System muss so aufgesetzt werden, dass jeder Backend-Aufruf durch Log-Dateien nachvollziehbar ist.
-   \item[NF4 - Geringe Betriebskosten] Das System muss so konzipiert werden, dass die Betriebskosten der Anwendung minimal gehalten werden.
-   \item[NF5 - Backups] Das System muss automatisiert Backups für die letzten sieben Tage anlegen.
-   \item[NF6 - Wiederherstellbarkeit] Das System muss im Falle eines Ausfalls oder Datenverlusts innerhalb von einer Stunde wiederherstellbar sein.
+   \item[NF4 - Interoperabilität] Das System muss gängige Schnittstellen wie REST oder GraphQL anbieten.
+   \item[NF5 - Geringe Betriebskosten] Das System muss so konzipiert werden, dass die Betriebskosten der Anwendung minimal gehalten werden.
+   \item[NF6 - Backups] Das System muss automatisiert Backups für mindestens sieben Tage anlegen.
+   \item[NF7 - Wiederherstellbarkeit] Das System muss im Falle eines Ausfalls oder eines Datenverlusts innerhalb von einer Stunde wiederherstellbar sein.
 \end{description}
