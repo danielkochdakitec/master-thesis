@@ -1,6 +1,22 @@
 \section{AWS Amplify}
 
+todo einleitung
+
 \subsection{Lösungsstrategie}
+
+Die Architektur folgt dem Aufbau einer Drei-Schichten-Architektur.
+
+\begin{description}
+   \item[Präsentationsschicht] Diese besteht aus dem Framework React.js sowie zusätzlichen Frontend-Frameworks aus Amplify.
+   \item[Logikschicht] Diese besteht aus AppSync, Lambda, S3, Cognito und MediaConvert. Fast alle Dienste sind direkt über Amplify einsetzbar. Eine Ausnahme bildet MediaConvert, welches über ein Plugin mittels eines CloudFormation-Templates eingebunden wird.
+   \item[Datenhaltungsschicht] Diese besteht aus DynamoDB als NoSQL-Datenbank und S3 als Dateisystem.
+\end{description}
+
+- decisions about the top-level decomposition of the system, e.g. usage of an architectural pattern or design pattern
+
+
+- decisions on how to achieve key quality goals
+- relevant organizational decisions, e.g. selecting a development process or delegating certain tasks to third parties.
 
 \subsection{Bausteinsicht}
 
@@ -9,6 +25,9 @@
 \subsection{Verteilungssicht}
 
 \subsection{Querschnittliche Konzepte und Muster}
+
+- Loggin (CloudWatch)
+- Permissions (IAM)
 
 \subsection{Entwurfsentscheidungen}
 
