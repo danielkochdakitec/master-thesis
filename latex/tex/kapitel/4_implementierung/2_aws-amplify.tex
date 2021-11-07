@@ -18,16 +18,20 @@ Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
       \item AWS Lambda
       \item Amazon Cognito
       \item AWS Elemental MediaConvert
+      \item Amazon EventBridge
+      \item AWS IAM
     \end{itemize}
   \item Datenhaltungsschicht
     \begin{itemize}
       \item Amazon DynamoDB
       \item Amazon S3
       \item Amazon Cognito
+      \item AWS IAM
+      \item AWS Backup
     \end{itemize}
 \end{itemize}
 
-Der Cloud-Dienst Amazon Cognito befindet sich zugleich in zwei Schichten, da dort neben der Logik für Authentifizierung und Autorisierung auch die Benutzer persistiert werden. Weitere Dienste, welche die Lösung verwendet, sind Amazon CloudWatch, AWS IAM und AWS Backup.
+Die Cloud-Dienste Amazon Cognito und AWS IAM befindet sich zugleich in zwei Schichten, da dort neben der Logik für Authentifizierung und Autorisierung auch die Benutzer persistiert werden.
 
 Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwicklungen für die Benutzerverwaltung und definierter Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die Vergleichbarkeit weiterhin gegeben ist.
 
@@ -46,7 +50,7 @@ Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwic
       \midrule
         \emph{Verfügbarkeit} & AWS Amplify & AWS Amplify bietet für Frontend und Backend ein Zero-Downtime Deployment. \\
         \emph{Skalierbarkeit} & - & Durch die Serverless-Architektur skalieren Dienste automatisch innerhalb der \ac{AWS}-Cloud.\\
-        \emph{Analysierbarkeit} & Amazon CloudWatch & Durch den Einsatz von Amazon CloudWatch können Anfragen für jeden Cloud-Dienst nachvollzogen werden.\\
+        \emph{Analysierbarkeit} & Amazon EventBridge & Durch den Einsatz von Amazon CloudWatch können Anfragen für jeden Cloud-Dienst nachvollzogen werden.\\
         \emph{Interoperabilität} & AWS AppSync & Durch den Einsatz von AWS AppSync ist mit GraphQL eine einheitliche Schnittstelle sichergestellt.\\
         \emph{Backups} & AWS Backup & Durch den Einsatz von AWS Backup werden automatisiert Backups aufgesetzt.\\
         \emph{Wiederherstellbarkeit} & AWS Backup &  Das von AWS Backup erstellte Backup für die Datenbank Amazon DynamoDB kann manuell eingespielt werden.\\
