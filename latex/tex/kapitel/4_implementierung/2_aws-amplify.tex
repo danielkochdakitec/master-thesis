@@ -29,23 +29,30 @@ Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
 
 Der Cloud-Dienst Cognito befindet sich in zwei Schichten, da dort neben der Logik für Authentifizierung und der Autorisierung auch die Benutzer persistiert werden. Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwicklungen für die Benutzerverwaltung und definierter Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die Vergleichbarkeit gewährt bleibt.
 
-todo: Wie werden die NFAs grob erreicht:
+\autoref{Kap2:Teildisziplinen} zeigt erste Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen.
 
-Verfügbarkeit \autoref{NF1}
---> Amplify
-
-Skalierbarkeit
---> Serverless
-
-Analysierbarkeit
---> CloudWatch
-
-Interoperabilität
---> AppSync --> GraphQL
-
-Backups
-
-Wiederherstellbarkeit
+\begin{table}[h]
+  \caption{Lösungsansatz für nichtfunktionale Anforderungen}
+  \label{Kap2:Teildisziplinen}
+  \renewcommand{\arraystretch}{1.2}
+  \centering
+  \sffamily
+  \begin{footnotesize}
+    \begin{tabularx}{0.9\textwidth}{l X}
+      \toprule
+      \textbf{Anforderung} & \textbf{Ansatz}\\
+      \midrule
+        \emph{Verfügbarkeit} & Amplify bietet für Frontend und Backend ein Zero-Downtime Deployment. \\
+        \emph{Skalierbarkeit} & Durch die Serverless-Architektur skalieren Services automatisch innerhalb der \ac{AWS}-Cloud.\\
+        \emph{Analysierbarkeit} & Durch den Einsatz von CloudWatch für jeden Service können Anfragen nachvollzogen werden.\\
+        \emph{Interoperabilität} & Durch den Einsatz von AppSync ist mit GraphQL eine einheitliche Schnittstelle sichergestellt.\\
+        \emph{Backups} & Durch den Einsatz von AWS Backup werden automatisiert Backups aufgesetzt.\\
+        \emph{Wiederherstellbarkeit} & Das von AWS Backup erstellte Backup für die Datenbank DynamoDB kann manuell eingespielt werden.\\
+      \bottomrule
+    \end{tabularx}
+  \end{footnotesize}
+  \rmfamily
+\end{table}
 
 \subsection{Bausteinsicht}
 
