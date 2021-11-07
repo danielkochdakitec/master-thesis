@@ -1,34 +1,77 @@
 \section{AWS Amplify}
 
-todo einleitung
+Der erste Abschnitt stellt die Implementierung mittels \ac{AWS} Amplify vor.
 
 \subsection{Lösungsstrategie}
 
-Die Architektur folgt dem Aufbau einer Drei-Schichten-Architektur.
+Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
 
-\begin{description}
-   \item[Präsentationsschicht] Diese besteht aus dem Framework React.js sowie zusätzlichen Frontend-Frameworks aus Amplify.
-   \item[Logikschicht] Diese besteht aus AppSync, Lambda, S3, Cognito und MediaConvert. Fast alle Dienste sind direkt über Amplify einsetzbar. Eine Ausnahme bildet MediaConvert, welches über ein Plugin mittels eines CloudFormation-Templates eingebunden wird.
-   \item[Datenhaltungsschicht] Diese besteht aus DynamoDB als NoSQL-Datenbank und S3 als Dateisystem.
-\end{description}
+\begin{itemize}
+  \item Präsentationsschicht
+    \begin{itemize}
+      \item React.js
+      \item amplify-js
+    \end{itemize}
+  \item Logikschicht
+    \begin{itemize}
+      \item AppSync
+      \item Lambda
+      \item Cognito
+      \item MediaConvert
+    \end{itemize}
+  \item Datenhaltungsschicht
+    \begin{itemize}
+      \item DynamoDB
+      \item S3
+      \item Cognito
+    \end{itemize}
+\end{itemize}
 
-- decisions about the top-level decomposition of the system, e.g. usage of an architectural pattern or design pattern
+Der Cloud-Dienst Cognito befindet sich in zwei Schichten, da dort neben der Logik für Authentifizierung und der Autorisierung auch die Benutzer persistiert werden. Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwicklungen für die Benutzerverwaltung und definierter Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die Vergleichbarkeit gewährt bleibt.
 
+todo: Wie werden die NFAs grob erreicht:
 
-- decisions on how to achieve key quality goals
-- relevant organizational decisions, e.g. selecting a development process or delegating certain tasks to third parties.
+Verfügbarkeit \autoref{NF1}
+--> Amplify
+
+Skalierbarkeit
+--> Serverless
+
+Analysierbarkeit
+--> CloudWatch
+
+Interoperabilität
+--> AppSync --> GraphQL
+
+Backups
+
+Wiederherstellbarkeit
 
 \subsection{Bausteinsicht}
 
+tbd grafik + beschreibung
+
 \subsection{Laufzeitsicht}
+
+tbd grafik + beschreibung
 
 \subsection{Verteilungssicht}
 
+tbd grafik + beschreibung
+
 \subsection{Querschnittliche Konzepte und Muster}
 
-- Loggin (CloudWatch)
+- Einbindung über \ac{AWS} Amplify:
+  - MediaConvert als extra Plugin
+  - Anpassung an CF-Templates
+- Logging (CloudWatch)
 - Permissions (IAM)
+- AWS Backup
 
 \subsection{Entwurfsentscheidungen}
 
 \subsection{Risiken und technische Schulden}
+
+- Auth: Anpassung, dass statt Identity ID die Pool User Id genutzt wird geht über https://github.com/aws-amplify/amplify-js/issues/54. Leider lässt sich das nicht persistieren, so dass man das bei jedem branch/Projekt neu eintragen muss. Wenn man es im CF-Template ändert, wird die Änderung beim Push rückgängig gemacht. Das ist nicht sehr flexibel. Ggf. Lösung finden und schauen, ob es doch geht.
+
+- CDK als Alternative zu Amplify, da es wesentlich flexibler
