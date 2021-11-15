@@ -1,6 +1,8 @@
-\section{AWS Amplify}
+\chapter{AWS Amplify}
 
-Der erste Abschnitt stellt die Implementierung mittels \ac{AWS} Amplify vor.
+Das folgende Kapitel beschreibt die Architektur und die Implementierung mit AWS Amplify.
+
+\section{Architektur}
 
 \subsection{Lösungsstrategie}
 
@@ -88,3 +90,5 @@ tbd grafik + beschreibung
 - Auth: Anpassung, dass statt Identity ID die Pool User Id genutzt wird geht über https://github.com/aws-amplify/amplify-js/issues/54. Leider lässt sich das nicht persistieren, so dass man das bei jedem branch/Projekt neu eintragen muss. Wenn man es im CF-Template ändert, wird die Änderung beim Push rückgängig gemacht. Das ist nicht sehr flexibel. Ggf. Lösung finden und schauen, ob es doch geht.
 
 - CDK als Alternative zu AWS Amplify, da es wesentlich flexibler
+
+\section{Implementierung}
