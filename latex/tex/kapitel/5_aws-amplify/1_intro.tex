@@ -90,24 +90,28 @@ Der nächste Prozess beschreibt den Ablauf, wie ein Video von einem Nutzer erste
   \label{Amplify:laufzeitsicht2}
 \end{figure}
 
+\subsubsection{Erstellen von signierten Links}
+
+Dieser Prozess beschreibt, wie Nutzer signierte temporäre Links erstellen können, um das Video anzuzeigen.
+
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\columnwidth]{5_aws-amplify/laufzeitsicht_3.pdf}
-  \caption{Laufzeitsicht - Benachrichtigung über Konvertierung}
+  \includegraphics[width=1\columnwidth]{5_aws-amplify/laufzeitsicht_3.pdf}
+  \caption{Laufzeitsicht - Erstellen von Links}
   \label{Amplify:laufzeitsicht3}
 \end{figure}
 
-\subsubsection{Erstellen temporärer Links}
-
-Dieser Prozess beschreibt, wie Nutzer temporäre Links erstellen können, um das Video anzuzeigen.
-
-  User --> AppSync ---> Cognito (check permission)
-                   ---> Lambda  ---> DynamoDB (get Video link)
-                                ---> S3 (get presigned url)
-
 \subsection{Verteilungssicht}
 
-tbd grafik + beschreibung
+\begin{figure}
+  \centering
+  \includegraphics[width=1\columnwidth]{5_aws-amplify/verteilungssicht.pdf}
+  \caption{Verteilungssicht}
+  \label{Amplify:verteilungssicht}
+\end{figure}
+
+Wo kommt hin, welcher Stack was beinhaltet?
+Es gibt keine Substacks, aber weitere parentstacks - das ist vermutlich für die Debuggbarkeit.
 
 \subsection{Querschnittliche Konzepte und Muster}
 
