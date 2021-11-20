@@ -64,9 +64,65 @@ Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwic
 
 \subsection{Bausteinsicht}
 
-tbd grafik + beschreibung
+Beschreibung der Ressource die benötigt werden, welcher Service dahinter steht und was dieser macht, ggf. als Liste. Gruppierung in Form von Stacks (IaaS), so dass das Deployment später einfach beschrieben werden kann
+
+RootStack:
+...
+
+ApiStack:
+  - API: AppSync
+  - AWS::AppSync::GraphQLApi
+  - AWS::AppSync::GraphQLSchema
+  - AWS::AppSync::Resolver (ggf. über weitere unterstacks)
+  - AWS::AppSync::DataSource (ggf. über weitere unterstacks)
+  - AWS::DynamoDB::Table
+
+AuthStack:
+  - AWS::Cognito::IdentityPool
+  - AWS::Cognito::IdentityPoolRoleAttachment
+  - AWS::IAM::Role
+  - AWS::Cognito::UserPool
+  - AWS::Cognito::UserPoolClient
+  - Custom::LambdaCallout
+  - AWS::Lambda::Function
+  - AWS::IAM::Policy
+
+AuthUserPoolGroupStack:
+  - AWS::Cognito::UserPoolGroup
+  - AWS::IAM::Role
+  - AWS::Lambda::Function
+  - Custom::LambdaCallout
+
+StorageStack:
+  - AWS::S3::Bucket
+  - AWS::IAM::Policy
+
+FunctionLayerStack:
+  - AWS::Lambda::LambdaLayerVersion, AWS::Lambda::LayerVersionPermission
+
+FunctionCreateVideoStack:
+  - AWS::IAM::Policy, AWS::IAM::Role, AWS::Lambda::Function, AWS::MediaConvert::JobTemplate, AWS::MediaConvert::Queue
+
+FunctionVideoConvertedStack:
+- AWS::Events::Rule, AWS::Lambda::Permission, AWS::IAM::Role, AWS::Lambda::Function, AWS::IAM::Policy
+
+FunctionCreateLinkStack:
+- AWS::IAM::Role
+- AWS::Lambda::Function
+- AWS::IAM::Policy
+
+- Storage: S3-Bucket
+- Lambda:
+  - CreateVideo
+  - CreateLink
+  - VideoConverted
+- DB: DynamoDB
+- Job: MediaConvert
+- EventBridge
 
 \subsection{Laufzeitsicht}
+
+todo text
 
 \subsubsection{Lesen, Aktualisieren und Löschen eines Videos}
 
@@ -75,7 +131,7 @@ Der folgende Prozess beschreibt, wie Videos von Nutzern gelesen, aktualisiert od
 \begin{figure}
   \centering
   \includegraphics[width=0.75\columnwidth]{5_aws-amplify/laufzeitsicht_1.pdf}
-  \caption{Laufzeitsicht - Lesen, Aktualisieren und Löschen eines Videos}
+  \caption{AWS Amplify - Laufzeitsicht - Lesen, Aktualisieren und Löschen eines Videos}
   \label{Amplify:laufzeitsicht1}
 \end{figure}
 
@@ -86,7 +142,7 @@ Der nächste Prozess beschreibt den Ablauf, wie ein Video von einem Nutzer erste
 \begin{figure}
   \centering
   \includegraphics[width=1\columnwidth]{5_aws-amplify/laufzeitsicht_2.pdf}
-  \caption{Laufzeitsicht - Erstellen eines Videos}
+  \caption{AWS Amplify - Laufzeitsicht - Erstellen eines Videos}
   \label{Amplify:laufzeitsicht2}
 \end{figure}
 
@@ -97,7 +153,7 @@ Dieser Prozess beschreibt, wie Nutzer signierte temporäre Links erstellen könn
 \begin{figure}
   \centering
   \includegraphics[width=1\columnwidth]{5_aws-amplify/laufzeitsicht_3.pdf}
-  \caption{Laufzeitsicht - Erstellen von Links}
+  \caption{AWS Amplify - Laufzeitsicht - Erstellen von Links}
   \label{Amplify:laufzeitsicht3}
 \end{figure}
 
@@ -106,11 +162,12 @@ Dieser Prozess beschreibt, wie Nutzer signierte temporäre Links erstellen könn
 \begin{figure}
   \centering
   \includegraphics[width=0.75\columnwidth]{5_aws-amplify/verteilungssicht.pdf}
-  \caption{Verteilungssicht}
+  \caption{AWS Amplify - Verteilungssicht}
   \label{Amplify:verteilungssicht}
 \end{figure}
 
-Wo kommt hin, welcher Stack was beinhaltet? (als Tabelle?)
+Einordnung der Bausteinsicht-Elemente in Stacks für Verteilung
+
 Es gibt keine Substacks, aber weitere parentstacks - das ist vermutlich für die Debuggbarkeit.
 
 \subsection{Querschnittliche Konzepte und Muster}
