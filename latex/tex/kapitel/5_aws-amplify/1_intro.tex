@@ -4,6 +4,8 @@ Das folgende Kapitel beschreibt die Architektur und die Implementierung mit Ampl
 
 \section{Architektur}
 
+todo
+
 \subsection{Lösungsstrategie}
 
 Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
@@ -35,9 +37,9 @@ Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
 
 Die Cloud-Dienste Cognito und IAM befindet sich zugleich in zwei Schichten, da dort neben der Logik für Authentifizierung und Autorisierung auch die Benutzer persistiert werden.
 
-Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwicklungen für die Benutzerverwaltung und definierter Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die Vergleichbarkeit weiterhin gegeben ist.
+Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwicklungen für die Benutzerverwaltung und definierter Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die beiden Technologien weiterhin vergleichbar sind.
 
-\autoref{Kap2:Teildisziplinen} zeigt erste Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen.
+\autoref{Kap2:Teildisziplinen} zeigt Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen.
 
 \begin{table}[h]
   \caption{Lösungsansatz für nichtfunktionale Anforderungen}
@@ -64,12 +66,17 @@ Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwic
 
 \subsection{Bausteinsicht}
 
-Beschreibung der Ressource die benötigt werden, welcher Service dahinter steht und was dieser macht, ggf. als Liste. Gruppierung in Form von Stacks (IaaS), so dass das Deployment später einfach beschrieben werden kann
+Die Architektur ist unterteilt in Frontend (Präsentationsschicht) und Backend (Logik- und Datenhaltungsschicht).
 
-RootStack:
-...
+Das Backend besteht sowohl aus existierenden als auch aus eigenen Plugins, da Dienste wie beispielsweise MediaConvert oder EventBridge nicht standardmäßig in Amplify vorhanden sind. Dies erfolgt durch Hinzufügen oder Ändern bestehender Plugins. Da die Infrastruktur und der Code vereint sind, werden die Bausteine im folgenden Abschnitt in Stacks, der Einheit des Deployments, dargestellt.
 
-ApiStack:
+RootStack
+
+welche Ressourcen gibt es,
+was machen diese
+wie spielen diese zusammen (grob)
+
+ApiStack
   - API: AppSync
   - AWS::AppSync::GraphQLApi
   - AWS::AppSync::GraphQLSchema
@@ -77,7 +84,7 @@ ApiStack:
   - AWS::AppSync::DataSource (ggf. über weitere unterstacks)
   - AWS::DynamoDB::Table
 
-AuthStack:
+AuthStack
   - AWS::Cognito::IdentityPool
   - AWS::Cognito::IdentityPoolRoleAttachment
   - AWS::IAM::Role
@@ -87,42 +94,33 @@ AuthStack:
   - AWS::Lambda::Function
   - AWS::IAM::Policy
 
-AuthUserPoolGroupStack:
+AuthUserPoolGroupStack
   - AWS::Cognito::UserPoolGroup
   - AWS::IAM::Role
   - AWS::Lambda::Function
   - Custom::LambdaCallout
 
-StorageStack:
+StorageStack
   - AWS::S3::Bucket
   - AWS::IAM::Policy
 
-FunctionLayerStack:
+FunctionLayerStack
   - AWS::Lambda::LambdaLayerVersion, AWS::Lambda::LayerVersionPermission
 
-FunctionCreateVideoStack:
+FunctionCreateVideoStack
   - AWS::IAM::Policy, AWS::IAM::Role, AWS::Lambda::Function, AWS::MediaConvert::JobTemplate, AWS::MediaConvert::Queue
 
-FunctionVideoConvertedStack:
+FunctionVideoConvertedStack
 - AWS::Events::Rule, AWS::Lambda::Permission, AWS::IAM::Role, AWS::Lambda::Function, AWS::IAM::Policy
 
-FunctionCreateLinkStack:
+FunctionCreateLinkStack
 - AWS::IAM::Role
 - AWS::Lambda::Function
 - AWS::IAM::Policy
 
-- Storage: S3-Bucket
-- Lambda:
-  - CreateVideo
-  - CreateLink
-  - VideoConverted
-- DB: DynamoDB
-- Job: MediaConvert
-- EventBridge
-
 \subsection{Laufzeitsicht}
 
-todo text
+Die Laufzeitsicht beschreibt die wichtigsten Prozesse, um darzustellen, wie die Bausteine miteinander interagieren.
 
 \subsubsection{Lesen, Aktualisieren und Löschen eines Videos}
 
@@ -159,6 +157,8 @@ Dieser Prozess beschreibt, wie Nutzer signierte temporäre Links erstellen könn
 
 \subsection{Verteilungssicht}
 
+Die Verteilungssicht beschreibt, wie die Bausteine in \ac{AWS} über Stacks verteilt werden. Amplify bündelt die Verteilung des Backends und des Frontends über eine Pipeline. Diesen Sachverhalt stellt \autoref{Amplify:verteilungssicht} dar.
+
 \begin{figure}
   \centering
   \includegraphics[width=0.75\columnwidth]{5_aws-amplify/verteilungssicht.pdf}
@@ -166,9 +166,9 @@ Dieser Prozess beschreibt, wie Nutzer signierte temporäre Links erstellen könn
   \label{Amplify:verteilungssicht}
 \end{figure}
 
-Einordnung der Bausteinsicht-Elemente in Stacks für Verteilung
+Amplify verteilt das Backend über die CloudFormation mittels Stacks. Außerdem werden nur Stacks und keine NestedStacks genutzt, was die Debuggbarkeit von Fehlern vereinfacht. Um eine neue Änderung in das System einzuspielen, erzeugt die CloudFormation ein ChangeSet, welches die Differenz aus dem aktuellen Stand in der Cloud und dem gewünschten Zielzustand ist. Wenn beim Aktualisieren der Stacks ein Fehler auftritt, erfolgt ein Rollback.
 
-Es gibt keine Substacks, aber weitere parentstacks - das ist vermutlich für die Debuggbarkeit.
+Das Frontend wird separat, also nicht über Stacks, verteilt. Dazu nutzt Amplify einen gebündelten Dienst, der über die CloudFront läuft. Letzterer kann allerdings als Black-Box betrachtet werden, da der Entwickler diesen nur durch die Konfiguration beeinflussen kann.
 
 \subsection{Querschnittliche Konzepte und Muster}
 
