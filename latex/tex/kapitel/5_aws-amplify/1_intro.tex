@@ -39,11 +39,11 @@ Die Cloud-Dienste Cognito und IAM befindet sich zugleich in zwei Schichten, da d
 
 Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwicklungen für die Benutzerverwaltung und definierter Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die beiden Technologien weiterhin vergleichbar sind.
 
-\autoref{Kap2:Teildisziplinen} zeigt Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen.
+\autoref{Kap2:NFAs} zeigt Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen.
 
 \begin{table}[h]
   \caption{Lösungsansatz für nichtfunktionale Anforderungen}
-  \label{Kap2:Teildisziplinen}
+  \label{Kap2:NFAs}
   \renewcommand{\arraystretch}{1.2}
   \centering
   \sffamily
@@ -72,46 +72,31 @@ Das Backend besteht sowohl aus existierenden als auch aus eigenen Plugins, da Di
 
 RootStack
 
-welche Ressourcen gibt es,
-was machen diese
-wie spielen diese zusammen (grob)
+Der ApiStack besteht aus den Diensten AppSync und DynamoDB. AppSync besteht aus der GraphQLApi, die ein GraphQLSchema enthält. Außerdem nutzt AppSync Resolver, um ein Mapping über VTL zur DynamoDB Tabelle zu ermöglichen. Um eine Verbindung zu einer Lambda-Funktion zu ermöglichen, existiert auch mindestens eine DataSource.
 
-ApiStack
-  - API: AppSync
-  - AWS::AppSync::GraphQLApi
-  - AWS::AppSync::GraphQLSchema
-  - AWS::AppSync::Resolver (ggf. über weitere unterstacks)
-  - AWS::AppSync::DataSource (ggf. über weitere unterstacks)
-  - AWS::DynamoDB::Table
+Der AuthStack und der AuthUserPoolGroupStack regeln die Authentifizierung und Autorisierung von Benutzern über den Dienst Cognito. Der AuthStack besteht aus einem UserPool und einem IdentityPool und den entsprechenden IAM-Rollen und Policies. Des weiteren besteht der Stack aus einem UserPoolClient, über welchen Anfragen auf Cognito erfolgen können. Amplify definiert auch weitere Lambda-Funktionen, um zusätzliche Logik für die Authentifizierung zu ermöglichen. Der AuthUserPoolGroupStack dient zur Verwaltung der zusätzlichen UserPoolGroup für Administratoren.
 
-AuthStack
-  - AWS::Cognito::IdentityPool
-  - AWS::Cognito::IdentityPoolRoleAttachment
-  - AWS::IAM::Role
-  - AWS::Cognito::UserPool
-  - AWS::Cognito::UserPoolClient
-  - Custom::LambdaCallout
-  - AWS::Lambda::Function
-  - AWS::IAM::Policy
+Der StorageStack enthält einen S3-Bucket sowie eine dazugehören Policy, welchen es Benutzern ermöglicht, Dateien in eigene Ordner hochzuladen sowie andere Ordner lesen zu dürfen. Die Policy unterscheidet zwischen öffentlichen, geschützten und privaten Geltungsbereichen.
 
-AuthUserPoolGroupStack
-  - AWS::Cognito::UserPoolGroup
-  - AWS::IAM::Role
-  - AWS::Lambda::Function
-  - Custom::LambdaCallout
 
-StorageStack
-  - AWS::S3::Bucket
-  - AWS::IAM::Policy
 
 FunctionLayerStack
-  - AWS::Lambda::LambdaLayerVersion, AWS::Lambda::LayerVersionPermission
+  - AWS::Lambda::LambdaLayerVersion
+  - AWS::Lambda::LayerVersionPermission
 
 FunctionCreateVideoStack
-  - AWS::IAM::Policy, AWS::IAM::Role, AWS::Lambda::Function, AWS::MediaConvert::JobTemplate, AWS::MediaConvert::Queue
+  - AWS::IAM::Policy
+  - AWS::IAM::Role
+  - AWS::Lambda::Function
+  - AWS::MediaConvert::JobTemplate
+  - AWS::MediaConvert::Queue
 
 FunctionVideoConvertedStack
-- AWS::Events::Rule, AWS::Lambda::Permission, AWS::IAM::Role, AWS::Lambda::Function, AWS::IAM::Policy
+- AWS::Events::Rule
+- AWS::Lambda::Permission
+- AWS::IAM::Role
+- AWS::Lambda::Function
+- AWS::IAM::Policy
 
 FunctionCreateLinkStack
 - AWS::IAM::Role
