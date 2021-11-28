@@ -84,16 +84,15 @@ Die Architektur ist unterteilt in Frontend (Präsentationsschicht) und Backend (
   \item{Der \textit{FunctionVideoConvertedStack} besteht aus einer EventBridge-Regel, die bei einer Konvertierung eines Videos aufgerufen wird. Außerdem wird eine Lambda-Funktion mit der nötigen Policy und Rolle erstellt.}
 
   \item{Der \textit{FunctionCreateLinkStack} besteht aus einer Lambda-Funktion und der nötigen Rolle und Policy, um einen signierten zeitlich begrenzt gültigen Video-Link zu erstellen.}
+\end{itemize}
 
-Die Stacks RootStack, ApiStack, AuthStack, AuthUserPoolGroupStack und StorageStack erstellt Amplify selbst. Die restlichen Stacks sind selbst erstellte bzw. angepasste Plugins, da die Dienste nicht vollständig in Amplify vorhanden sind.
+Die Stacks \textit{RootStack}, \textit{ApiStack}, \textit{AuthStack}, \textit{AuthUserPoolGroupStack} und \textit{StorageStack} erstellt Amplify selbst. Die restlichen Stacks sind selbst erstellte bzw. angepasste Plugins, da die Dienste nicht vollständig in Amplify vorhanden sind.
 
 \subsection{Laufzeitsicht}
 
-Die Laufzeitsicht beschreibt die wichtigsten Prozesse, um darzustellen, wie die Bausteine miteinander interagieren.
+Die Laufzeitsicht beschreibt die wichtigsten Prozesse und wie die Bausteine miteinander interagieren.
 
 \subsubsection{Lesen, Aktualisieren und Löschen eines Videos}
-
-Der folgende Prozess beschreibt, wie Videos von Nutzern gelesen, aktualisiert oder gelöscht werden.
 
 \begin{figure}
   \centering
@@ -102,25 +101,40 @@ Der folgende Prozess beschreibt, wie Videos von Nutzern gelesen, aktualisiert od
   \label{Amplify:laufzeitsicht1}
 \end{figure}
 
-\subsubsection{Erstellen eines Videos}
+\autoref{Amplify:laufzeitsicht1} stellt den Prozess dar, wie Videos von Nutzern gelesen, aktualisiert oder gelöscht werden. Dieser wird im folgenden Abschnitt näher erläutert:
+\begin{enumerate}
+  \item{Der Nutzer stellt eine Anfrage mittels GraphQL und dem JSON Webtoken.}
+  \item{AppSync autorisiert den Nutzer und holt die Gruppenzugehörigkeit des Nutzers.}
+  \item{Der Resolver leitet die Anfrage unter Berücksichtigung der Gruppenzugehörigkeit des Nutzers an DynamoDB weiter. Die nötigen Datenbankoperationen werden über DynamoDB ausgeführt.}
+\end{enumerate}
 
-Der nächste Prozess beschreibt den Ablauf, wie ein Video von einem Nutzer erstellt wird.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=1\columnwidth]{5_aws-amplify/laufzeitsicht_2.pdf}
-  \caption{AWS Amplify - Laufzeitsicht - Erstellen eines Videos}
-  \label{Amplify:laufzeitsicht2}
-\end{figure}
-
-\subsubsection{Erstellen von signierten Links}
-
-Dieser Prozess beschreibt, wie Nutzer signierte temporäre Links erstellen können, um das Video anzuzeigen.
+Zusätzlich dazu müssen signierte temporäre Links erstellt werden, um die Sicherheit zu gewährleisten. Dieser Ablauf, der in \autoref{Amplify:laufzeitsicht2} dargestellt wird, enthält noch eine zusätzlich Abfrage auf S3, um den Link zu erstellen.
 
 \begin{figure}
   \centering
   \includegraphics[width=1\columnwidth]{5_aws-amplify/laufzeitsicht_3.pdf}
   \caption{AWS Amplify - Laufzeitsicht - Erstellen von Links}
+  \label{Amplify:laufzeitsicht2}
+\end{figure}
+
+\subsubsection{Erstellen eines Videos}
+
+\autoref{Amplify:laufzeitsicht3} stellt den Prozess dar, wie ein Video erstellt wird.
+\begin{enumerate}
+  \item{Zunächst lädt der Nutzer das Video in den S3-Bucket hoch. Die Policy des S3-Buckets verwaltet den korrekten Zugriff auf die Ressource. Die hochgeladene Datei landet in einem privaten Ordner, der außerhalb des Backends ausschließlich für den Besitzer des Objekts aufrufbar ist. Das ist der Nutzer, der das Video hochgeladen hat.}
+  \item{Erst dann erstellt der Nutzer eine Anfrage mittels GraphQL und dem JSON Webtoken.}
+  \item{AppSync autorisiert den Nutzer und holt die Gruppenzugehörigkeit des Nutzers.}
+  \item{Der Resolver führt die verknüpfte Lambda-Funktion aus.}
+  \item{Die Funktion kopiert die hochgeladene Datei in einen weiteren Ordner, so dass der Besitzer diese nicht mehr verändern kann. Die hochgeladene Datei im Ursprungsordner wird daraufhin gelöscht.}
+  \item{Die Funktion erstellt das Video in der DynamoDB-Tabelle.}
+  \item{Die Funktion führt den MediaConvert-Job aus, um das Video mit dem Wasserzeichen zu versehen.}
+  \item{Ist die Konvertierung abgeschlossen, benachrichtigt die EventBridge eine weitere Lambda-Funktion, welche das Video dann freischaltet.}
+\end{enumerate}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1\columnwidth]{5_aws-amplify/laufzeitsicht_2.pdf}
+  \caption{AWS Amplify - Laufzeitsicht - Erstellen eines Videos}
   \label{Amplify:laufzeitsicht3}
 \end{figure}
 
