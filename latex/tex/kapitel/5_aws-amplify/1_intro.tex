@@ -9,7 +9,6 @@ todo
 \subsection{Lösungsstrategie}
 
 Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
-
 \begin{itemize}
   \item Präsentationsschicht
     \begin{itemize}
@@ -35,9 +34,9 @@ Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
     \end{itemize}
 \end{itemize}
 
-Die Cloud-Dienste Cognito und IAM befindet sich zugleich in zwei Schichten, da dort neben der Logik für Authentifizierung und Autorisierung auch die Benutzer persistiert werden.
+Die Dienste Cognito und IAM befindet sich zugleich in zwei Schichten, da dort neben der Logik für Authentifizierung und Autorisierung auch die Benutzer persistiert werden.
 
-Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwicklungen für die Benutzerverwaltung und definierter Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die beiden Technologien weiterhin vergleichbar sind.
+Durch die ausschließliche Verwendung interner Dienste von \ac{AWS}, keiner Eigenentwicklungen für die Benutzerverwaltung und definierter Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die beiden Technologien weiterhin vergleichbar sind.
 
 \autoref{Kap2:NFAs} zeigt Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen.
 
@@ -54,7 +53,7 @@ Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwic
       \midrule
         \emph{Verfügbarkeit} & Amplify & Amplify bietet für Frontend und Backend ein Zero-Downtime Deployment. \\
         \emph{Skalierbarkeit} & - & Durch die Serverless-Architektur skalieren Dienste automatisch innerhalb der \ac{AWS}-Cloud.\\
-        \emph{Analysierbarkeit} & CloudWatch & Durch den Einsatz von CloudWatch können Anfragen für jeden Cloud-Dienst nachvollzogen werden.\\
+        \emph{Analysierbarkeit} & CloudWatch & Durch den Einsatz von CloudWatch können Anfragen für jeden Dienst nachvollzogen werden.\\
         \emph{Interoperabilität} & AppSync & Durch den Einsatz von AppSync ist mit GraphQL eine einheitliche Schnittstelle sichergestellt.\\
         \emph{Backups} & AWS Backup & Durch den Einsatz von AWS Backup werden automatisiert Backups aufgesetzt.\\
         \emph{Wiederherstellbarkeit} & AWS Backup &  Das von AWS Backup erstellte Backup für die Datenbank DynamoDB kann manuell eingespielt werden.\\
@@ -67,7 +66,6 @@ Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwic
 \subsection{Bausteinsicht}
 
 Die Architektur ist unterteilt in Frontend (Präsentationsschicht) und Backend (Logik- und Datenhaltungsschicht). Das Frontend wird nicht näher beschrieben, da es Amplify vollständig verwaltet. Das Backend besteht aus Stacks, welche zugleich den Code als auch die Infrastruktur repräsentieren. Diese werden im folgenden Abschnitt dargestellt:
-
 \begin{itemize}
   \item{Der \textit{RootStack} enthält alle darunterliegenden Stacks sowie Ressourcen zum Deployment von Amplify.}
 
