@@ -36,7 +36,7 @@ Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
 
 Die Dienste Cognito und IAM befindet sich zugleich in zwei Schichten, da dort neben der Logik für Authentifizierung und Autorisierung auch die Benutzer persistiert werden.
 
-Durch die ausschließliche Verwendung interner Dienste von \ac{AWS}, keiner Eigenentwicklungen für die Benutzerverwaltung und definierter Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die beiden Technologien weiterhin vergleichbar sind.
+Durch die ausschließliche Verwendung interner Dienste von \ac{AWS}, keiner Eigenentwicklungen für die Benutzerverwaltung und den vorgegebenen Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die beiden Technologien weiterhin vergleichbar sind.
 
 \autoref{Kap2:NFAs} zeigt Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen.
 
@@ -65,7 +65,7 @@ Durch die ausschließliche Verwendung interner Dienste von \ac{AWS}, keiner Eige
 
 \subsection{Bausteinsicht}
 
-Die Architektur ist unterteilt in Frontend (Präsentationsschicht) und Backend (Logik- und Datenhaltungsschicht). Das Frontend wird nicht näher beschrieben, da es Amplify vollständig verwaltet. Das Backend besteht aus Stacks, welche zugleich den Code als auch die Infrastruktur repräsentieren. Diese werden im folgenden Abschnitt dargestellt:
+Die Architektur ist unterteilt in Frontend (Präsentationsschicht) und Backend (Logik- und Datenhaltungsschicht). Das Frontend wird nicht näher beschrieben, da Amplify dieses vollständig verwaltet. Das Backend besteht aus Stacks, welche zugleich den Code als auch die Infrastruktur repräsentieren. Diese werden im folgenden Abschnitt dargestellt:
 \begin{itemize}
   \item{Der \textit{RootStack} enthält alle darunterliegenden Stacks sowie Ressourcen zum Deployment von Amplify.}
 
@@ -135,6 +135,7 @@ Zusätzlich dazu müssen signierte temporäre Links erstellt werden, um die Sich
   \centering
   \includegraphics[width=1\columnwidth]{5_aws-amplify/laufzeitsicht_2.pdf}
   \caption{AWS Amplify - Laufzeitsicht - Erstellen eines Videos}
+  \label{Amplify:laufzeitsicht3}
 \end{figure}
 
 \subsection{Verteilungssicht}
@@ -154,12 +155,16 @@ Das Frontend wird separat, also nicht über Stacks, verteilt. Dazu nutzt Amplify
 
 \subsection{Querschnittliche Konzepte und Muster}
 
+Logging
+- CloudWatch
+
+Backup
+- AWS Backup
+
 - Einbindung über \ac{AWS} Amplify:
   - AWS Elemental MediaConvert als extra Plugin
   - Anpassung an CF-Templates
-- Logging (CloudWatch)
 - Permissions (IAM)
-- AWS Backup
 
 \subsection{Entwurfsentscheidungen}
 
