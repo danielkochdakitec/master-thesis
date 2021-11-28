@@ -66,42 +66,28 @@ Durch die ausschließliche Verwendung interner Cloud-Dienste, keiner Eigenentwic
 
 \subsection{Bausteinsicht}
 
-Die Architektur ist unterteilt in Frontend (Präsentationsschicht) und Backend (Logik- und Datenhaltungsschicht).
+Die Architektur ist unterteilt in Frontend (Präsentationsschicht) und Backend (Logik- und Datenhaltungsschicht). Das Frontend wird nicht näher beschrieben, da es Amplify vollständig verwaltet. Das Backend besteht aus Stacks, welche zugleich den Code als auch die Infrastruktur repräsentieren. Diese werden im folgenden Abschnitt dargestellt:
 
-Das Backend besteht sowohl aus existierenden als auch aus eigenen Plugins, da Dienste wie beispielsweise MediaConvert oder EventBridge nicht standardmäßig in Amplify vorhanden sind. Dies erfolgt durch Hinzufügen oder Ändern bestehender Plugins. Da die Infrastruktur und der Code vereint sind, werden die Bausteine im folgenden Abschnitt in Stacks, der Einheit des Deployments, dargestellt.
+\begin{itemize}
+  \item{Der \textit{RootStack} enthält alle darunterliegenden Stacks sowie Ressourcen zum Deployment von Amplify.}
 
-RootStack
+  \item{Der \textit{ApiStack} besteht aus den Diensten AppSync und DynamoDB. AppSync besteht aus einer GraphQLApi, die ein GraphQLSchema enthält. Außerdem nutzt AppSync Resolver, um ein Mapping über VTL zur DynamoDB-Tabelle zu ermöglichen. Um eine Verbindung zu einer Lambda-Funktion zu ermöglichen, existiert auch mindestens eine DataSource.}
 
-Der ApiStack besteht aus den Diensten AppSync und DynamoDB. AppSync besteht aus der GraphQLApi, die ein GraphQLSchema enthält. Außerdem nutzt AppSync Resolver, um ein Mapping über VTL zur DynamoDB Tabelle zu ermöglichen. Um eine Verbindung zu einer Lambda-Funktion zu ermöglichen, existiert auch mindestens eine DataSource.
+  \item{Der \textit{AuthStack} regelt die Authentifizierung und Autorisierung von Benutzern über den Dienst Cognito. Dieser besteht aus einem UserPool und einem IdentityPool und den entsprechenden IAM-Rollen und Policies. Des weiteren besteht der Stack aus einem UserPoolClient, über welchen Anfragen auf Cognito erfolgen können. Amplify definiert auch weitere Lambda-Funktionen, um zusätzliche Logik für die Authentifizierung zu ermöglichen.}
 
-Der AuthStack und der AuthUserPoolGroupStack regeln die Authentifizierung und Autorisierung von Benutzern über den Dienst Cognito. Der AuthStack besteht aus einem UserPool und einem IdentityPool und den entsprechenden IAM-Rollen und Policies. Des weiteren besteht der Stack aus einem UserPoolClient, über welchen Anfragen auf Cognito erfolgen können. Amplify definiert auch weitere Lambda-Funktionen, um zusätzliche Logik für die Authentifizierung zu ermöglichen. Der AuthUserPoolGroupStack dient zur Verwaltung der zusätzlichen UserPoolGroup für Administratoren.
+  \item{Der \textit{AuthUserPoolGroupStack} dient zur Verwaltung der zusätzlichen UserPoolGroup für Administratoren.}
 
-Der StorageStack enthält einen S3-Bucket sowie eine dazugehören Policy, welchen es Benutzern ermöglicht, Dateien in eigene Ordner hochzuladen sowie andere Ordner lesen zu dürfen. Die Policy unterscheidet zwischen öffentlichen, geschützten und privaten Geltungsbereichen.
+  \item{Der \textit{StorageStack} dient zur Speicherung der Videos. Dieser enthält einen S3-Bucket sowie eine dazugehören Policy, welchen es Benutzern ermöglicht, Dateien in eigene Ordner hochzuladen sowie andere Ordner lesen zu dürfen. Die Policy unterscheidet zwischen öffentlichen, geschützten und privaten Geltungsbereichen.}
 
+  \item{Der \textit{FunctionLayerStack} bündelt die Node.js-Module als Lambda-Layer, den die weiteren Lambda-Funktionen nutzen.}
 
+  \item{Der \textit{FunctionCreateVideoStack} übernimmt die Erstellung eines Videos in Form einer Lambda-Funktion. Außerdem erstellt der Stack in MediaConvert ein JobTemplate und eine Queue. Des Weiteren definiert der Stack die nötige Policy und Rolle, um der Lambda-Funktion die Zugriffe auf andere Dienste zu ermöglichen.}
 
-FunctionLayerStack
-  - AWS::Lambda::LambdaLayerVersion
-  - AWS::Lambda::LayerVersionPermission
+  \item{Der \textit{FunctionVideoConvertedStack} besteht aus einer EventBridge-Regel, die bei einer Konvertierung eines Videos aufgerufen wird. Außerdem wird eine Lambda-Funktion mit der nötigen Policy und Rolle erstellt.}
 
-FunctionCreateVideoStack
-  - AWS::IAM::Policy
-  - AWS::IAM::Role
-  - AWS::Lambda::Function
-  - AWS::MediaConvert::JobTemplate
-  - AWS::MediaConvert::Queue
+  \item{Der \textit{FunctionCreateLinkStack} besteht aus einer Lambda-Funktion und der nötigen Rolle und Policy, um einen signierten zeitlich begrenzt gültigen Video-Link zu erstellen.}
 
-FunctionVideoConvertedStack
-- AWS::Events::Rule
-- AWS::Lambda::Permission
-- AWS::IAM::Role
-- AWS::Lambda::Function
-- AWS::IAM::Policy
-
-FunctionCreateLinkStack
-- AWS::IAM::Role
-- AWS::Lambda::Function
-- AWS::IAM::Policy
+Die Stacks RootStack, ApiStack, AuthStack, AuthUserPoolGroupStack und StorageStack erstellt Amplify selbst. Die restlichen Stacks sind selbst erstellte bzw. angepasste Plugins, da die Dienste nicht vollständig in Amplify vorhanden sind.
 
 \subsection{Laufzeitsicht}
 
