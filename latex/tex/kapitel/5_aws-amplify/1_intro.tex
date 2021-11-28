@@ -135,7 +135,6 @@ Zusätzlich dazu müssen signierte temporäre Links erstellt werden, um die Sich
   \centering
   \includegraphics[width=1\columnwidth]{5_aws-amplify/laufzeitsicht_2.pdf}
   \caption{AWS Amplify - Laufzeitsicht - Erstellen eines Videos}
-  \label{Amplify:laufzeitsicht3}
 \end{figure}
 
 \subsection{Verteilungssicht}
@@ -149,7 +148,7 @@ Die Verteilungssicht beschreibt, wie die Bausteine in \ac{AWS} über Stacks vert
   \label{Amplify:verteilungssicht}
 \end{figure}
 
-Amplify verteilt das Backend über die CloudFormation mittels Stacks. Außerdem werden nur Stacks und keine NestedStacks genutzt, was die Debuggbarkeit von Fehlern vereinfacht. Um eine neue Änderung in das System einzuspielen, erzeugt die CloudFormation ein ChangeSet, welches die Differenz aus dem aktuellen Stand in der Cloud und dem gewünschten Zielzustand ist. Wenn beim Aktualisieren der Stacks ein Fehler auftritt, erfolgt ein Rollback.
+Amplify verteilt das Backend über die CloudFormation mittels Stacks. Außerdem werden nur Stacks und keine NestedStacks genutzt, was die Fehleranalyse vereinfacht. Um eine neue Änderung in das System einzuspielen, erzeugt die CloudFormation ein ChangeSet, welches die Differenz aus dem aktuellen Stand in der Cloud und dem gewünschten Zielzustand ist. Wenn beim Aktualisieren der Stacks ein Fehler auftritt, erfolgt ein Rollback.
 
 Das Frontend wird separat, also nicht über Stacks, verteilt. Dazu nutzt Amplify einen gebündelten Dienst, der über die CloudFront läuft. Letzterer kann allerdings als Black-Box betrachtet werden, da der Entwickler diesen nur durch die Konfiguration beeinflussen kann.
 
