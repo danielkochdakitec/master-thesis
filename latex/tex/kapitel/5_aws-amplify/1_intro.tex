@@ -141,3 +141,37 @@ Das Frontend wird separat, also nicht über Stacks, verteilt. Dazu nutzt Amplify
 
 \section{Implementierung}
 
+\subsection{Infrastruktur}
+- Anpassung von bestehenden Plugins
+- Eigenes Custom Plugins
+
+\subsection{Backend}
+
+test \autoref{lst:AmplifyGraphQLSchema}
+
+\lstinputlisting[
+  language=JavaScript,
+  backgroundcolor=\color{lightgray},
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  showspaces=false,
+  numbers=left,
+  numberstyle=\footnotesize,
+  numbersep=9pt,
+  tabsize=2,
+  breaklines=true,
+  showtabs=false,
+  captionpos=b
+  caption={Amplify GraphQL-Schema},
+  label=lst:AmplifyGraphQLSchema
+]{\srcloc/amplify/schema.graphql}
+
+
+GraphQL-Schema + Permissions
+Lambda-Funktionen
+
+\subsection{Frontend}
+
+Nutzung von Auth, Api libraries von amplify
+

@@ -1,0 +1,30 @@
+input S3ObjectInput {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type Mutation {
+  createVideo(title: String!, description: String!, file: S3ObjectInput!):
+    String @function(name: "createVideo-${env}")
+  createPresignedVideoLink(videoId: String!):
+    String @function(name: "createPresignedVideoLink-${env}")
+}
+
+type Video
+  @model(
+    queries: { get: "getVideo", list: "listVideos" },
+    mutations: { update: "updateVideo", delete: "deleteVideo" },
+    subscriptions: { onDelete: ["onDeleteVideo"], onUpdate: ["onUpdateVideo"] }
+  )
+  @auth(
+    rules: [
+      { allow: owner, operations: [delete, update] },
+      { allow: groups, groups: ["Admin"], operations: [delete, update] }
+    ]
+  )
+{
+  id: ID!
+  title: String!
+  description: String!
+}
