@@ -38,30 +38,16 @@ Die Dienste Cognito und IAM befindet sich zugleich in zwei Schichten, da dort ne
 
 Durch die ausschließliche Verwendung interner Dienste von \ac{AWS}, keiner Eigenentwicklungen für die Benutzerverwaltung und den vorgegebenen Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die beiden Technologien weiterhin vergleichbar sind.
 
-\autoref{Kap2:NFAs} zeigt Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen.
+Als nächstes werden Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen:
 
-\begin{table}[h]
-  \caption{Lösungsansatz für nichtfunktionale Anforderungen}
-  \label{Kap2:NFAs}
-  \renewcommand{\arraystretch}{1.2}
-  \centering
-  \sffamily
-  \begin{footnotesize}
-    \begin{tabularx}{0.9\textwidth}{l l X}
-      \toprule
-      \textbf{Anforderung} & \textbf{Dienst} & \textbf{Ansatz}\\
-      \midrule
-        \emph{Verfügbarkeit} & Amplify & Amplify bietet für Frontend und Backend ein Zero-Downtime Deployment. \\
-        \emph{Skalierbarkeit} & - & Durch die Serverless-Architektur skalieren Dienste automatisch innerhalb der \ac{AWS}-Cloud.\\
-        \emph{Analysierbarkeit} & CloudWatch & Durch den Einsatz von CloudWatch können Anfragen für jeden Dienst nachvollzogen werden.\\
-        \emph{Interoperabilität} & AppSync & Durch den Einsatz von AppSync ist mit GraphQL eine einheitliche Schnittstelle sichergestellt.\\
-        \emph{Backups} & AWS Backup & Durch den Einsatz von AWS Backup werden automatisiert Backups aufgesetzt.\\
-        \emph{Wiederherstellbarkeit} & AWS Backup &  Das von AWS Backup erstellte Backup für die Datenbank DynamoDB kann manuell eingespielt werden.\\
-      \bottomrule
-    \end{tabularx}
-  \end{footnotesize}
-  \rmfamily
-\end{table}
+\begin{description}
+   \item[Verfügbarkeit] Amplify bietet für Frontend und Backend ein Zero-Downtime Deployment.
+   \item[Skalierbarkeit] Durch die Serverless-Architektur skalieren Dienste automatisch innerhalb der \ac{AWS}-Cloud. Die DynamoDB-Datenbank ist serverless und muss deshalb auch nicht skaliert werden.
+   \item[Analysierbarkeit] Durch den Einsatz von CloudWatch können Anfragen für Lambda-Funktionen nachvollzogen werden.
+   \item[Interoperabilität] Durch den Einsatz von AppSync ist mit GraphQL eine einheitliche Schnittstelle sichergestellt. Außerdem werden die GraphQL-Queries und Mutations automatisch über eine Codegenerierung für das Frontend erstellt.
+   \item[Backups] Durch den Einsatz von AWS Backup werden automatisierte Backups aufgesetzt.
+   \item[Wiederherstellbarkeit] Das von AWS Backup erstellte Backup für die Datenbank DynamoDB kann manuell eingespielt werden.
+\end{description}
 
 \subsection{Bausteinsicht}
 
@@ -153,25 +139,5 @@ Amplify verteilt das Backend über die CloudFormation mittels Stacks. Außerdem 
 
 Das Frontend wird separat, also nicht über Stacks, verteilt. Dazu nutzt Amplify einen gebündelten Dienst, der über die CloudFront läuft. Letzterer kann allerdings als Black-Box betrachtet werden, da der Entwickler diesen nur durch die Konfiguration beeinflussen kann.
 
-\subsection{Querschnittliche Konzepte und Muster}
-
-Logging
-- CloudWatch
-
-Backup
-- AWS Backup
-
-- Einbindung über \ac{AWS} Amplify:
-  - AWS Elemental MediaConvert als extra Plugin
-  - Anpassung an CF-Templates
-- Permissions (IAM)
-
-\subsection{Entwurfsentscheidungen}
-
-\subsection{Risiken und technische Schulden}
-
-- Auth: Anpassung, dass statt Identity ID die Pool User Id genutzt wird geht über https://github.com/aws-amplify/amplify-js/issues/54. Leider lässt sich das nicht persistieren, so dass man das bei jedem branch/Projekt neu eintragen muss. Wenn man es im CF-Template ändert, wird die Änderung beim Push rückgängig gemacht. Das ist nicht sehr flexibel. Ggf. Lösung finden und schauen, ob es doch geht.
-
-- CDK als Alternative zu AWS Amplify, da es wesentlich flexibler
-
 \section{Implementierung}
+
