@@ -141,7 +141,7 @@ Das Frontend wird separat, also nicht über Stacks, verteilt. Dazu nutzt Amplify
 
 \section{Implementierung}
 
-Die Implementierung in Amplify unterscheidet die Themen Infrastruktur, Backend und Frontend.
+Die Implementierung in Amplify unterscheidet die Themen Infrastruktur, Backend und Frontend. Zwar liegt die Infrastruktur-Definition und der Backend-Code vereint in Plugins, die sich im selben Repository befinden, dennoch können sie separat betrachtet werden.
 
 \subsection{Infrastruktur}
 
@@ -153,7 +153,6 @@ Einen Ausschnitt der Anpassungen am Plugin \textit{createVideo} zeigt \autoref{l
 
 \lstinputlisting[
   language=JavaScript,
-  backgroundcolor=\color{lightgray},
   extendedchars=true,
   basicstyle=\footnotesize\ttfamily,
   showstringspaces=false,
@@ -164,18 +163,18 @@ Einen Ausschnitt der Anpassungen am Plugin \textit{createVideo} zeigt \autoref{l
   tabsize=2,
   breaklines=true,
   showtabs=false,
-  captionpos=b
   caption={Amplify Custom Plugin},
   label=lst:AmplifyCreateVideo
 ]{\srcloc/amplify/cf-create-video.json}
 
 \subsection{Backend}
 
-test \autoref{lst:AmplifyGraphQLSchema}
+Für die Backend-Logik wird ein GraphQL-Schema in AppSync benötigt. Dieses stellt die nötigen Verbindungen zu den Lambda-Funktionen und der DynamoDB her. \autoref{lst:AmplifyGraphQLSchema} zeigt dieses Schema.
+
+Die beiden Mutationen \textit{createVideo} und \textit{createPresignedVideoLink} rufen mit den Funktionsparametern die definierte Funktion auf. Der Funktionsname enthält das aktuelle Environment, damit mehrere Git-Branches möglich sind. Des Weiteren wird ein Video-Type definiert. Über den \textit{@model}-Parameter werden alle Aktionen bis auf \textit{Create} und \textit{onCreateVideo} ausgeschlossen, da diese selbst programmiert und nicht über VTL-Resolver zu DynamoDB abgebildet werden. Über den \texit{@auth}-Parameter werden die benötigten Zugriffskontrollen etabliert. Die Definition sorgt dafür, dass nur der Besitzer des Videos sowie ein Administrator ein Video löschen oder aktualisieren darf. Die Aktionen Lesen und Erstellen sind immer erlaubt.
 
 \lstinputlisting[
   language=JavaScript,
-  backgroundcolor=\color{lightgray},
   extendedchars=true,
   basicstyle=\footnotesize\ttfamily,
   showstringspaces=false,
@@ -186,17 +185,18 @@ test \autoref{lst:AmplifyGraphQLSchema}
   tabsize=2,
   breaklines=true,
   showtabs=false,
-  captionpos=b
   caption={Amplify GraphQL-Schema},
   label=lst:AmplifyGraphQLSchema
 ]{\srcloc/amplify/schema.graphql}
 
-
-GraphQL-Schema
-Permissions
-Lambda-Funktionen
+Die Lambda-Funktionen sind in Node.js programmiert und nutzen die \textit{aws-sdk}, um weitere Dienste wie DynamoDB, S3 oder MediaConvert anzusprechen. Um den Cold-Start der Lambda-Funktionen möglichst kurz zu halten, sind alle Node.js-Packages in einem externen Lambda-Layer ausgelagert.
 
 \subsection{Frontend}
 
-Nutzung von Auth, Api libraries von amplify
+Das Frontend ist in React.js entwickelt. Relevant für diese Arbeit ist, dass das Frontend die Amplify-Bibliotheken nutzt. Diese Bibliothek wird über die \textit{aws-config.js} konfiguriert, welche die Domains zu Cognito, AppSync und zu dem S3-Bucket beinhaltet. Folgende Komponenten werden aus Amplify genutzt:
 
+\begin{description}
+  \item[Api] Diese Komponente nutzt GraphQL, um Anfragen an AppSync zu senden und zu empfangen. Die AWS CLI kann die nötigen GraphQL-Befehle dafür bei einer Aktualisierung der API automatisiert erstellen. Außerdem kann die Komponente über einen Socket bei Änderungen in GraphQL wie \textit{onUpdate} oder \textit{onDelete} die nötigen Sockets aufzusetzen.
+  \item[Auth] Diese Komponente regelt die Funktionalität für die Authentifizierung von Benutzen. Insbesondere kann die Komponente vor die Anwendung einen Login-Schutz inklusive einer Funktion zur Zurücksetzung des Passworts und der Erstellung eines neuen Accounts setzen.
+  \item[Storage] Diese Komponente bietet dem Nutzer die Möglichkeiten, Videos über S3 zu lesen und zu schreiben.
+\end{itemize}

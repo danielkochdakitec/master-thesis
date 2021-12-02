@@ -11,15 +11,25 @@
       "Type": "AWS::MediaConvert::JobTemplate",
       "DependsOn": ["MediaConvertQueue"],
       "Properties": {
-        "Name": {"Fn::Join": ["", ["mediaConvertJobTemplate-", {"Ref": "env"}]]},
-        "Queue": {"Ref": "MediaConvertQueue"},
+        "Name": {
+          "Fn::Join": ["", ["mediaConvertJobTemplate-", {
+            "Ref": "env"
+          }]]
+        },
+        "Queue": {
+          "Ref": "MediaConvertQueue"
+        },
         "SettingsJson": {...}
       }
     },
     "MediaConvertQueue": {
       "Type": "AWS::MediaConvert::Queue",
       "Properties": {
-        "Name": {"Fn::Join": ["", ["mediaConvertQueue-", {"Ref": "env"}]]},
+        "Name": {
+          "Fn::Join": ["", ["mediaConvertQueue-", {
+            "Ref": "env"
+          }]]
+        },
         "PricingPlan": "ON_DEMAND"
       }
     },
