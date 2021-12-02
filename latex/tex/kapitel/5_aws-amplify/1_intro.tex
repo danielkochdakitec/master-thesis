@@ -1,21 +1,21 @@
 \chapter{AWS Amplify}
 
-Das folgende Kapitel beschreibt die Architektur und die Implementierung mit Amplify.
+Das folgende Kapitel beschreibt die Architektur und die Implementierung der geplanten Anwendung mit AWS Amplify.
 
 \section{Architektur}
 
-todo
+Für die Architektur wird zunächst die Lösungsstrategie vorgestellt. Darauf folgen die Bausteinsicht, die Laufzeitsicht sowie die Verteilungssicht.
 
 \subsection{Lösungsstrategie}
 
-Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
+Die Architektur lässt sich in Präsentation, Logik und Datenhaltung aufteilen, welche durch unterschiedliche Cloud-Dienste abgebildet sind.
 \begin{itemize}
-  \item Präsentationsschicht
+  \item Präsentation
     \begin{itemize}
       \item React.js
       \item amplify-js
     \end{itemize}
-  \item Logikschicht
+  \item Logik
     \begin{itemize}
       \item AppSync
       \item Lambda
@@ -24,7 +24,7 @@ Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
       \item EventBridge
       \item IAM
     \end{itemize}
-  \item Datenhaltungsschicht
+  \item Datenhaltung
     \begin{itemize}
       \item DynamoDB
       \item S3
@@ -34,7 +34,7 @@ Die Architektur folgt dem Aufbau einer Drei"=Schichten"=Architektur:
     \end{itemize}
 \end{itemize}
 
-Die Dienste Cognito und IAM befindet sich zugleich in zwei Schichten, da dort neben der Logik für Authentifizierung und Autorisierung auch die Benutzer persistiert werden.
+Die Dienste Cognito und IAM befindet sich zugleich in der Logik als auch in der Datenhaltung, da dort neben der Authentifizierung und Autorisierung auch die Benutzer persistiert werden.
 
 Durch die ausschließliche Verwendung interner Dienste von \ac{AWS}, keiner Eigenentwicklungen für die Benutzerverwaltung und den vorgegebenen Technologien sind die Rahmenbedingungen für dieses Projekt nicht missachtet, so dass die beiden Technologien weiterhin vergleichbar sind.
 
@@ -141,9 +141,33 @@ Das Frontend wird separat, also nicht über Stacks, verteilt. Dazu nutzt Amplify
 
 \section{Implementierung}
 
+Die Implementierung in Amplify unterscheidet die Themen Infrastruktur, Backend und Frontend.
+
 \subsection{Infrastruktur}
-- Anpassung von bestehenden Plugins
-- Eigenes Custom Plugins
+
+Für die Infrastruktur müssen einige Plugins verändert werden, da Amplify nicht alle Dienste direkt als fertige Plugins anbietet. Dies erfolgt daher durch eine initiale Erstellung mittels der Amplify CLI sowie einer nachträgliche Anpassung des Plugins. Die hier vorgestellten Plugins beziehen sich alle auf die Kategorie \textit{function}. Weitere Anpassungen in den Kategorien \textit{auth}, \textit{api} oder \textit{storage} waren nicht nötig.
+
+Das CloudFormation-Template für das Plugin \textit{createVideo} wird um die nötigen Ressourcen für die Video-Konvertierung erweitert. Das Plugin \textit{videoConverted} wird um eine Regel erweitert, die zum Abschluss der Video-Konvertierung die Lambda-Funktion ausführt. Alle Plugins, bei denen Lambda-Funktionen auf andere Dienste zugreifen, erhalten zusätzliche Berechtigungen für den aufzurufenden Dienst im Template.
+
+Einen Ausschnitt der Anpassungen am Plugin \textit{createVideo} zeigt \autoref{lst:AmplifyCreateVideo}. Hier ist die Ergänzung der Attribute \textit{MediaConvertJobTemplate} und \textit{MediaConvertQueue} und deren Definitionen zu sehen. Wichtig dabei ist, dass der Name des Diensts jeweils das aktuelle Environment beinhaltet. Sonst wäre es nicht möglich über verschiedene Git-Branches zu arbeiten, da die Namen eindeutig sein müssen. Das Attribut \textit{SettingsJson}, welches hier nicht vollständig dargestellt ist, speichert die Definition für die Video-Konvertierung.
+
+\lstinputlisting[
+  language=JavaScript,
+  backgroundcolor=\color{lightgray},
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  showspaces=false,
+  numbers=left,
+  numberstyle=\footnotesize,
+  numbersep=9pt,
+  tabsize=2,
+  breaklines=true,
+  showtabs=false,
+  captionpos=b
+  caption={Amplify Custom Plugin},
+  label=lst:AmplifyCreateVideo
+]{\srcloc/amplify/cf-create-video.json}
 
 \subsection{Backend}
 
@@ -168,7 +192,8 @@ test \autoref{lst:AmplifyGraphQLSchema}
 ]{\srcloc/amplify/schema.graphql}
 
 
-GraphQL-Schema + Permissions
+GraphQL-Schema
+Permissions
 Lambda-Funktionen
 
 \subsection{Frontend}
