@@ -40,12 +40,12 @@ Als nächstes werden Lösungsansätze, um die nichtfunktionalen Anforderungen, a
 
 <<<<<todo
 \begin{description}
-   \item[Verfügbarkeit] Amplify bietet für Frontend und Backend ein Zero-Downtime Deployment.
-   \item[Skalierbarkeit] Durch die Serverless-Architektur skalieren Dienste automatisch innerhalb der \ac{AWS}-Cloud. Die DynamoDB-Datenbank ist serverless und muss deshalb auch nicht skaliert werden.
-   \item[Analysierbarkeit] Durch den Einsatz von CloudWatch können Anfragen für Lambda-Funktionen nachvollzogen werden.
-   \item[Interoperabilität] Durch den Einsatz von AppSync ist mit GraphQL eine einheitliche Schnittstelle sichergestellt. Außerdem werden die GraphQL-Queries und Mutations automatisch über eine Codegenerierung für das Frontend erstellt.
-   \item[Backups] Durch den Einsatz von AWS Backup werden automatisierte Backups aufgesetzt.
-   \item[Wiederherstellbarkeit] Das von AWS Backup erstellte Backup für die Datenbank DynamoDB kann manuell eingespielt werden.
+   \item[Verfügbarkeit] Firebase bietet für Frontend und Backend ein Zero-Downtime Deployment.
+   \item[Skalierbarkeit] Durch die Serverless-Architektur skalieren Funktionen sowie Firestore automatisch innerhalb der \ac{Google}-Cloud.
+   \item[Analysierbarkeit] Durch den Einsatz von Cloud Logging können Anfragen für Funktionen nachvollzogen werden.
+   \item[Interoperabilität] Es wird keine REST- oder GraphQL-Schnittstelle genutzt. Stattdessen werden die Funktionen des Backends direkt aufgerufen. Damit ist die Interoperabilität nicht direkt gegeben.
+   \item[Backups] Backups lassen sich automatisiert über Firestore aktivieren.
+   \item[Wiederherstellbarkeit] Das Backup von Firestore muss manuell eingespielt werden..
 \end{description}
 <<<< todo end
 
