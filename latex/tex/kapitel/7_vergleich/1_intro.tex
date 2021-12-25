@@ -10,17 +10,28 @@
 
 tbd
 
-- Break-Even Point grafik
+- Break-Even Point grafik für preise
 
 - Serverless
 - CDK
 
 - CDK als Alternative zu AWS Amplify, da es wesentlich flexibler
 
-
-
 Risiken und technische Schulden bei Amplify
 
 Manuelle Anpassung von Ressourcen:
 
 Einige Anpassungen an von Amplify bereitgestellten Ressourcen lassen sich im CloudFormation-Template nicht verändern. Der Build-Prozess überschreibt die Veränderung, so dass folgendes Szenario nicht möglich ist: Im \textit{AuthStack} muss die Identifikation des User-Pools statt die des Identity-Pools genutzt werden, damit die Lambda-Funktion weiß, um welchen Nutzer es sich handelt. Als Workaround muss die Änderung manuell in die Ressource eingetragen werden. Das ist sehr fehleranfällig, da bei einem erneuten Setup des Projektes diese manuelle Änderung immer wieder eingespielt werden muss.
+
+abhängig von Amplify-CLI, selbst erstellen fast kaum möglich
+
+
+- SAM in Amplify
+- Emulator gibt es bei Firebase
+
+- Amplify hat Groups in Cognito, Cognito ist umfangreicher
+- Authentication hat keine Gruppen
+
+- Firebase hat keine einheitliche AppSync Schnittstelle, die direkt auf dynamodb resolved, sondern man muss das selbst schreiben
+
+Amplify generell komplexer als Firebase
