@@ -38,20 +38,22 @@ Auch hier werden ausschließlich interne Dienste der Google Cloud verwendet, so 
 
 Als nächstes werden Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen:
 
-<<<<<todo
 \begin{description}
    \item[Verfügbarkeit] Firebase bietet für Frontend und Backend ein Zero-Downtime Deployment.
    \item[Skalierbarkeit] Durch die Serverless-Architektur skalieren Funktionen sowie Firestore automatisch innerhalb der Google-Cloud.
    \item[Analysierbarkeit] Durch den Einsatz von Cloud Logging können Anfragen für Funktionen nachvollzogen werden.
    \item[Interoperabilität] Es wird keine REST- oder GraphQL-Schnittstelle genutzt. Stattdessen werden die Funktionen des Backends direkt aufgerufen. Damit ist die Interoperabilität nicht direkt gegeben.
    \item[Backups] Backups lassen sich automatisiert über Firestore aktivieren.
-   \item[Wiederherstellbarkeit] Das Backup von Firestore muss manuell eingespielt werden..
+   \item[Wiederherstellbarkeit] Das Backup von Firestore muss manuell eingespielt werden.
 \end{description}
-<<<< todo end
 
 \subsection{Bausteinsicht}
 
+
+
 \subsection{Laufzeitsicht}
+
+Die Laufzeitsicht beschreibt die wichtigsten Prozesse und wie die Bausteine miteinander interagieren.
 
 \subsubsection{Auflisten, Aktualisieren und Löschen eines Videos}
 
@@ -62,19 +64,15 @@ Als nächstes werden Lösungsansätze, um die nichtfunktionalen Anforderungen, a
   \label{Firebase:laufzeitsicht1}
 \end{figure}
 
+\autoref{Firebase:laufzeitsicht1} stellt den Prozess, wie Videos von Nutzern aufgelistet, aktualisiert oder gelöscht werden, dar. Dieser wird im folgenden Abschnitt näher erläutert:
 
-Ablauf:
-- Functions: update, delete
-- 1. Call auf Function
-- 2. Call auf Firestore von Function
-
-- 3. Call auf Firebase Storage für presignedLink
-
-- Besonderheiten beim Lesen
-  - Search
-
-- Besonderheiten bei Permissions (?)
-  - prüfen, ob admin rolle oder ob owner, aber alles in separater DB gespeichert, nicht wie bei Cognito
+\begin{enumerate}
+  \item{Der Nutzer stellt eine Anfrage mittels eines Funktionsaufrufs, der den JSON Webtoken und weitere Funktionsparameter mitsendet.}
+  \item{Der Nutzer wird autorisiert und die Funktion wird mit einer Kontext-Variable, die den Nutzer enthält, ausgeführt. Die Funktion führt nun weitere Anfragen an Firestore und optional an Storage aus.}
+  \item{Die Rechteprüfungen beim Aktualisieren oder Löschen des Videos werden selbst durchgeführt, indem eine Tabelle mit einer Liste aller Administratoren geholt wird.}
+  \item{Handelt es sich um eine Anfrage zum Auflisten, werden aus der Video-Tabelle alle Datensätze unter Berücksichtigung des Suchfelds geholt. Bei den Abfragen zum Aktualisieren oder löschen prüft die Funktion das Besitzer-Attribut, wenn der Nutzer kein Administrator ist.}
+  \item{Handelt es sich um eine Anfrage zum Auflisten, werden signierte temporäre Links über den Service Storage erstellt.}
+\end{enumerate}
 
 \subsubsection{Erstellen eines Videos}
 
