@@ -58,7 +58,7 @@ Wie bei \ac{AWS} Amplify gibt es eine Unterteilung zwischen Frontend, auf das di
     \item DeleteVideo
     \item GetVideo
   \end{itemize}
-  \item{Die \textit{Transcoder API} stellt eine Schnittstelle zur Verfügung, um Videos mit Wasserzeichen zu versehen und abzuspeichern.}
+  \item{Die \textit{Transcoder \ac{API}} stellt eine Schnittstelle zur Verfügung, um Videos mit Wasserzeichen zu versehen und abzuspeichern.}
   \item{Die Datenbank \textit{Cloud Firestore} speichert alle Videos sowie eine Liste aller Administratoren der Anwendung ab.}
   \item{Das Dateisystem \textit{Cloud Storage} speichert alle Video-Dateien ab.}
 \end{itemize}
@@ -184,4 +184,62 @@ Zuletzt muss auch definiert werden, wie die Zugriffsrechte auf die Datenbank Fir
 
 \subsection{Frontend}
 
-Für das Frontend definiert die Konfigurationsdatei das Attribut \textit{hosting}. Dieses definiert, welcher Pfad beim Deployment hochgeladen wird und welche Dateien dabei ignoriert werden. Auf Grund der Tatsache, dass es sich um React.js handelt und das Frontend damit eine Single-Page Application ist, muss jede Anfrage auf die Datei \textit{index.html} umgeschrieben werden. React.js kann das Routing innerhalb der Applikation in Folge selbst vornehmen. Dafür nutzt das Frontend das Paket \textit{react-router-dom}. Um Aufrufe auf die Cloud Functions durchzuführen wird ebenfalls wie im Backend das Paket \textit{firebase-functions} genutzt.
+Für das Frontend definiert die Konfigurationsdatei das Attribut \textit{hosting}. Dieses definiert, welcher Pfad beim Deployment hochgeladen wird und welche Dateien dabei ignoriert werden. Auf Grund der Tatsache, dass es sich um React.js handelt und das Frontend damit eine Single-Page Application ist, muss jede Anfrage auf die Datei \textit{index.html} umgeschrieben werden. React.js kann das Routing innerhalb der Applikation in Folge selbst vornehmen. Dafür nutzt das Frontend das Paket \textit{react-router-dom}.
+
+Um Login, Logout und Registrierung abzubilden, wird die Komponente \textit{StyledFirebaseAuth} aus dem Paket \textit{react-firebaseui} verwendet. Diese wird dann mit dem React-Router verbunden, so dass die Anwendung nur für eingeloggte Benutzer angezeigt wird. Dies erfolgt über einen eigenen \textit{AuthContextProvider}, der den Nutzer und den aktuellen Authentifizierungsstatus speichert. Dieser muss die Applikation umschließen. Außerdem werden zwei weitere Komponenten (\textit{PrivateRoute} und \textit{PublicRoute}) entworfen, die über den Provider eine private Route oder eine öffentliche Route bereitstellen. Diese beiden Komponenten dienen als Wrapper für die Route selbst und regeln deren Sichtbarkeit. Wird die private Route als nicht-authentifizierter Nutzer aufgerufen, wird dieser auf die Login-Seite umgeleitet. Umgekehrt wird beim Aufruf einer öffentlichen Route wie der Login-Seite bei einem authentifizierten Nutzer auf die Startseite umgeleitet. \autoref{lst:FirebaseAuthContextProvider} stellt die einzelnen Komponenten dar.
+
+\lstinputlisting[
+  language=JavaScript,
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  showspaces=false,
+  numbers=left,
+  numberstyle=\footnotesize,
+  numbersep=9pt,
+  tabsize=2,
+  breaklines=true,
+  showtabs=false,
+  caption={Firebase Frontend AuthContextProvider},
+  label=lst:FirebaseAuthContextProvider
+]{\srcloc/firebase/frontend-auth.js}
+
+Um Aufrufe auf die Cloud Functions durchzuführen wird ebenfalls wie im Backend das Paket \textit{firebase-functions} genutzt. Ein Beispiel für einen solchen Aufruf stellt \autoref{lst:FirebaseFrontendCreateVideo} für das Erstellen eines Videos dar.
+
+\lstinputlisting[
+  language=JavaScript,
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  showspaces=false,
+  numbers=left,
+  numberstyle=\footnotesize,
+  numbersep=9pt,
+  tabsize=2,
+  breaklines=true,
+  showtabs=false,
+  caption={Firebase Frontend createVideo},
+  label=lst:FirebaseFrontendCreateVideo
+]{\srcloc/firebase/frontend-createVideo.js}
+
+Um Dateien in den Storage hochzuladen, wird die Storage-Komponente aus Firebase genutzt. \autoref{lst:FirebaseFrontendUpload} zeigt den Ablauf des Hochladens einer Datei mit Firebase.
+
+\lstinputlisting[
+  language=JavaScript,
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  showspaces=false,
+  numbers=left,
+  numberstyle=\footnotesize,
+  numbersep=9pt,
+  tabsize=2,
+  breaklines=true,
+  showtabs=false,
+  caption={Firebase Frontend Upload},
+  label=lst:FirebaseFrontendUpload
+]{\srcloc/firebase/frontend-upload.js}
+
+Um Kollisionen von Dateinamen zu vermeiden, wird vor den Dateinamen eine \ac{UUID} gehängt und außerdem von einfachen Zufallszahlen-Generatoren abgesehen.
+
+Beim Hochladen können auf verschiedene Ereignisse reagiert werden. In regelmäßigen Zeitabschnitten wird der Fortschritt des Uploads über eine Funktion aufgerufen. Damit lässt sich eine Ladeanimation mit einem Fortschrittsbalken realisieren. Ist der Upload abgeschlossen, wird ebenfalls eine Funktion aufgerufen.
