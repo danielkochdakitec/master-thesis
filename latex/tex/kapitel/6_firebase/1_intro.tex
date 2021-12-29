@@ -20,7 +20,6 @@ Ebenfalls wie bei \ac{AWS} Amplify lässt sich die Architektur von Firebase in P
       \item Authentication
       \item Cloud Functions
       \item Transcoder API
-      \item IAM
     \end{itemize}
   \item Datenhaltung
     \begin{itemize}
@@ -31,8 +30,6 @@ Ebenfalls wie bei \ac{AWS} Amplify lässt sich die Architektur von Firebase in P
       \item Firebase Hosting
     \end{itemize}
 \end{itemize}
-
-Die Dienste IAM und Authentication befindet sich zugleich in der Logik als auch in der Datenhaltung, da dort neben der Authentifizierung und Autorisierung auch die Benutzer persistiert werden.
 
 Auch hier werden ausschließlich interne Dienste der Google Cloud verwendet, so dass die Rahmenbedingungen nicht missachtet sind und die beiden Technologien vergleichbar sind. Abgesehen von Cloud-Diensten ist der Unterschied beider Projekte auf technischer Ebene, dass die Firebase-Anwendung im Backend TypeScript statt JavaScript verwendet.
 
@@ -49,7 +46,22 @@ Als nächstes werden Lösungsansätze, um die nichtfunktionalen Anforderungen, a
 
 \subsection{Bausteinsicht}
 
+Wie bei \ac{AWS} Amplify gibt es eine Unterteilung zwischen Frontend, auf das dieses Kapitel nicht näher eingeht und dem Backend, welches wichtig für die Vergleichbarkeit der Anwendungen ist. Das Backend besteht aus den folgenden Bausteinen:
 
+\begin{itemize}
+  \item{Der Dienst \textit{Authentication} regelt die Authentifizierung und die Autorisierung von Benutzern.}
+  \item{Der Dienst \textit{Cloud Functions} stellt die folgenden Funktionen zur Verfügung, die in Form einer Schnittstelle an das Frontend freigegeben werden:}
+  \begin{itemize}
+    \item CreateVideo
+    \item AddWatermark
+    \item UpdateVideo
+    \item DeleteVideo
+    \item GetVideo
+  \end{itemize}
+  \item{Die \textit{Transcoder API} stellt eine Schnittstelle zur Verfügung, um Videos mit Wasserzeichen zu versehen und abzuspeichern.}
+  \item{Die Datenbank \textit{Cloud Firestore} speichert alle Videos sowie eine Liste aller Administratoren der Anwendung ab.}
+  \item{Das Dateisystem \textit{Cloud Storage} speichert alle Video-Dateien ab.}
+\end{itemize}
 
 \subsection{Laufzeitsicht}
 
@@ -60,7 +72,7 @@ Die Laufzeitsicht beschreibt die wichtigsten Prozesse und wie die Bausteine mite
 \begin{figure}
   \centering
   \includegraphics[width=1\columnwidth]{6_firebase/laufzeitsicht_1.pdf}
-  \caption{Firebase - Laufzeitsicht - Lesen, Aktualisieren und Löschen eines Videos}
+  \caption{Firebase - Laufzeitsicht - Auflisten, Aktualisieren und Löschen eines Videos}
   \label{Firebase:laufzeitsicht1}
 \end{figure}
 
@@ -69,8 +81,8 @@ Die Laufzeitsicht beschreibt die wichtigsten Prozesse und wie die Bausteine mite
 \begin{enumerate}
   \item{Der Nutzer stellt eine Anfrage mittels eines Funktionsaufrufs, der den JSON Webtoken und weitere Funktionsparameter mitsendet.}
   \item{Der Nutzer wird autorisiert und die Funktion wird mit einer Kontext-Variable, die den Nutzer enthält, ausgeführt. Die Funktion führt nun weitere Anfragen an Firestore und optional an Storage aus.}
-  \item{Die Rechteprüfungen beim Aktualisieren oder Löschen des Videos werden selbst durchgeführt, indem eine Tabelle mit einer Liste aller Administratoren geholt wird.}
-  \item{Handelt es sich um eine Anfrage zum Auflisten, werden aus der Video-Tabelle alle Datensätze unter Berücksichtigung des Suchfelds geholt. Bei den Abfragen zum Aktualisieren oder löschen prüft die Funktion das Besitzer-Attribut, wenn der Nutzer kein Administrator ist.}
+  \item{Die Rechteprüfungen beim Aktualisieren oder Löschen des Videos werden selbst durchgeführt, indem eine Liste aller Administratoren geholt wird.}
+  \item{Handelt es sich um eine Anfrage zum Auflisten, werden aus der Video-Tabelle alle Datensätze unter Berücksichtigung des Suchfelds geholt. Bei den Abfragen zum Aktualisieren oder zum Löschen prüft die Funktion das Besitzer-Attribut, sofern der Nutzer kein Administrator ist.}
   \item{Handelt es sich um eine Anfrage zum Auflisten, werden signierte temporäre Links über den Service Storage erstellt.}
 \end{enumerate}
 
@@ -83,18 +95,24 @@ Die Laufzeitsicht beschreibt die wichtigsten Prozesse und wie die Bausteine mite
   \label{Firebase:laufzeitsicht2}
 \end{figure}
 
-Functions:
-- AddWaterMarkToVideo
-- createVideo
-
-0. Upload in firestore storage
-1. Call to createVideo
-2. Create video in firebase (with raw link to firestore)
-3. Firestore Trigger executes on Create video/{docId}
-4. Calls video-transcoder to add watermark, put in storage and put the new link in Firestore again
-
+\autoref{Firebase:laufzeitsicht2} stellt den Prozess des Erstellens eines Videos dar.
+\begin{enumerate}
+  \item{Zu Beginn lädt der Nutzer das Video in einen gemeinsamen Ordner im Storage hoch. Der Storage ist nach außen hin nicht aufrufbar.}
+  \item{Dann ruft der Nutzer die Funktion im Backend auf und gibt den JSON Webtoken sowie die weiteren Parameter wie die URL des Videos im Storage, den Titel und die Beschreibung des Videos mit.}
+  \item{Die entsprechende Funktion wird ausgeführt, welche die Informationen in Firestore abspeichert.}
+  \item{Aufgrund des neuen Eintrags in Firestore, wird die Wasserzeichen-Funktion ausgelöst. Diese stellt eine Anfrage an die Transcoder-API und speichert den neuen Link zum verarbeiteten Video wieder im Storage.}
+\end{enumerate}
 
 \subsection{Verteilungssicht}
+
+Während der \autoref{Firebase:verteilungssicht}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.75\columnwidth]{6_firebase/verteilungssicht.pdf}
+  \caption{Firebase - Verteilungssicht}
+  \label{Firebase:verteilungssicht}
+\end{figure}
 
 \section{Implementierung}
 
