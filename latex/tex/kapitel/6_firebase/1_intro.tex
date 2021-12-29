@@ -118,4 +118,70 @@ Im Gegensatz zu \ac{AWS} Amplify verwendet Firebase keine Stacks, sondern stellt
 
 \section{Implementierung}
 
-todo
+Die Implementierung in Firebase unterscheidet die Themen Backend und Frontend. Eine Darstellung der Infrastruktur ist nicht nötig, da die Infrastruktur nicht auf Stacks aufbaut, sondern Elemente wie Funktionen direkt im Code definiert werden.
+
+Die Anwendung wird wesentlich über eine Konfigurationsdatei definiert. Dort werden Hosting, Cloud Functions, Cloud Storage und Cloud Firestore definiert. Die Datei wird in \autoref{lst:FirebaseConfiguration} dargestellt.
+
+\lstinputlisting[
+  language=JavaScript,
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  showspaces=false,
+  numbers=left,
+  numberstyle=\footnotesize,
+  numbersep=9pt,
+  tabsize=2,
+  breaklines=true,
+  showtabs=false,
+  caption={Firebase Konfiguration},
+  label=lst:FirebaseConfiguration
+]{\srcloc/firebase/firebase.json}
+
+\subsection{Backend}
+
+Zum Backend gehören die Konfigurationsattribute \textit{functions}, \textit{storage} und \textit{firestore}, die nun näher beschrieben werden.
+
+Die Cloud Functions sind in Typescript geschrieben. Die Konfigurationsdatei definiert das Kommando zum Build des Projekts sowie den Ordner, in dem sich das Projekt befindet. Der Code selbst verwendet spezielle Pakete aus Firebase wie \textit{firebase-functions}, um Funktionen direkt im Code zu definieren. Auch wird das Paket \textit{firebase-admin} verwendet, um Cloud Firestore und Cloud Storage aufrufen zu können. Für das Hinzufügen des Wasserzeichens auf ein Video wird das Paket \textit{@google-cloud/video-transcoder} verwendet.
+
+\autoref{lst:FirebaseFunctionCreateVideo} zeigt anhand des Erstellen eines Videos in der Datenbank eine solche Funktion, die direkt im Code definiert wird und die benötigten Pakete nutzt.
+
+\lstinputlisting[
+  language=JavaScript,
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  showspaces=false,
+  numbers=left,
+  numberstyle=\footnotesize,
+  numbersep=9pt,
+  tabsize=2,
+  breaklines=true,
+  showtabs=false,
+  caption={Firebase Funktion createVideo},
+  label=lst:FirebaseFunctionCreateVideo
+]{\srcloc/firebase/createvideo.ts}
+
+Für den Cloud Storage wird die Datei in \autoref{lst:FirebaseStorageRules} referenziert, welche Regeln für den Zugriff definiert. Die Regeln sehen ein Leserecht für alle Benutzer und ein Schreibrecht für alle authentifizierten Nutzer vor. Im Produktionsbetrieb ist es sinnvoll, die Regeln weiter einzuschränken und Nutzern ausschließlich einen Zugriff auf einen privaten Bereich zu erlauben, so dass sie keine anderen Dateien bearbeiten können. Die entsprechende Funktion muss die Datei nach der Verarbeitung dann vom privaten Bereich in einen anderen Bereich verschieben, so dass sie dann über einen signierten Link nach außen freigegeben werden kann.
+
+\lstinputlisting[
+  language=JavaScript,
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  showspaces=false,
+  numbers=left,
+  numberstyle=\footnotesize,
+  numbersep=9pt,
+  tabsize=2,
+  breaklines=true,
+  showtabs=false,
+  caption={Firebase Cloud Storage Regeln},
+  label=lst:FirebaseStorageRules
+]{\srcloc/firebase/storage.rules}
+
+Zuletzt muss auch definiert werden, wie die Zugriffsrechte auf die Datenbank Firestore geschützt sind. Dies erfolgt mit einer ähnlichen Syntax wie die Regeln des Storage. Auch hier können zusätzliche Optimierungen für den Produktionsbetrieb sinnvoll sein.
+
+\subsection{Frontend}
+
+Für das Frontend definiert die Konfigurationsdatei das Attribut \textit{hosting}. Dieses definiert, welcher Pfad beim Deployment hochgeladen wird und welche Dateien dabei ignoriert werden. Auf Grund der Tatsache, dass es sich um React.js handelt und das Frontend damit eine Single-Page Application ist, muss jede Anfrage auf die Datei \textit{index.html} umgeschrieben werden. React.js kann das Routing innerhalb der Applikation in Folge selbst vornehmen. Dafür nutzt das Frontend das Paket \textit{react-router-dom}. Um Aufrufe auf die Cloud Functions durchzuführen wird ebenfalls wie im Backend das Paket \textit{firebase-functions} genutzt.
