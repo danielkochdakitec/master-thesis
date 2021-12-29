@@ -105,14 +105,16 @@ Die Laufzeitsicht beschreibt die wichtigsten Prozesse und wie die Bausteine mite
 
 \subsection{Verteilungssicht}
 
-Während der \autoref{Firebase:verteilungssicht}
-
 \begin{figure}
   \centering
   \includegraphics[width=0.75\columnwidth]{6_firebase/verteilungssicht.pdf}
   \caption{Firebase - Verteilungssicht}
   \label{Firebase:verteilungssicht}
 \end{figure}
+
+\autoref{Firebase:verteilungssicht} stellt dar, wie die Anwendung bereitgestellt wird.
+
+Im Gegensatz zu \ac{AWS} Amplify verwendet Firebase keine Stacks, sondern stellt die einzelnen Dienste über eine REST-API zur Verfügung. Diese lässt sich über das Command-Line Interface aufrufen. Alternativ kann die Schnittstelle auch direkt angesprochen werden. Die Anwendung benötigt diese Funktionalität allerdings nicht, da keine speziellen Anforderungen an das Deployment bestehen und damit der Standard ausreicht.
 
 \section{Implementierung}
 
