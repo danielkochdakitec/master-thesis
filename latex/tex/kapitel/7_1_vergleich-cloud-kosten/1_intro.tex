@@ -46,6 +46,11 @@ Free tier:
 
 
 
+
+
+
+
+
 \subsection{Serverless-Computing}
 
 AWS Lambda inklusive AWS AppSync und Amazon EventBridge) mit Cloud Functions
@@ -84,9 +89,26 @@ AWS Lambda (x86)
 
 \subsection{Storage}
 
+\begin{figure}%
+    \centering
+    \subfloat[\centering Gespeicherte Daten]{{\includegraphics[width=6cm]{7_1_vergleich-cloud-kosten/storage-amount.pdf} }}%
+    \qquad
+    \subfloat[\centering Get-Anfragen]{{\includegraphics[width=6cm]{7_1_vergleich-cloud-kosten/storage-get.pdf} }}%
+    \caption{Kostenvergleich zwischen Amazon S3 und Google Cloud Storage}%
+    \label{kostenvergleichStorage}%
+    \qquad
+    \subfloat[\centering Put/Post/List-Anfragen]{{\includegraphics[width=6cm]{7_1_vergleich-cloud-kosten/storage-put.pdf} }}%
+    \caption{Kostenvergleich zwischen Amazon S3 und Google Cloud Storage}%
+    \label{kostenvergleichStorage}%
+\end{figure}
+
 AWS S3 mit Cloud Storage
 
 S3
+
+- Menge gespeicherter Daten
+- Put, Post, List und Delete-Anfragen
+- Get-Anfragen
 
 Parameter
 - S3 Standard Storage in GB
@@ -105,8 +127,28 @@ Berechnung:
     - 102400 GB x 0.07 USD per GB = 7168.00 USD (next 100TB)
     - 999846400 GB x 0.05 USD per GB = 49992320.00 USD (larger than 150TB)
 
+Free tier: (für 12 Monate allerdings nur)
+- 5 GB of Standard Storage
+- 20,000 Get Requests
+- 2,000 Put Requests
 
+Cloud Storage (Standard Storage,
+- Parameter
+    - GB stored
+    - Class A Operations: PUT, POST, LIST etc.
+    - Class B Operations: GET
+    - GB transferred
+- Berechnung
+    - Storage costs: $0.023 per GB / month
+    - Class A = $0.05 per 10.000 Class A operations
+    - Class B = $0.004 per 10.000 Class B operations
+    - Transfer = ?
 
+Free tier:
+- 5GB storage
+- 50k Class B
+- 20K Class A
+- 30 GB transfer
 
 
 \subsection{Datenbank-Service}

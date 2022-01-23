@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-plt.style.use(['science','ieee'])
+plt.style.use('science')
 
 overlapping = 0.8
 xLength = 80
@@ -23,8 +23,6 @@ plt.plot(x, firebaseHosting, '-', label='Firebase Hosting', color='#4285F4', alp
 
 plt.xlim([0, xLength])
 #plt.ylim([0, yLength])
-
-plt.xticks(np.arange(0, 80, 5))
 
 plt.xlabel('Gespeicherte Daten (GB)', color='#1C2833')
 plt.ylabel('Kosten (US-Dollar)', color='#1C2833')
