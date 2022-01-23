@@ -1,10 +1,10 @@
 \chapter{Vergleich der Cloud-Kosten}
 
-Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten für die entwickelte Software verglichen. Außerdem werden im Kapitel Anwendungsszenarien vorgestellt, um zu ermitteln, für welchen Fall welcher Dienst wirtschaftlicher ist.
+Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten \autocite{awsPricing} \autocite{gcpPricing} für die entwickelte Software am Standort Frankfurt verglichen. Die verwendeten Cloud-Dienste werden aus der Architektur extrahiert. Außerdem werden im Kapitel Anwendungsszenarien vorgestellt, um zu ermitteln, für welchen Fall welcher Dienst wirtschaftlicher ist.
 
 \section{Kostenkategorien}
 
-Der Unterarbschnitt stellt die Kosten in unterschiedlichen Kategorien dar. Eine Kategorie kann auf einem oder mehreren Cloud-Diensten bestehen. Zu beachten ist, dass Amazon Cognito in der Preiskalkulation vernachlässigt wird. Der Dienst ist kostenlos, sofern die erweiterten Sicherheitsfunktionalitäten nicht aktiv sind. Diese werden für die Software nicht benötigt. Seitens Firebase gibt es hier ebenfalls keine extra Kosten pro Nutzer.
+Der Unterabschnitt stellt die Kosten in unterschiedlichen Kategorien dar. Eine Kategorie kann aus einem oder mehreren Cloud-Diensten bestehen. Zu beachten ist, dass Amazon Cognito in der Preiskalkulation vernachlässigt wird. Da die erweiterten Sicherheitsfunktionalitäten von Amazon Cognito nicht genutzt werden, ist der Cloud-Dienst kostenlos. Seitens Firebase gibt es hier ebenfalls keine extra Kosten pro Nutzer.
 
 \subsection{Hosting}
 
@@ -21,6 +21,21 @@ Berechnung:
 - Build minutes cost = Number of build minutes * 0,01 USD / min
 - Data stored cost = Data stored per month GB * 0.023 USD / GB * mon
 - Data served cost = Data served per month GB * 0.15 USD / GB * mon
+
+Free tier:
+5 GB stored per month
+15 GB served per month
+
+Firebase Hosting
+- Parameter
+    - GB stored
+    - GB transferred
+- Berechnung
+    - Storage = $0.026/GB
+    - Data transfer = $0.15/GB
+
+Free tier: 10 GB
+Data transfer: 360 MB/day
 
 
 
@@ -129,4 +144,6 @@ zusammenfassung aller dienste und wo welcher dienst günstiger ist
 
 \section{Preisbeispiele}
 
-- Szenarien 1 2 3 ggf. auch nur eins, TODO: Nutzungsprofile für die Anwendung definieren, damit der vergleich einfacher ist
+- Szenarien 1 2 3 ggf. auch nur eins
+
+TODO: Nutzungsprofile für die Anwendung definieren, damit der vergleich einfacher ist
