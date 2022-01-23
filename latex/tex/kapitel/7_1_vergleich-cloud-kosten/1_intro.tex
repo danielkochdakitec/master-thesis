@@ -1,65 +1,34 @@
 \chapter{Vergleich der Cloud-Kosten}
 
-todo einleitungstext
-
-ggf. generelle Vergleichspunkte (Anzahl der Nutzer, Zufriedenheit, Akzeptant, etc., Zeit im Markt)
-
-Der folgende Abschnitt vergleicht die Kosten von AWS Amplify mit Firebase. Aufgrund der Tatsache, dass die verwendeten Cloud-Dienste der Architekturen nicht direkt abbildbar sind, bietet es sich an in Kategorien zu vergleichen.
-
-\begin{description}
-  \item[als Hosting-Service] Amplify Hosting verglichen mit Firebase Hosting
-  \item[als Serverless-Computing-Service] AWS Lambda inklusive AWS AppSync und Amazon EventBridge) mit Cloud Functions
-  \item[als Storage-Service] AWS S3 mit Cloud Storage
-  \item[als Datenbank-Service] DynamoDB mit Cloud Firestore
-  \item[als Videokonvertierungs-Service] AWS Elemental MediaConvert mit Google Transcoder API
-\end{itemize}
+Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten für die entwickelte Software verglichen. Außerdem werden im Kapitel Anwendungsszenarien vorgestellt, um zu ermitteln, für welchen Fall welcher Dienst wirtschaftlicher ist.
 
 \section{Kostenkategorien}
 
+Der Unterarbschnitt stellt die Kosten in unterschiedlichen Kategorien dar. Eine Kategorie kann auf einem oder mehreren Cloud-Diensten bestehen. Zu beachten ist, dass Amazon Cognito in der Preiskalkulation vernachlässigt wird. Der Dienst ist kostenlos, sofern die erweiterten Sicherheitsfunktionalitäten nicht aktiv sind. Diese werden für die Software nicht benötigt. Seitens Firebase gibt es hier ebenfalls keine extra Kosten pro Nutzer.
+
 \subsection{Hosting}
+
+Amplify Hosting verglichen mit Firebase Hosting
+
+AWS Amplify
+
+Parameter:
+- Number of build minutes
+- Data stored per month GB
+- Data served per month GB
+
+Berechnung:
+- Build minutes cost = Number of build minutes * 0,01 USD / min
+- Data stored cost = Data stored per month GB * 0.023 USD / GB * mon
+- Data served cost = Data served per month GB * 0.15 USD / GB * mon
+
+
 
 \subsection{Serverless-Computing}
 
-\subsection{Storage}
+AWS Lambda inklusive AWS AppSync und Amazon EventBridge) mit Cloud Functions
 
-\subsection{Datenbank-Service}
-
-\subsection{Videokonvertierung}
-
-
-Amazon EventBridge
-Amazon Cognito
-
-
-
-
-
-
-
-
-
-
-- Übersicht über Kostenpunkte
-  - Was gibt es für gemeinsamkeiten (Vergleich)
-  - Was ist bei AWS kostenlos
-  - Was ist bei Firebase kostenlos
-  - Free tier????
-  - Beispiel-Schema der Berechnung
-  - Endübersicht
-
-- Preise / Cloud-Kosten
-  - Break-Even Point grafik für preise
-  - Preismodell
-
-
-
-  Projektkosten:
-  https://calculator.aws/#/estimate?id=b76bdc9aa6582ee140d631ee394dc6b0e52048f7
-
-  Frankfurt, monatliche Kosten, exklusive Free-Tier, da manche Angebote nur 1 Jahr gültig sind
-
-  AWS
- AWS Lambda (x86)
+AWS Lambda (x86)
 
   Paramater:
   - Number of requests: 10.000
@@ -79,69 +48,6 @@ Amazon Cognito
   Berechnung:
   - Event Costs: 1 Mio Custom Events x 0.000001 USD
 
-  Amazon Cognito
-  - Without advanced security features: free
-  - We don’t need advanced security features here
-
-  S3
-
-  Parameter
-  - S3 Standard Storage in GB
-  - PUT, COPY, POST, LIST Requests
-  - GET, SELECT Requests
-  - Inbound Data Transfer: Free
-  - Outbound Data Transfer: GB
-
-  Berechnung:
-  - S3 Standard Storage Costs: S3 Standard Storage in GB * 0.0245000000 USD
-  - S3 Standard PUT request costs: Number of PUT requests * 0.0000054 USD per request
-  - S3 Standard GET request costs: Number of GET requests * 0.00000043 USD per request
-  - Outbound Data Transfer:
-      - 10240 GB x 0.09 USD per GB = 921.60 USD (next 10TB)
-      - 40960 GB x 0.085 USD per GB = 3481.60 USD (next 40TB)
-      - 102400 GB x 0.07 USD per GB = 7168.00 USD (next 100TB)
-      - 999846400 GB x 0.05 USD per GB = 49992320.00 USD (larger than 150TB)
-
-  DynamoDB
-
-  Parameter:
-  - Data storage size in GB
-  - Average item size
-  - Writes
-      - Standard writes vs Transactional writes: 100 / 0
-      - Number of writes: 1000
-  - Reads
-      - Eventually consistent vs Strongly vs Transactional: 100 / 0 / 0
-      - Number of reads: 10 million per month
-  - On demand backup data storage
-
-  Berechnung:
-  - Data storage costs: Data storage size * 0.306 USD
-  - Write costs: Number of writes * 0.000001525 USD
-  - Read costs: Number of reads x 1 strongly consistent portion x 1 read request units for strongly consistent reads x 25 read request units needed per item = 7,850,000,000.00 read request units for strongly consistent reads * 0.000000305 USD
-  - Backup storage costs: On demand backup data storage x 0.1224 USD
-
-  AWS Amplify
-
-  Parameter:
-  - Number of build minutes
-  - Data stored per month GB
-  - Data served per month GB
-
-  Berechnung:
-  - Build minutes cost = Number of build minutes * 0,01 USD / min
-  - Data stored cost = Data stored per month GB * 0.023 USD / GB * mon
-  - Data served cost = Data served per month GB * 0.15 USD / GB * mon
-
-  AWS Elemental MediaConvert
-
-  Parameter:
-  - Tier: basic (Fix), Video-Codec: AVC, Single pass, HD, <= 30 FPS
-  - Output usage minutes per month
-
-  Berechnung:
-  - Outputs: Output usage minutes per month * 0.017 USD / minute
-
   AppSync
 
   Parameter:
@@ -152,6 +58,74 @@ Amazon Cognito
   - OperationCosts = Query and Data Modification Operations per million * $4.00 USD
   - Data Transfer Costs = Avg response size * Modifications * $0.09 USD /.GB
 
+
+
+\subsection{Storage}
+
+AWS S3 mit Cloud Storage
+
+S3
+
+Parameter
+- S3 Standard Storage in GB
+- PUT, COPY, POST, LIST Requests
+- GET, SELECT Requests
+- Inbound Data Transfer: Free
+- Outbound Data Transfer: GB
+
+Berechnung:
+- S3 Standard Storage Costs: S3 Standard Storage in GB * 0.0245000000 USD
+- S3 Standard PUT request costs: Number of PUT requests * 0.0000054 USD per request
+- S3 Standard GET request costs: Number of GET requests * 0.00000043 USD per request
+- Outbound Data Transfer:
+    - 10240 GB x 0.09 USD per GB = 921.60 USD (next 10TB)
+    - 40960 GB x 0.085 USD per GB = 3481.60 USD (next 40TB)
+    - 102400 GB x 0.07 USD per GB = 7168.00 USD (next 100TB)
+    - 999846400 GB x 0.05 USD per GB = 49992320.00 USD (larger than 150TB)
+
+
+
+
+
+\subsection{Datenbank-Service}
+
+DynamoDB mit Cloud Firestore
+
+DynamoDB
+
+Parameter:
+- Data storage size in GB
+- Average item size
+- Writes
+    - Standard writes vs Transactional writes: 100 / 0
+    - Number of writes: 1000
+- Reads
+    - Eventually consistent vs Strongly vs Transactional: 100 / 0 / 0
+    - Number of reads: 10 million per month
+- On demand backup data storage
+
+Berechnung:
+- Data storage costs: Data storage size * 0.306 USD
+- Write costs: Number of writes * 0.000001525 USD
+- Read costs: Number of reads x 1 strongly consistent portion x 1 read request units for strongly consistent reads x 25 read request units needed per item = 7,850,000,000.00 read request units for strongly consistent reads * 0.000000305 USD
+- Backup storage costs: On demand backup data storage x 0.1224 USD
+
+\subsection{Videokonvertierung}
+
+AWS Elemental MediaConvert mit Google Transcoder API
+
+AWS Elemental MediaConvert
+
+Parameter:
+- Tier: basic (Fix), Video-Codec: AVC, Single pass, HD, <= 30 FPS
+- Output usage minutes per month
+
+Berechnung:
+- Outputs: Output usage minutes per month * 0.017 USD / minute
+
+\subsection{Zusammenfassung}
+
+zusammenfassung aller dienste und wo welcher dienst günstiger ist
 
 \section{Preisbeispiele}
 
