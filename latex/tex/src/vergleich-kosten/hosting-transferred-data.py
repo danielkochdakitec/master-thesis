@@ -21,8 +21,6 @@ firebaseHosting = ((0.15 * x) - (10.8 * 0.15)).clip(min=0.0)
 
 plt.plot(x, firebaseHosting, '-', label='Firebase Hosting', color='#4285F4', alpha=overlapping, lw=2)
 
-plt.title('Kosten')
-
 plt.xlim([0, xLength])
 #plt.xlim([0, yLength])
 
@@ -32,6 +30,5 @@ plt.ylabel('Kosten (US-Dollar)', color='#1C2833')
 plt.legend(loc='upper left')
 
 plt.grid()
+plt.savefig('hosting-transferred-data.pdf')
 plt.show()
-
-plt.savefig('hosting-transfered-data.pdf')

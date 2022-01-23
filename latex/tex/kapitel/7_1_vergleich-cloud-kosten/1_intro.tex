@@ -8,16 +8,26 @@ Der Unterabschnitt stellt die Kosten in unterschiedlichen Kategorien dar. Eine K
 
 \subsection{Hosting}
 
-Amplify Hosting verglichen mit Firebase Hosting
+\begin{figure}%
+    \centering
+    \subfloat[\centering Gespeicherte Daten]{{\includegraphics[width=6cm]{7_1_vergleich-cloud-kosten/hosting-stored-data.pdf} }}%
+    \qquad
+    \subfloat[\centering Übertragene Daten]{{\includegraphics[width=6cm]{7_1_vergleich-cloud-kosten/hosting-transferred-data.pdf} }}%
+    \caption{Kostenvergleich Amplify Hosting und Firebase Hosting}%
+    \label{kostenvergleichHosting}%
+\end{figure}
 
-AWS Amplify
+Amplify Hosting vs Firebase Hosting
 
 Parameter:
-- Number of build minutes
-- Data stored per month GB
-- Data served per month GB
+- Gespeicherte Dateien
+- Ausgelieferte Dateien
 
-Berechnung:
+
+- Number of build minutes (nur AWS)
+
+
+Amplify:
 - Build minutes cost = Number of build minutes * 0,01 USD / min
 - Data stored cost = Data stored per month GB * 0.023 USD / GB * mon
 - Data served cost = Data served per month GB * 0.15 USD / GB * mon
@@ -26,16 +36,14 @@ Free tier:
 5 GB stored per month
 15 GB served per month
 
-Firebase Hosting
-- Parameter
-    - GB stored
-    - GB transferred
+Firebase:
 - Berechnung
     - Storage = $0.026/GB
     - Data transfer = $0.15/GB
 
-Free tier: 10 GB
-Data transfer: 360 MB/day
+Free tier:
+- Storage 10 GB
+- Data transfer: 10.8GB
 
 
 
