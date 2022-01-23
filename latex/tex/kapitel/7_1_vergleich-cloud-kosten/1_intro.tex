@@ -1,10 +1,42 @@
-\chapter{Vergleich}
+\chapter{Vergleich der Cloud-Kosten}
 
 todo einleitungstext
 
 ggf. generelle Vergleichspunkte (Anzahl der Nutzer, Zufriedenheit, Akzeptant, etc., Zeit im Markt)
 
-\section{Cloud-Kosten}
+Der folgende Abschnitt vergleicht die Kosten von AWS Amplify mit Firebase. Aufgrund der Tatsache, dass die verwendeten Cloud-Dienste der Architekturen nicht direkt abbildbar sind, bietet es sich an in Kategorien zu vergleichen.
+
+\begin{description}
+  \item[als Hosting-Service] Amplify Hosting verglichen mit Firebase Hosting
+  \item[als Serverless-Computing-Service] AWS Lambda inklusive AWS AppSync und Amazon EventBridge) mit Cloud Functions
+  \item[als Storage-Service] AWS S3 mit Cloud Storage
+  \item[als Datenbank-Service] DynamoDB mit Cloud Firestore
+  \item[als Videokonvertierungs-Service] AWS Elemental MediaConvert mit Google Transcoder API
+\end{itemize}
+
+\section{Kostenkategorien}
+
+\subsection{Hosting}
+
+\subsection{Serverless-Computing}
+
+\subsection{Storage}
+
+\subsection{Datenbank-Service}
+
+\subsection{Videokonvertierung}
+
+
+Amazon EventBridge
+Amazon Cognito
+
+
+
+
+
+
+
+
 
 
 - Übersicht über Kostenpunkte
@@ -121,39 +153,6 @@ ggf. generelle Vergleichspunkte (Anzahl der Nutzer, Zufriedenheit, Akzeptant, et
   - Data Transfer Costs = Avg response size * Modifications * $0.09 USD /.GB
 
 
+\section{Preisbeispiele}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Entwicklungsaufwand}
-
-- Welche Komplnenten kann man verwenden vs muss man selbst coden
-
-
-- Architektur und Implementierung
-  - Auth:
-    - Amplify hat Groups in Cognito, Cognito ist umfangreicher
-    - Authentication hat keine Gruppen, daher eigene Tabelle und Logik (= umfangreicher)
-  - Manuelle Anpassung von Ressourcen: Einige Anpassungen an von Amplify bereitgestellten Ressourcen lassen sich im CloudFormation-Template nicht verändern. Der Build-Prozess überschreibt die Veränderung, so dass folgendes Szenario nicht möglich ist: Im \textit{AuthStack} muss die Identifikation des User-Pools statt die des Identity-Pools genutzt werden, damit die Lambda-Funktion weiß, um welchen Nutzer es sich handelt. Als Workaround muss die Änderung manuell in die Ressource eingetragen werden. Das ist sehr fehleranfällig, da bei einem erneuten Setup des Projektes diese manuelle Änderung immer wieder eingespielt werden muss.
-    - abhängig von Amplify-CLI, selbst erstellen fast kaum möglich
- - SAM in Amplify, Emulator gibt es bei Firebase
- - Firebase hat keine einheitliche AppSync Schnittstelle, die direkt auf dynamodb resolved, sondern man muss das selbst schreiben
- - Serverless, CDK, FIrebase ist infraaturcture im code
- - Amplify generell komplexer als Firebase, Setup war schwerer, mehr Fehler, Firebase war einfacher
- - Firebase Storage kennt keine privaten user-Spaces, amplify hat das direkt mit S3 integriert
-- Wiederverwendbarkeit von Code
-- Entwicklungszeit
-- Wartbarkeit
-- Flexibilität des Frameworks
-- sonstigen Risiken
+- Szenarien 1 2 3 ggf. auch nur eins, TODO: Nutzungsprofile für die Anwendung definieren, damit der vergleich einfacher ist
