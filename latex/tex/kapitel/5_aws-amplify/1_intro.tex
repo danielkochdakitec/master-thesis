@@ -30,7 +30,6 @@ Die Architektur lässt sich in Präsentation, Logik und Datenhaltung aufteilen, 
       \item S3
       \item Cognito
       \item IAM
-      \item AWS Backup
       \item Amplify Hosting
     \end{itemize}
 \end{itemize}
@@ -46,8 +45,8 @@ Als nächstes werden Lösungsansätze, um die nichtfunktionalen Anforderungen, a
    \item[Skalierbarkeit] Durch die Serverless-Architektur skalieren Dienste automatisch innerhalb der \ac{AWS}-Cloud. Die DynamoDB-Datenbank ist serverless und muss deshalb auch nicht skaliert werden.
    \item[Analysierbarkeit] Durch den Einsatz von CloudWatch können Anfragen für Lambda-Funktionen nachvollzogen werden.
    \item[Interoperabilität] Durch den Einsatz von AppSync ist mit GraphQL eine einheitliche Schnittstelle sichergestellt. Außerdem werden die GraphQL-Queries und Mutations automatisch über eine Codegenerierung für das Frontend erstellt.
-   \item[Backups] Durch den Einsatz von AWS Backup werden automatisierte Backups aufgesetzt.
-   \item[Wiederherstellbarkeit] Das von AWS Backup erstellte Backup für die Datenbank DynamoDB kann manuell eingespielt werden.
+   \item[Backups] Durch den Einsatz von DynamoDB Backup and Restore werden automatisierte Backups für die letzten 35 Tage aufgesetzt.
+   \item[Wiederherstellbarkeit] Das von DynamoDB Backup and Restore erstellte Backup für die Datenbank DynamoDB kann direkt eingespielt werden.
 \end{description}
 
 \subsection{Bausteinsicht}

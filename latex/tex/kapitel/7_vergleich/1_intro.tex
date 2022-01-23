@@ -1,5 +1,137 @@
 \chapter{Vergleich}
 
+todo einleitungstext
+
+ggf. generelle Vergleichspunkte (Anzahl der Nutzer, Zufriedenheit, Akzeptant, etc., Zeit im Markt)
+
+\section{Cloud-Kosten}
+
+- Preise / Cloud-Kosten
+  - Break-Even Point grafik für preise
+  - Preismodell
+
+
+
+  Projektkosten:
+  https://calculator.aws/#/estimate?id=b76bdc9aa6582ee140d631ee394dc6b0e52048f7
+
+  Frankfurt, monatliche Kosten, exklusive Free-Tier, da manche Angebote nur 1 Jahr gültig sind
+
+  AWS
+ AWS Lambda (x86)
+
+  Paramater:
+  - Number of requests: 10.000
+  - Duration of each request: 300ms
+  - Amount of memory allocated: 256MB
+
+  Berechnung:
+  - Compute Charges= Anzahl request * Durchschnittliche Request-Zeit * Durchschnittlich Benutzer Speicher * 0.0000166667 USD (1*sec*GB*USD/GBs)
+  - Request Charges = Anzahl request * 0.0000002 USD
+
+  Amazon EventBridge
+
+  Parameter:
+  - Payload Size: 10KB
+  - Custom Events: 1 Million per Month
+
+  Berechnung:
+  - Event Costs: 1 Mio Custom Events x 0.000001 USD
+
+  Amazon Cognito
+  - Without advanced security features: free
+  - We don’t need advanced security features here
+
+  S3
+
+  Parameter
+  - S3 Standard Storage in GB
+  - PUT, COPY, POST, LIST Requests
+  - GET, SELECT Requests
+  - Inbound Data Transfer: Free
+  - Outbound Data Transfer: GB
+
+  Berechnung:
+  - S3 Standard Storage Costs: S3 Standard Storage in GB * 0.0245000000 USD
+  - S3 Standard PUT request costs: Number of PUT requests * 0.0000054 USD per request
+  - S3 Standard GET request costs: Number of GET requests * 0.00000043 USD per request
+  - Outbound Data Transfer:
+      - 10240 GB x 0.09 USD per GB = 921.60 USD (next 10TB)
+      - 40960 GB x 0.085 USD per GB = 3481.60 USD (next 40TB)
+      - 102400 GB x 0.07 USD per GB = 7168.00 USD (next 100TB)
+      - 999846400 GB x 0.05 USD per GB = 49992320.00 USD (larger than 150TB)
+
+  DynamoDB
+
+  Parameter:
+  - Data storage size in GB
+  - Average item size
+  - Writes
+      - Standard writes vs Transactional writes: 100 / 0
+      - Number of writes: 1000
+  - Reads
+      - Eventually consistent vs Strongly vs Transactional: 100 / 0 / 0
+      - Number of reads: 10 million per month
+  - On demand backup data storage
+
+  Berechnung:
+  - Data storage costs: Data storage size * 0.306 USD
+  - Write costs: Number of writes * 0.000001525 USD
+  - Read costs: Number of reads x 1 strongly consistent portion x 1 read request units for strongly consistent reads x 25 read request units needed per item = 7,850,000,000.00 read request units for strongly consistent reads * 0.000000305 USD
+  - Backup storage costs: On demand backup data storage x 0.1224 USD
+
+  AWS Amplify
+
+  Parameter:
+  - Number of build minutes
+  - Data stored per month GB
+  - Data served per month GB
+
+  Berechnung:
+  - Build minutes cost = Number of build minutes * 0,01 USD / min
+  - Data stored cost = Data stored per month GB * 0.023 USD / GB * mon
+  - Data served cost = Data served per month GB * 0.15 USD / GB * mon
+
+  AWS Elemental MediaConvert
+
+  Parameter:
+  - Tier: basic (Fix), Video-Codec: AVC, Single pass, HD, <= 30 FPS
+  - Output usage minutes per month
+
+  Berechnung:
+  - Outputs: Output usage minutes per month * 0.017 USD / minute
+
+  AppSync
+
+  Parameter:
+  - Query and Data Modification Operations per million
+  - Average response size: 3KB
+
+  Berechnung:
+  - OperationCosts = Query and Data Modification Operations per million * $4.00 USD
+  - Data Transfer Costs = Avg response size * Modifications * $0.09 USD /.GB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Entwicklungsaufwand}
+
+- Welche Komplnenten kann man verwenden vs muss man selbst coden
+
+
 - Architektur und Implementierung
   - Auth:
     - Amplify hat Groups in Cognito, Cognito ist umfangreicher
@@ -11,10 +143,6 @@
  - Serverless, CDK, FIrebase ist infraaturcture im code
  - Amplify generell komplexer als Firebase, Setup war schwerer, mehr Fehler, Firebase war einfacher
  - Firebase Storage kennt keine privaten user-Spaces, amplify hat das direkt mit S3 integriert
-- Preise / Cloud-Kosten
-  - Break-Even Point grafik für preise
-  - Preismodell
-
 - Wiederverwendbarkeit von Code
 - Entwicklungszeit
 - Wartbarkeit
