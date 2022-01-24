@@ -4,7 +4,7 @@ Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten \autocite{aws
 
 \section{Kostenkategorien}
 
-Der Unterabschnitt stellt die Kosten in unterschiedlichen Kategorien dar. Eine Kategorie kann aus einem oder mehreren Cloud-Diensten bestehen. Zu beachten ist, dass Amazon Cognito in der Preiskalkulation vernachlässigt wird. Da die erweiterten Sicherheitsfunktionalitäten von Amazon Cognito nicht genutzt werden, ist der Cloud-Dienst kostenlos. Seitens Firebase gibt es hier ebenfalls keine extra Kosten pro Nutzer.
+Der Unterabschnitt stellt die Kosten in unterschiedlichen Kategorien dar. Eine Kategorie kann aus einem oder mehreren Cloud-Diensten bestehen.
 
 \subsection{Hosting}
 
@@ -84,6 +84,19 @@ AWS Lambda (x86)
   Berechnung:
   - OperationCosts = Query and Data Modification Operations per million * $4.00 USD
   - Data Transfer Costs = Avg response size * Modifications * $0.09 USD /.GB
+
+
+  Cloud Functions (256MB)
+  - Parameter
+      - Invocations
+      - GB-seconds
+      - CPU-seconds - CPU seconds
+      - Networking (egress) in GB
+      - Cloud Build minutes
+      - Container storage
+  - Berechnung
+      - Invocations = $0.40 per Million requests (first 2m free)
+
 
 
 
@@ -172,11 +185,40 @@ Parameter:
     - Number of reads: 10 million per month
 - On demand backup data storage
 
+Free tier:
+- 25 GB of Storage
+- 25 provisioned Write Capacity Units (WCU)
+- 25 provisioned Read Capacity Units (RCU)
+- Enough to handle up to 200M requests per month.
+
 Berechnung:
 - Data storage costs: Data storage size * 0.306 USD
 - Write costs: Number of writes * 0.000001525 USD
 - Read costs: Number of reads x 1 strongly consistent portion x 1 read request units for strongly consistent reads x 25 read request units needed per item = 7,850,000,000.00 read request units for strongly consistent reads * 0.000000305 USD
 - Backup storage costs: On demand backup data storage x 0.1224 USD
+
+
+
+Cloud Firestore
+- Parameter
+    - GB stored
+    - Document writes
+    - Document reads
+    - Document deletes
+- Berechnung
+    - Stored Data  = $0.117 per GB/ Month
+    - Reads = $0.039/ 100.000 documents
+    - Writes = $0.117 / 100.000 documents
+    - Deletes = $0.013 / 100.000 documents
+    - Transfer = ?
+
+Free tier:
+    Stored data	1 GiB
+    Document reads	50,000 per day
+    Document writes	20,000 per day
+    Document deletes	20,000 per day
+    Network egress	10 GiB per month
+
 
 \subsection{Videokonvertierung}
 
@@ -209,6 +251,15 @@ Google Transcoder API
 \subsection{Zusammenfassung}
 
 zusammenfassung aller dienste und wo welcher dienst günstiger ist
+
+\subsection{Sonstige}
+
+Zu beachten ist zuletzt, dass einige Dienste für \ac{AWS} Amplify benötigt werden, die in Firebase nicht vorhanden sind oder in beiden Diensten nicht abgerechnet werden.
+\begin{description}
+\item[User Management] Da die erweiterten Sicherheitsfunktionalitäten von \ac{AWS} Cognito nicht genutzt werden, ist dieser kostenfrei. Auch seitens Firebase gibt es für das User-Management keine extra Kosten für die Standardfunktionalität.
+\item[Benachrichtigung von Diensten] Amazon EventBridge wird verwendet, um \ac{AWS} Lambda darüber zu benachrichtigen, dass ein Video erfolgreich konvertiert wurde. Der Dienst kostet pro 1 Millionen Custom Events \$ 1,00. In Firebase ist dafür kein zusätzlicher Dienst nötig.
+\item[GraphQL] Aufgrund von Unterschieden in der Architektur nutzt \ac{AWS} Amplify mit AWS AppSync einen GraphQL-Server, während Firebase ohne einen solchen auskommt, da Funktionen direkt aus dem Frontend aufgerufen werden können. Bei \ac{AWS} entstehen dadurch Nutzungskosten von \$ 4,00 für 1 Millionen Queries oder Mutations. Außerdem entstehen Datentransferkosten. Diese sind allerdings schon durch die Netzwerkkosten aus \ac{AWS} Lambda abgedeckt.
+\end{description}
 
 \section{Preisbeispiele}
 
