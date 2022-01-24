@@ -185,28 +185,7 @@ Free tier:
   \label{KostenVideoTranscoding}
 \end{figure}
 
-AWS Elemental MediaConvert mit Google Transcoder API
-
-AWS Elemental MediaConvert
-
-Parameter:
-- Tier: basic (Fix), Video-Codec: AVC, Single pass, HD, <= 30 FPS
-- Output usage minutes per month
-
-Berechnung:
-- Outputs: Output usage minutes per month * 0.017 USD / minute
-
-
-Google Transcoder API
-- Parameter
-    - Minutes HD conversion
-- Berechnung
-    - Price = Minutes * $0.030 USD / minute
-
-
-\subsection{Zusammenfassung}
-
-zusammenfassung aller dienste und wo welcher dienst günstiger ist
+Dieser Dienst wird genutzt, um das Wasserzeichen auf den hochgeladenen Videos zu platzieren. Die Werte beziehen sich auf die Konvertierung von Videos in HD-Qualität. Für \ac{AWS} Elemental Media Convert fallen \$ 0,017 pro Minute an. Für die Google Transcoder API fallen \$ 0,030 pro Minute an. \autoref{KostenVideoTranscoding} stellt diesen Zusammenhang dar. In diesem Bereich schneidet \ac{AWS} für jede Dauer besser ab.
 
 \subsection{Sonstige}
 
@@ -216,6 +195,10 @@ Zu beachten ist zuletzt, dass einige Dienste für \ac{AWS} Amplify benötigt wer
 \item[Benachrichtigung von Diensten] Amazon EventBridge wird verwendet, um \ac{AWS} Lambda darüber zu benachrichtigen, dass ein Video erfolgreich konvertiert wurde. Der Dienst kostet pro 1 Millionen Custom Events \$ 1,00. In Firebase ist dafür kein zusätzlicher Dienst nötig.
 \item[GraphQL] Aufgrund von Unterschieden in der Architektur nutzt \ac{AWS} Amplify mit AWS AppSync einen GraphQL-Server, während Firebase ohne einen solchen auskommt, da Funktionen direkt aus dem Frontend aufgerufen werden können. Bei \ac{AWS} entstehen dadurch Nutzungskosten von \$ 4,00 für 1 Millionen Queries oder Mutations. Außerdem entstehen Datentransferkosten. Diese sind allerdings schon durch die Netzwerkkosten aus \ac{AWS} Lambda abgedeckt.
 \end{description}
+
+\subsection{Zusammenfassung}
+
+zusammenfassung aller dienste und wo welcher dienst günstiger ist
 
 \section{Preisbeispiele}
 
