@@ -4,7 +4,7 @@ Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten \autocite{aws
 
 \section{Kostenkategorien}
 
-Der Unterabschnitt stellt die Kosten in unterschiedlichen Kategorien dar. Eine Kategorie kann aus einem oder mehreren Cloud-Diensten bestehen.
+Dieser Unterabschnitt stellt zunächst die Kosten in unterschiedlichen Kategorien dar. Kosten, die nur für eine Cloud auftreten, werden in den sonstigen Kosten dargestellt.
 
 \subsection{Hosting}
 
@@ -17,32 +17,20 @@ Der Unterabschnitt stellt die Kosten in unterschiedlichen Kategorien dar. Eine K
     \label{kostenvergleichHosting}%
 \end{figure}
 
-Amplify Hosting vs Firebase Hosting
+Beide Dienste benötigen den Hosting-Dienst, um das jeweilige Frontend zu speichern und auszuliefern. Dabei fallen Kosten für die Menge der gespeicherten Daten als auch für die Menge der übertragenen Daten an. \autoref{kostenvergleichHosting} stellt diesen Sachverhalt pro Kostenart dar.
 
-Parameter:
-- Gespeicherte Dateien
-- Ausgelieferte Dateien
+\begin{description}
+  \item[Gespeicherte Daten] Für das Amplify Hosting fallen \$ 0,023 pro GB an. Die ersten 5 GB sind kostenfrei. Für das Firebase Hosting fallen \$ 0,026 pro GB an. Die ersten 10 GB sind kostenfrei.
+  \item[Ausgelieferte Daten] Für beide Dienste fallen \$ 0,15 pro GB an. Lediglich der Free Tier ist für das Amplify Hosting mit 15 GB gegenüber 10,8 GB für das Firebase Hosting etwas höher.
+\end{description}
 
-- Number of build minutes (nur AWS)
+Für Projekte bis $\approx$ 48,33 GB sind die gespeicherten Daten in Firebase kostengünstiger. Für Projekte mit einem noch größeren Wert ist \ac{AWS} Amplify wirtschaftlicher. Bei Projekten mit bis zu 5 GB weist kein Tool ein Kostenvorteil aus, da beide noch kostenfrei sind. Die gespeicherten Daten hängen auch von der Anzahl der Builds ab. Demnach ist dieser Wert dann sinnvoll zu betrachten, wenn die Software hohe Entwicklungszyklen aufweist.
 
+Die übertragenen Daten skalieren allerdings schneller als die gespeicherten Daten, da diese an die Anzahl der Nutzer gekoppelt sind, welche pro Aufruf das Frontend herunterladen. Dabei ist kein wesentlicher Unterschied zwischen den beiden Diensten erkennbar, da das kostenlose Kontingent lediglich um 4,2 GB höher ist, was nur einen einmaligen Preisvorteil von maximal \$ 0,63 bringt.
 
-Amplify:
-- Build minutes cost = Number of build minutes * 0,01 USD / min
-- Data stored cost = Data stored per month GB * 0.023 USD / GB * mon
-- Data served cost = Data served per month GB * 0.15 USD / GB * mon
+Ein Vergleich der Build-Zeit findet an dieser Stelle nicht statt. \ac{AWS} Amplify selbst rechnet Build-Zeit mit \$ 0,01 pro Minute ab. Firebase Hosting bietet selbst keinen Build-Dienst an. Daher muss dafür ein externer Dienst genutzt werden.
 
-Free tier:
-5 GB stored per month
-15 GB served per month
-
-Firebase:
-- Berechnung
-    - Storage = $0.026/GB
-    - Data transfer = $0.15/GB
-
-Free tier:
-- Storage 10 GB
-- Data transfer: 10.8GB
+Zusammenfassend lässt sich im Bereich Hosting kaum ein Kostenunterschied feststellen. Dies liegt daran, dass der  Proportionalitätsfaktor der ausgelieferten Daten gleich ist.
 
 \subsection{Serverless-Computing}
 
