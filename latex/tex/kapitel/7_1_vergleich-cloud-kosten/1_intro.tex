@@ -49,7 +49,7 @@ Beide Dienste nutzen Funktionen, um die Logik der Software abzubilden. Die Koste
   \item[Ausgehender Netzwerktransfer] Da in der entwickelten Software die Lambda-Funktionen von AppSync aufgerufen werden, gelten für den Netzwerktransfer die Preise dieses Services. Diese belaufen sich auf \$ 0,09 pro GB. Bei Google Cloud Functions sind es \$ 0,12 pro GB. Außerdem gibt es noch ein kostenloses Kontingent von 5 GB.
 \end{description}
 
-Auffällig ist, dass die Ausführung von Funktionen mit \ac{AWS} Lambda um mehr als ein 5-faches teurer ist als mit Google Cloud Functions. Allerdings ist der reine Vergleich irreführend, da die zu Grunde liegende Abrechnungsmethode beachtet werden muss. Während Lambda die Ausführungszeiten auf 1 ms rundet, wird bei Google Cloud Functions auf die nächsten 100 ms gerundet. Das bedeutet, dass eine Anfrage mit 10 ms auf 100 ms gerundet wird. Dabei würde dann das 10-fache der Nutzung bezahlt werden.
+Auffällig ist, dass die Ausführung von Funktionen mit \ac{AWS} Lambda um mehr als ein 5-faches teurer ist als mit Google Cloud Functions. Allerdings ist der direkte Vergleich irreführend, da die zu Grunde liegende Abrechnungsmethode beachtet werden muss. Während Lambda die Ausführungszeiten auf 1 ms rundet, wird bei Google Cloud Functions auf die nächsten 100 ms gerundet. Das bedeutet, dass eine Anfrage mit 10 ms auf 100 ms gerundet wird. Dabei würde dann das 10-fache der Nutzung bezahlt werden.
 
 Auch bei den Funktionsaufrufen ist \ac{AWS} Lambda nach 3 Millionen Aufrufen nur halb so teuer wie Google Cloud Functions. Ein ähnliches Bild mit einem etwas geringeren Faktor ergibt sich bei dem Vergleich der Übertragungskosten.
 
@@ -67,60 +67,16 @@ Zusammenfassend gibt es für Software mit geringen Nutzerzahlen keinen wesentlic
   \label{kostenvergleichStorage}
 \end{figure}
 
+Die Dienste nutzen den Storage für die Ablage der Videos. Die Kosten unterteilen sich in gespeicherte Daten, verschiedene Anfragearten sowie in Netzwerktransfer. Dabei ist der eingehende Netzwerktransfer bei beiden Anbietern kostenfrei, der ausgehende Transfer wird berechnet. In beiden Fällen werden zwei Anfragearten unterschieden: Get- und Select-Anfragen sowie Put, Post, Copy und List-Anfragen.
 
-AWS S3 mit Cloud Storage
+\begin{description}
+  \item[Gespeicherte Daten] Für Amazon S3 fallen \$ 0,0245000000 pro GB-Sekunde an. Die ersten 5 GB sind kostenfrei. Für Google Cloud Storage fallen \$ 0,023 pro GB an. Dabei sind die ersten 5 GB kostenfrei.
+  \item[Get-Anfragen] Anfragen dieser Kategorie kosten bei \ac{AWS} S3 \$ 0,00000043. Die ersten 20000 Anfragen sind kostenfrei. Für den Google Cloud Storage sind es \$ 0,0000004 pro Anfrage mit 50000 kostenfreien Anfragen.
+  \item[Put-Anfragen] Diese Anfragen sind etwas teurer als Get-Anfragen. Bei \ac{AWS} S3 sind es \$ 0,0000054 mit 2000 kostenfreien Anfragen. Beim Google Cloud Storage sind es \$ 0,000005 mit 20000 kostenfreien Anfragen.
+  \item[Ausgehender Netzwerktransfer] Bei \ac{AWS} S3 fallen für die ersten 10 TB \$ 0,09 pro GB an. Ab dann wird es stufenweise günstiger bis hin zu \$ 0,05 pro GB ab 150 TB. Beim Google Cloud Storage fallen \$ 0,12 pro GB an. Bis 10 TB sinkt der Preis auf \$ 0,11 bis hin zu \$ 0,08 ab 10 TB. Die ersten 30 GB sind dabei kostenfrei.
+\end{description}
 
-S3
-
-- Menge gespeicherter Daten
-- Put, Post, List und Delete-Anfragen
-- Get-Anfragen
-
-Parameter
-- S3 Standard Storage in GB
-- PUT, COPY, POST, LIST Requests
-- GET, SELECT Requests
-- Inbound Data Transfer: Free
-- Outbound Data Transfer: GB
-
-Berechnung:
-- S3 Standard Storage Costs: S3 Standard Storage in GB * 0.0245000000 USD
-- S3 Standard PUT request costs: Number of PUT requests * 0.0000054 USD per request
-- S3 Standard GET request costs: Number of GET requests * 0.00000043 USD per request
-- Outbound Data Transfer:
-    - 10240 GB x 0.09 USD per GB  (first 10TB)
-    - 40960 GB x 0.085 USD per GB = 3481.60 USD (next 40TB)
-    - 102400 GB x 0.07 USD per GB = 7168.00 USD (next 100TB)
-    - 999846400 GB x 0.05 USD per GB = 49992320.00 USD (larger than 150TB)
-
-Free tier: (für 12 Monate allerdings nur)
-- 5 GB of Standard Storage
-- 20,000 Get Requests
-- 2,000 Put Requests
-
-Ingress / Egress in beiden kostenlos
-
-Cloud Storage (Standard Storage,
-- Parameter
-    - GB stored
-    - Class A Operations: PUT, POST, LIST etc.
-    - Class B Operations: GET
-    - GB transferred
-- Berechnung
-    - Storage costs: $0.023 per GB / month
-    - Class A = $0.05 per 10.000 Class A operations
-    - Class B = $0.004 per 10.000 Class B operations
-    - Transfer to Internet =  (Egress to Worldwide Destinations (excluding Asia & Australia) (per GB))
-      - 0-1 TB $0.12
-      - 1-10 TB	$0.11
-      - 10+ TB $0.08
-
-Free tier:
-- 5GB storage
-- 50k Class B
-- 20K Class A
-- 30 GB transfer
-
+In den ersten drei Kategorien ist der Google Cloud Storage kostengünstiger. Die Netzwerkkosten sind bei \ac{AWS} abgesehen vom kostenlosen Kontingent von Google immer günstiger. Zusammenfassend ist damit die Google Cloud in der Kategorie Storage in den meisten Fällen kostengünstiger. Allerdings könnte sich für eine Video-Plattform, welche über 50 TB an Daten ausgibt, die mehr als 50 Prozent günstigeren ausgehenden Netzwerktransfer-Kosten positiv auswirken.
 
 \section{Datenbank-Kosten}
 
@@ -194,12 +150,12 @@ Zu beachten ist zuletzt, dass einige Dienste für \ac{AWS} Amplify benötigt wer
 \item[GraphQL] Aufgrund von Unterschieden in der Architektur nutzt \ac{AWS} Amplify mit AWS AppSync einen GraphQL-Server, während Firebase ohne einen solchen auskommt, da Funktionen direkt aus dem Frontend aufgerufen werden können. Bei \ac{AWS} entstehen dadurch Nutzungskosten von \$ 4,00 für 1 Millionen Queries oder Mutations. Außerdem entstehen Datentransferkosten. Diese sind allerdings schon durch die Netzwerkkosten aus \ac{AWS} Lambda abgedeckt.
 \end{description}
 
-\section{Zusammenfassung}
-
-zusammenfassung aller dienste und wo welcher dienst günstiger ist
-
 \section{Nutzungsbeispiele}
 
 - Szenarien 1 2 3 ggf. auch nur eins
 
 TODO: Nutzungsprofile für die Anwendung definieren, damit der vergleich einfacher ist
+
+\section{Zusammenfassung}
+
+zusammenfassung aller dienste und wo welcher dienst günstiger ist
