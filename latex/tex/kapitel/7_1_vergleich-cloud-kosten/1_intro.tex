@@ -44,62 +44,41 @@ Free tier:
 - Storage 10 GB
 - Data transfer: 10.8GB
 
-
-
-
-
-
-
-
 \subsection{Serverless-Computing}
 
-AWS Lambda inklusive AWS AppSync und Amazon EventBridge) mit Cloud Functions
+\begin{figure}
+  \centering
+  \subfloat[][\centering Ausführungszeit]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/functions-compute.pdf}}\quad
+  \subfloat[][\centering Funktionsaufrufe]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/functions-invocation.pdf}}\\
+  \subfloat[][\centering Ausgehender Netzwerktransfer]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/functions-transfer.pdf}}\quad
+  \caption{Kostenvergleich zwischen AWS Lambda und Google Cloud Functions}
+  \label{kostenvergleichFunctions}
+\end{figure}
+
+AWS Lambda mit Cloud Functions
+
+256MB
+
+Lambda billed auf 1ms gerundet
+Cloud Functions billed auf 100ms, daher ist der preis günstiger, da dadurch mehr gezahlt werden muss
+Anhand von Beispiel darstellen
 
 AWS Lambda (x86)
+  - Compute Charges = 0.0000166667 USD pro GBs / 400,000 GB-seconds of compute time per month
+  - Request Charges = 0,2 USD pro Millionen Request / one million free requests
+  - Data Transfer Costs = APPSYNC Avg response size * Modifications * $0.09 USD /.GB
 
-  Paramater:
-  - Number of requests: 10.000
-  - Duration of each request: 300ms
-  - Amount of memory allocated: 256MB
+Cloud Functions (256MB)
+  - Compute Time = 0.0000035 USD pro GBs (400,000 GB-seconds)
+  - Invocations = $0.40 per Million requests (first 2m free)
+  - Outbound Data (Egress) $0.12 pro GB, 5GB free ()
 
-  Berechnung:
-  - Compute Charges= Anzahl request * Durchschnittliche Request-Zeit * Durchschnittlich Benutzer Speicher * 0.0000166667 USD (1*sec*GB*USD/GBs)
-  - Request Charges = Anzahl request * 0.0000002 USD
+Da Lambda über AppSync ins Internet geht, werden hier die Preise von AppSync genutzt verglichen mit Cloud Functions.
 
-  Amazon EventBridge
-
-  Parameter:
-  - Payload Size: 10KB
-  - Custom Events: 1 Million per Month
-
-  Berechnung:
-  - Event Costs: 1 Mio Custom Events x 0.000001 USD
-
-  AppSync
-
-  Parameter:
-  - Query and Data Modification Operations per million
-  - Average response size: 3KB
-
-  Berechnung:
-  - OperationCosts = Query and Data Modification Operations per million * $4.00 USD
-  - Data Transfer Costs = Avg response size * Modifications * $0.09 USD /.GB
-
-
-  Cloud Functions (256MB)
-  - Parameter
-      - Invocations
-      - GB-seconds
-      - CPU-seconds - CPU seconds
-      - Networking (egress) in GB
-      - Cloud Build minutes
-      - Container storage
-  - Berechnung
-      - Invocations = $0.40 per Million requests (first 2m free)
-
-
-
-
+x86 Price
+Tier 2 Pricing bei Google Cloud
+CPU skaliert mit der Memory automatisch mit
+Cloud Functions berechnen auch die Build Minutes zum Bauen
 
 \subsection{Storage}
 
