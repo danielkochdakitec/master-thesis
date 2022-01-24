@@ -21,16 +21,16 @@ Beide Dienste benötigen den Hosting-Dienst, um das jeweilige Frontend zu speich
 
 \begin{description}
   \item[Gespeicherte Daten] Für das Amplify Hosting fallen \$ 0,023 pro GB an. Die ersten 5 GB sind kostenfrei. Für das Firebase Hosting fallen \$ 0,026 pro GB an. Die ersten 10 GB sind kostenfrei.
-  \item[Ausgelieferte Daten] Für beide Dienste fallen \$ 0,15 pro GB an. Lediglich der Free Tier ist für das Amplify Hosting mit 15 GB gegenüber 10,8 GB für das Firebase Hosting etwas höher.
+  \item[Übertragene Daten] Für beide Dienste fallen \$ 0,15 pro GB an. Lediglich das kostenlose Kontingent ist für das Amplify Hosting mit 15 GB gegenüber 10,8 GB für das Firebase Hosting etwas höher.
 \end{description}
 
-Für Projekte bis $\approx$ 48,33 GB sind die gespeicherten Daten in Firebase kostengünstiger. Für Projekte mit einem noch größeren Wert ist \ac{AWS} Amplify wirtschaftlicher. Bei Projekten mit bis zu 5 GB weist kein Tool ein Kostenvorteil aus, da beide noch kostenfrei sind. Die gespeicherten Daten hängen auch von der Anzahl der Builds ab. Demnach ist dieser Wert dann sinnvoll zu betrachten, wenn die Software hohe Entwicklungszyklen aufweist.
+Für Projekte bis $\approx$ 48,33 GB sind die gespeicherten Daten in Firebase kostengünstiger. Für Projekte mit einem noch größeren Wert ist \ac{AWS} Amplify wirtschaftlicher. Bei Projekten mit bis zu 5 GB weist kein Tool einen Kostenvorteil aus, da beide noch kostenfrei sind. Die gespeicherten Daten hängen auch von der Anzahl der Builds ab. Demnach ist dieser Wert dann sinnvoll zu betrachten, wenn die Software hohe Entwicklungszyklen aufweist.
 
-Die übertragenen Daten skalieren allerdings schneller als die gespeicherten Daten, da diese an die Anzahl der Nutzer gekoppelt sind, welche pro Aufruf das Frontend herunterladen. Dabei ist kein wesentlicher Unterschied zwischen den beiden Diensten erkennbar, da das kostenlose Kontingent lediglich um 4,2 GB höher ist, was nur einen einmaligen Preisvorteil von maximal \$ 0,63 bringt.
+Die übertragenen Daten skalieren allerdings schneller als die gespeicherten Daten, da diese an die Anzahl der Nutzer gekoppelt sind, welche pro Aufruf ein Mal das Frontend herunterladen. Dabei ist kein wesentlicher Unterschied zwischen den beiden Diensten erkennbar, da das kostenlose Kontingent lediglich um 4,2 GB höher ist, was nur einen einmaligen Preisvorteil von maximal \$ 0,63 bringt.
 
-Ein Vergleich der Build-Zeit findet an dieser Stelle nicht statt. \ac{AWS} Amplify selbst rechnet Build-Zeit mit \$ 0,01 pro Minute ab. Firebase Hosting bietet selbst keinen Build-Dienst an. Daher muss dafür ein externer Dienst genutzt werden.
+Ein Vergleich der Build-Zeit findet an dieser Stelle nicht statt. \ac{AWS} Amplify selbst rechnet Build-Zeit mit \$ 0,01 pro Minute ab. Firebase Hosting bietet selbst keinen Build-Dienst als Gesamt-Deployment an. Daher muss dafür ein externer Dienst genutzt werden. Lediglich rechnet Google Cloud Functions die Dauer für das Deployment von einzelnen Funktionen ab.
 
-Zusammenfassend lässt sich im Bereich Hosting kaum ein Kostenunterschied feststellen. Dies liegt daran, dass der  Proportionalitätsfaktor der ausgelieferten Daten gleich ist.
+Zusammenfassend lässt sich im Bereich Hosting kaum ein Kostenunterschied feststellen. Dies liegt daran, dass der  Proportionalitätsfaktor der übertragenen Daten bei beiden Diensten gleich ist.
 
 \subsection{Serverless-Computing}
 
@@ -43,30 +43,19 @@ Zusammenfassend lässt sich im Bereich Hosting kaum ein Kostenunterschied festst
   \label{kostenvergleichFunctions}
 \end{figure}
 
-AWS Lambda mit Cloud Functions
+Beide Dienste nutzen Serverless-Funktionen, um die Logik der Software abzubilden. Die Kosten unterteilen sich dabei in Ausführungs-, Aufruf- und ausgehende Netzwerkkosten. \autoref{kostenvergleichFunctions} stellt diesen Sachverhalt pro Kostenart dar. Die Angaben basieren auf 256 MB Arbeitsspeicher und der dazu gehörigen CPU mit einem x86-Prozessor. Außerdem werden für die Google Cloud die Tier-2 Preise genutzt, da diese für den Dienst in Frankfurt ausschlaggebend sind.
 
-256MB
+\begin{description}
+  \item[Ausführungszeit] Für AWS Lambda fallen \$ 0,0000166667 pro GB-Sekunde an. Für Google Cloud Functions fallen \$ 0,0000035 pro GB-Sekunde an. Bei beiden Diensten sind die ersten 400000 GB-Sekunden kostenfrei.
+  \item[Funktionsaufrufe] Für AWS Lambda fallen \$ 0,20 pro Millionen Aufrufen an. Die ersten 1 Millionen Aufrufe sind kostenfrei. Für Google Cloud Functions fallen \$ 0,40 pro Millionen Aufrufen an. Die ersten 2 Millionen Aufrufe sind kostenfrei.
+  \item[Ausgehender Netzwerktransfer] Da in der entwickelten Software die Lambda-Funktionen von AppSync aufgerufen werden, gelten für den Netzwerktransfer die Preise dieses Services. Diese belaufen sich auf \$ 0,09 pro GB. Bei Google Cloud Functions sind es \$ 0,12 pro GB. Außerdem gibt es noch ein kostenloses Kontingent von 5 GB.
+\end{description}
 
-Lambda billed auf 1ms gerundet
-Cloud Functions billed auf 100ms, daher ist der preis günstiger, da dadurch mehr gezahlt werden muss
-Anhand von Beispiel darstellen
+Auffällig ist, dass die Ausführung von Funktionen mit \ac{AWS} Lambda um mehr als ein 5-faches teurer ist als mit Google Cloud Functions. Allerdings ist der reine Vergleich irreführend, da die zu Grunde liegende Abrechnungsmethode beachtet werden muss. Während Lambda die Ausführungszeiten auf 1 ms rundet, wird bei Google Cloud Functions auf die nächsten 100 ms gerundet. Das bedeutet, dass eine Anfrage mit 10 ms auf 100 ms gerundet wird. Dabei würde dann das 10-fache der Nutzung bezahlt werden.
 
-AWS Lambda (x86)
-  - Compute Charges = 0.0000166667 USD pro GBs / 400,000 GB-seconds of compute time per month
-  - Request Charges = 0,2 USD pro Millionen Request / one million free requests
-  - Data Transfer Costs = APPSYNC Avg response size * Modifications * $0.09 USD /.GB
+Auch bei den Funktionsaufrufen ist \ac{AWS} Lambda nach 3 Millionen Aufrufen nur halb so teuer wie Google Cloud Functions. Ein ähnliches Bild mit einem etwas geringeren Faktor ergibt sich bei dem Vergleich der Übertragungskosten.
 
-Cloud Functions (256MB)
-  - Compute Time = 0.0000035 USD pro GBs (400,000 GB-seconds)
-  - Invocations = $0.40 per Million requests (first 2m free)
-  - Outbound Data (Egress) $0.12 pro GB, 5GB free ()
-
-Da Lambda über AppSync ins Internet geht, werden hier die Preise von AppSync genutzt verglichen mit Cloud Functions.
-
-x86 Price
-Tier 2 Pricing bei Google Cloud
-CPU skaliert mit der Memory automatisch mit
-Cloud Functions berechnen auch die Build Minutes zum Bauen
+Zusammenfassend gibt es für Software mit geringen Nutzerzahlen keinen wesentlichen Unterschied zwischen beiden Diensten. Jedoch ist mit steigender Nutzung \ac{AWS} Lambda wirtschaftlicher, da die Ausführungszeiten nicht nach oben gerundet werden und die Funktionsaufrufe deutlich günstiger sind.
 
 \subsection{Storage}
 
