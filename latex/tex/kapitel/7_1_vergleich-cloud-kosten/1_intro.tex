@@ -1,8 +1,6 @@
 \chapter{Vergleich der Cloud-Kosten}
 
-Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten \autocite{awsPricing} \autocite{gcpPricing} für die entwickelte Software am Standort Frankfurt verglichen. Die verwendeten Cloud-Dienste werden aus der Architektur extrahiert. Außerdem werden im Kapitel Nutzungsbeispiele vorgestellt, um zu ermitteln, für welchen Fall welcher Dienst wirtschaftlicher ist.
-
-Zunächst werden die Kosten in unterschiedlichen Kategorien dargestellt. Kosten, die nur für eine Cloud auftreten, werden in den sonstigen Kosten dargestellt.
+Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten \autocite{awsPricing} \autocite{gcpPricing} für die entwickelte Software am Standort Frankfurt verglichen. Die verwendeten Cloud-Dienste kommen aus der Architektur. Außerdem stellt das Kapitel Nutzungsbeispiele vor, um zu ermitteln, für welchen Fall welcher Dienst wirtschaftlicher ist. Zunächst folgt die Auflistung der Kosten in unterschiedliche Kategorien.
 
 \section{Hosting-Kosten}
 
@@ -15,7 +13,7 @@ Zunächst werden die Kosten in unterschiedlichen Kategorien dargestellt. Kosten,
     \label{kostenvergleichHosting}%
 \end{figure}
 
-Beide Dienste benötigen den Hosting-Dienst, um das jeweilige Frontend zu speichern und auszuliefern. Dabei fallen Kosten für die Menge der gespeicherten Daten als auch für die Menge der übertragenen Daten an. \autoref{kostenvergleichHosting} stellt diesen Sachverhalt pro Kostenart dar.
+Beide Dienste benötigen den Hosting-Dienst, um das jeweilige Frontend zu speichern und zu übertragen. Dabei fallen Kosten für die Menge der gespeicherten Daten als auch für die Menge der übertragenen Daten an. \autoref{kostenvergleichHosting} stellt diesen Sachverhalt pro Kostenart dar.
 
 \begin{description}
   \item[Gespeicherte Daten] Für das Amplify Hosting fallen \$ 0,023 pro GB an. Die ersten 5 GB sind kostenfrei. Für das Firebase Hosting fallen \$ 0,026 pro GB an. Die ersten 10 GB sind kostenfrei.
@@ -41,7 +39,7 @@ Zusammenfassend lässt sich im Bereich Hosting kaum ein Kostenunterschied festst
   \label{kostenvergleichFunctions}
 \end{figure}
 
-Beide Dienste nutzen Funktionen, um die Logik der Software abzubilden. Die Kosten unterteilen sich dabei in Ausführungs-, Aufruf- und ausgehende Netzwerkkosten. \autoref{kostenvergleichFunctions} stellt diesen Sachverhalt pro Kostenart dar. Die Angaben basieren auf 256 MB Arbeitsspeicher und der dazu gehörigen CPU mit einem x86-Prozessor. Außerdem werden für die Google Cloud die Tier-2 Preise genutzt, da diese für den Dienst in Frankfurt ausschlaggebend sind.
+Beide Dienste nutzen Funktionen, um die Logik der Software abzubilden. Die Kosten unterteilen sich dabei in Ausführungs-, Aufruf- und ausgehende Netzwerkkosten. \autoref{kostenvergleichFunctions} stellt diesen Sachverhalt pro Kostenart dar. Die Angaben basieren auf 256 MB Arbeitsspeicher und der dazu gehörigen CPU mit einem x86-Prozessor. Außerdem werden für die Google Cloud die Tier-2 Preise genutzt, da diese für den Datencenter in Frankfurt ausschlaggebend sind.
 
 \begin{description}
   \item[Ausführungszeit] Für AWS Lambda fallen \$ 0,0000166667 pro GB-Sekunde an. Für Google Cloud Functions fallen \$ 0,0000035 pro GB-Sekunde an. Bei beiden Diensten sind die ersten 400000 GB-Sekunden kostenfrei.
@@ -80,55 +78,36 @@ In den ersten drei Kategorien ist der Google Cloud Storage kostengünstiger. Die
 
 \section{Datenbank-Kosten}
 
-DynamoDB mit Cloud Firestore
+\begin{table}[h]
+  \caption{Kostenvergleich zwischen DynamoDB und Firestore}
+  \label{KostenDatenbank}
+  \renewcommand{\arraystretch}{1.2}
+  \centering
+  \sffamily
+  \begin{footnotesize}
+    \begin{tabularx}{0.9\textwidth}{l l l}
+      \toprule
+      \textbf{Kostenart} & \textbf{DynamoDB} & \textbf{Firestore}\\
+      \midrule
+      \emph{Gespeicherte Daten / GB (kostenfrei)} & \$ 0,306 (25 GB) & \$ 0,117 (1 GB) \\
+      \emph{Lesezugriffe / 100k (kostenfrei)} & \$ 0,305  & \$ 0,39 (50k) \\
+      \emph{Schreibzugriffe / 100k (kostenfrei)} & \$ 1,525  & \$ 1,17 (20k) \\
+      \emph{Löschzugriffe / 100k (kostenfrei)} &  s. Schreiben & \$ 0,13 (20k) \\
+      \emph{Netzwerktransfer / GB (kostenfrei)} & \$ 0,09 (AppSync) & \$ 0,12 - \$ 0,08 (10 GB) \\
+      \emph{Backup / GB} & \$ 0,1224 & s. Lesezugriff \\
+      \bottomrule
+    \end{tabularx}
+  \end{footnotesize}
+  \rmfamily
+\end{table}
 
-DynamoDB
+Die Kosten der Datenbank sind abhängig von der Nutzung der Dienste. Unterschieden wird hier wie in \autoref{KostenDatenbank} dargestellt zwischen in der Datenbank gespeicherte Daten, Lesezugriffe, Schreib- und Löschzugriffe sowie den ausgehenden Netzwerktransfer. Zur besseren Vergleichbarkeit werden für DynamoDB die Preise für den Schreibzugriff \texit{Standard} und den Lesezugriff \textit{strongly consistent}. Dies entspricht auch den Eigenschaften von Firebase.
 
-Parameter:
-- Data storage size in GB
-- Average item size
-- Writes
-    - Standard writes vs Transactional writes: 100 / 0
-    - Number of writes: 1000
-- Reads
-    - Eventually consistent vs Strongly vs Transactional: 100 / 0 / 0
-    - Number of reads: 10 million per month
-- On demand backup data storage
+Dennoch ist ein direkter Vergleich der beiden Datenbanken schwierig, da die Kosten für die Lese- und Schreibzugriffe bei DynamoDB abhängig von der Größe der Anfrage sind. Bei DynamoDB werden beim Schreiben mit bis zu 1 KB eine Einheit verrechnet. Überschreitet die Anfrage diesen Wert, werden entsprechend mehr Einheiten bezahlt. Beim Lesen ist das ähnlich. Lediglich wird dabei mit 4 KB pro Einheit gerechnet.
 
-Free tier:
-- 25 GB of Storage
-- 25 provisioned Write Capacity Units (WCU)
-- 25 provisioned Read Capacity Units (RCU)
-- Enough to handle up to 200M requests per month.
+Vergleichbar sind allerdings die gespeicherten Daten. Diese sind für DynamoDB um ein Vielfaches teurer als für Firestore. Der Netzwerktransfer ist bis ungefähr 10 TB bei DynamoDB günstiger. Ab dann kostet Firestore nur \$ 0,08 pro GB. Allerdings wäre DynamoDB ohne AppSync dauerhaft günstiger, allerdings ist es aus Architektur-Sicht ein Vorteil, dass es eine GraphQL-Schnittstelle gibt, da diese noch weitere Logik bieten kann. Die Backup-Kosten sind bei DynamoDB günstiger, da dort per GB abgerechnet wird, während bei Firestore pro Datensatz ein fixer Betrag berechnet wird.
 
-Berechnung:
-- Data storage costs: Data storage size * 0.306 USD
-- Write costs: Number of writes * 0.000001525 USD
-- Read costs: Number of reads x 1 strongly consistent portion x 1 read request units for strongly consistent reads x 25 read request units needed per item = 7,850,000,000.00 read request units for strongly consistent reads * 0.000000305 USD
-- Backup storage costs: On demand backup data storage x 0.1224 USD
-
-
-
-Cloud Firestore
-- Parameter
-    - GB stored
-    - Document writes
-    - Document reads
-    - Document deletes
-- Berechnung
-    - Stored Data  = $0.117 per GB/ Month
-    - Reads = $0.039/ 100.000 documents
-    - Writes = $0.117 / 100.000 documents
-    - Deletes = $0.013 / 100.000 documents
-    - Transfer = ?
-
-Free tier:
-    Stored data	1 GiB
-    Document reads	50,000 per day
-    Document writes	20,000 per day
-    Document deletes	20,000 per day
-    Network egress	10 GiB per month
-
+Alles in allem lässt sich beim Thema Datenbank an dieser Stelle nicht eindeutig sagen, welcher Dienst wirtschaftlicher ist. Das liegt daran, dass es auf den Use-Case und die genauen Werte ankommt und die Vergleichbarkeit auf Grund von unterschiedlichen Preismodellen nicht vollständig gegeben ist.
 
 \section{Videokonvertierungskosten}
 
