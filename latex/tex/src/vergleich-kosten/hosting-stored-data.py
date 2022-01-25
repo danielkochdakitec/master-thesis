@@ -15,5 +15,5 @@ plt.legend(loc='upper left')
 
 plt.tight_layout()
 plt.grid()
-plt.savefig('../../bilder/7_1_vergleich-cloud-kosten/hosting-stored-data.pdf')
+plt.savefig('../../bilder/7_2_vergleich-cloud-kosten/hosting-stored-data.pdf')
 plt.show()

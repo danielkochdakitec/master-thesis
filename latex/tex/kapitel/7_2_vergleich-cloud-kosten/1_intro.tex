@@ -6,9 +6,9 @@ Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten \autocite{aws
 
 \begin{figure}%
     \centering
-    \subfloat[\centering Gespeicherte Daten]{{\includegraphics[width=6cm]{7_1_vergleich-cloud-kosten/hosting-stored-data.pdf} }}%
+    \subfloat[\centering Gespeicherte Daten]{{\includegraphics[width=6cm]{7_2_vergleich-cloud-kosten/hosting-stored-data.pdf} }}%
     \qquad
-    \subfloat[\centering Übertragene Daten]{{\includegraphics[width=6cm]{7_1_vergleich-cloud-kosten/hosting-transferred-data.pdf} }}%
+    \subfloat[\centering Übertragene Daten]{{\includegraphics[width=6cm]{7_2_vergleich-cloud-kosten/hosting-transferred-data.pdf} }}%
     \caption{Kostenvergleich zwischen Amplify Hosting und Firebase Hosting}%
     \label{kostenvergleichHosting}%
 \end{figure}
@@ -32,9 +32,9 @@ Zusammenfassend lässt sich im Bereich Hosting kaum ein Kostenunterschied festst
 
 \begin{figure}
   \centering
-  \subfloat[][\centering Ausführungszeit]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/functions-compute.pdf}}\quad
-  \subfloat[][\centering Funktionsaufrufe]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/functions-invocation.pdf}}\\
-  \subfloat[][\centering Ausgehender Netzwerktransfer]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/functions-transfer.pdf}}\quad
+  \subfloat[][\centering Ausführungszeit]{\includegraphics[width=.4\textwidth]{7_2_vergleich-cloud-kosten/functions-compute.pdf}}\quad
+  \subfloat[][\centering Funktionsaufrufe]{\includegraphics[width=.4\textwidth]{7_2_vergleich-cloud-kosten/functions-invocation.pdf}}\\
+  \subfloat[][\centering Ausgehender Netzwerktransfer]{\includegraphics[width=.4\textwidth]{7_2_vergleich-cloud-kosten/functions-transfer.pdf}}\quad
   \caption{Kostenvergleich zwischen AWS Lambda und Google Cloud Functions}
   \label{kostenvergleichFunctions}
 \end{figure}
@@ -57,10 +57,10 @@ Zusammenfassend gibt es für Software mit geringen Nutzerzahlen keinen wesentlic
 
 \begin{figure}
   \centering
-  \subfloat[][\centering Gespeicherte Daten]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/storage-amount.pdf}}\quad
-  \subfloat[][\centering Get-Anfragen]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/storage-get.pdf}}\\
-  \subfloat[][\centering Put/Post/List-Anfragen]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/storage-put.pdf}}\quad
-  \subfloat[][\centering Ausgehender Netzwerktransfer]{\includegraphics[width=.4\textwidth]{7_1_vergleich-cloud-kosten/storage-network.pdf}}
+  \subfloat[][\centering Gespeicherte Daten]{\includegraphics[width=.4\textwidth]{7_2_vergleich-cloud-kosten/storage-amount.pdf}}\quad
+  \subfloat[][\centering Get-Anfragen]{\includegraphics[width=.4\textwidth]{7_2_vergleich-cloud-kosten/storage-get.pdf}}\\
+  \subfloat[][\centering Put/Post/List-Anfragen]{\includegraphics[width=.4\textwidth]{7_2_vergleich-cloud-kosten/storage-put.pdf}}\quad
+  \subfloat[][\centering Ausgehender Netzwerktransfer]{\includegraphics[width=.4\textwidth]{7_2_vergleich-cloud-kosten/storage-network.pdf}}
   \caption{Kostenvergleich zwischen Amazon S3 und Google Cloud Storage}
   \label{kostenvergleichStorage}
 \end{figure}
@@ -113,7 +113,7 @@ Alles in allem lässt sich beim Thema Datenbank an dieser Stelle nicht eindeutig
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.75\columnwidth]{7_1_vergleich-cloud-kosten/transcoding.pdf}
+  \includegraphics[width=0.75\columnwidth]{7_2_vergleich-cloud-kosten/transcoding.pdf}
   \caption{Kostenvergleich zwischen AWS Elemental Media Convert und Google Transcoder API}
   \label{KostenVideoTranscoding}
 \end{figure}
@@ -129,11 +129,17 @@ Zu beachten ist zuletzt, dass einige Dienste für \ac{AWS} Amplify benötigt wer
 \item[GraphQL] Aufgrund von Unterschieden in der Architektur nutzt \ac{AWS} Amplify mit AWS AppSync einen GraphQL-Server, während Firebase ohne einen solchen auskommt, da Funktionen direkt aus dem Frontend aufgerufen werden können. Bei \ac{AWS} entstehen dadurch Nutzungskosten von \$ 4,00 für 1 Millionen Queries oder Mutations. Außerdem entstehen Datentransferkosten. Diese sind allerdings schon durch die Netzwerkkosten aus \ac{AWS} Lambda abgedeckt.
 \end{description}
 
-\section{Nutzungsbeispiele}
+\section{Nutzungsbeispiel}
 
-- Szenarien 1 2 3 ggf. auch nur eins
+Der letzte Abschnitt stellt ein Nutzungsszenario mit den berechneten Kosten dar.
 
-TODO: Nutzungsprofile für die Anwendung definieren, damit der vergleich einfacher ist
+- 10 MB Buildgröße
+- 200.000 Nutzer im Monat
+- 30 Deployment im Monat
+
+
+
+
 
 \section{Zusammenfassung}
 

@@ -14,5 +14,5 @@ plt.ylabel('Kosten (US-Dollar)', color='#1C2833')
 plt.legend(loc='upper left')
 
 plt.grid()
-plt.savefig('../../bilder/7_1_vergleich-cloud-kosten/transcoding.pdf')
+plt.savefig('../../bilder/7_2_vergleich-cloud-kosten/transcoding.pdf')
 plt.show()
