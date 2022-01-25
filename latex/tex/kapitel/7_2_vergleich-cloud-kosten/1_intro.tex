@@ -42,16 +42,16 @@ Zusammenfassend lässt sich im Bereich Hosting kaum ein Kostenunterschied festst
 Beide Dienste nutzen Funktionen, um die Logik der Software abzubilden. Die Kosten unterteilen sich dabei in Ausführungs-, Aufruf- und ausgehende Netzwerkkosten. \autoref{kostenvergleichFunctions} stellt diesen Sachverhalt pro Kostenart dar. Die Angaben basieren auf 256 MB Arbeitsspeicher und der dazu gehörigen CPU mit einem x86-Prozessor. Außerdem werden für die Google Cloud die Tier-2 Preise genutzt, da diese für den Datencenter in Frankfurt ausschlaggebend sind.
 
 \begin{description}
-  \item[Ausführungszeit] Für AWS Lambda fallen \$ 0,0000166667 pro GB-Sekunde an. Für Google Cloud Functions fallen \$ 0,0000035 pro GB-Sekunde an. Bei beiden Diensten sind die ersten 400000 GB-Sekunden kostenfrei.
+  \item[Ausführungszeit] Für AWS Lambda fallen \$ 0,0000166667 pro GB-Sekunde an. Für Google Cloud Functions fallen \$ 0,0000175 pro GB-Sekunde an. Bei beiden Diensten sind die ersten 400000 GB-Sekunden kostenfrei. Im Preis von Google Cloud Functions sind die CPU-Preise mit einkalkuliert, da diese separat berechnet werden.
   \item[Funktionsaufrufe] Für AWS Lambda fallen \$ 0,20 pro Millionen Aufrufen an. Die ersten 1 Millionen Aufrufe sind kostenfrei. Für Google Cloud Functions fallen \$ 0,40 pro Millionen Aufrufen an. Die ersten 2 Millionen Aufrufe sind kostenfrei.
   \item[Ausgehender Netzwerktransfer] Da in der entwickelten Software die Lambda-Funktionen von AppSync aufgerufen werden, gelten für den Netzwerktransfer die Preise dieses Services. Diese belaufen sich auf \$ 0,09 pro GB. Bei Google Cloud Functions sind es \$ 0,12 pro GB. Außerdem gibt es noch ein kostenloses Kontingent von 5 GB.
 \end{description}
 
-Auffällig ist, dass die Ausführung von Funktionen mit \ac{AWS} Lambda um mehr als ein 5-faches teurer ist als mit Google Cloud Functions. Allerdings ist der direkte Vergleich irreführend, da die zu Grunde liegende Abrechnungsmethode beachtet werden muss. Während Lambda die Ausführungszeiten auf 1 ms rundet, wird bei Google Cloud Functions auf die nächsten 100 ms gerundet. Das bedeutet, dass eine Anfrage mit 10 ms auf 100 ms gerundet wird. Dabei würde dann das 10-fache der Nutzung bezahlt werden.
+Die Ausführung von Funktionen mit \ac{AWS} Lambda und Google Cloud Functions ist ungefähr gleich. Lediglich kosten die Google Cloud Functions 5 Prozent mehr. Allerdings ist der direkte Vergleich irreführend, da die zu Grunde liegende Abrechnungsmethode beachtet werden muss. Während Lambda die Ausführungszeiten auf 1 ms rundet, wird bei Google Cloud Functions auf die nächsten 100 ms gerundet. Das bedeutet, dass eine Anfrage mit 10 ms auf 100 ms gerundet wird. Dabei würde dann das 10-fache der Nutzung bezahlt werden.
 
 Auch bei den Funktionsaufrufen ist \ac{AWS} Lambda nach 3 Millionen Aufrufen nur halb so teuer wie Google Cloud Functions. Ein ähnliches Bild mit einem etwas geringeren Faktor ergibt sich bei dem Vergleich der Übertragungskosten.
 
-Zusammenfassend gibt es für Software mit geringen Nutzerzahlen keinen wesentlichen Unterschied zwischen beiden Diensten. Jedoch ist mit steigender Nutzung \ac{AWS} Lambda wirtschaftlicher, da die Ausführungszeiten nicht nach oben gerundet werden und die Funktionsaufrufe deutlich günstiger sind.
+Abgesehen vom kostenlosen Kontingent von Google Cloud Functions ist zusammenfassend \ac{AWS} Lambda wirtschaftlicher, da die Preise günstiger sind und auf Grund der besseren Rundung nur das bezahlt wird, was auch genutzt wird.
 
 \section{Storage-Kosten}
 
@@ -68,7 +68,7 @@ Zusammenfassend gibt es für Software mit geringen Nutzerzahlen keinen wesentlic
 Die Dienste nutzen den Storage für die Ablage der Videos. Die Kosten unterteilen sich in gespeicherte Daten, verschiedene Anfragearten sowie in Netzwerktransfer. Dabei ist der eingehende Netzwerktransfer bei beiden Anbietern kostenfrei, der ausgehende Transfer wird berechnet. In beiden Fällen werden zwei Anfragearten unterschieden: Get- und Select-Anfragen sowie Put, Post, Copy und List-Anfragen.
 
 \begin{description}
-  \item[Gespeicherte Daten] Für Amazon S3 fallen \$ 0,0245000000 pro GB-Sekunde an. Die ersten 5 GB sind kostenfrei. Für Google Cloud Storage fallen \$ 0,023 pro GB an. Dabei sind die ersten 5 GB kostenfrei.
+  \item[Gespeicherte Daten] Für Amazon S3 fallen \$ 0,0245000000 pro GB an. Die ersten 5 GB sind kostenfrei. Für Google Cloud Storage fallen \$ 0,023 pro GB an. Dabei sind auch die ersten 5 GB kostenfrei.
   \item[Get-Anfragen] Anfragen dieser Kategorie kosten bei \ac{AWS} S3 \$ 0,00000043. Die ersten 20000 Anfragen sind kostenfrei. Für den Google Cloud Storage sind es \$ 0,0000004 pro Anfrage mit 50000 kostenfreien Anfragen.
   \item[Put-Anfragen] Diese Anfragen sind etwas teurer als Get-Anfragen. Bei \ac{AWS} S3 sind es \$ 0,0000054 mit 2000 kostenfreien Anfragen. Beim Google Cloud Storage sind es \$ 0,000005 mit 20000 kostenfreien Anfragen.
   \item[Ausgehender Netzwerktransfer] Bei \ac{AWS} S3 fallen für die ersten 10 TB \$ 0,09 pro GB an. Ab dann wird es stufenweise günstiger bis hin zu \$ 0,05 pro GB ab 150 TB. Beim Google Cloud Storage fallen \$ 0,12 pro GB an. Bis 10 TB sinkt der Preis auf \$ 0,11 bis hin zu \$ 0,08 ab 10 TB. Die ersten 30 GB sind dabei kostenfrei.
@@ -126,7 +126,7 @@ Zu beachten ist zuletzt, dass einige Dienste für \ac{AWS} Amplify benötigt wer
 \begin{description}
 \item[User Management] Da die erweiterten Sicherheitsfunktionalitäten von \ac{AWS} Cognito nicht genutzt werden, ist dieser kostenfrei. Auch seitens Firebase gibt es für das User-Management keine extra Kosten für die Standardfunktionalität.
 \item[Benachrichtigung von Diensten] Amazon EventBridge wird verwendet, um \ac{AWS} Lambda darüber zu benachrichtigen, dass ein Video erfolgreich konvertiert wurde. Der Dienst kostet pro 1 Millionen Custom Events \$ 1,00. In Firebase ist dafür kein zusätzlicher Dienst nötig.
-\item[GraphQL] Aufgrund von Unterschieden in der Architektur nutzt \ac{AWS} Amplify mit AWS AppSync einen GraphQL-Server, während Firebase ohne einen solchen auskommt, da Funktionen direkt aus dem Frontend aufgerufen werden können. Bei \ac{AWS} entstehen dadurch Nutzungskosten von \$ 4,00 für 1 Millionen Queries oder Mutations. Außerdem entstehen Datentransferkosten. Diese sind allerdings schon durch die Netzwerkkosten aus \ac{AWS} Lambda abgedeckt.
+\item[GraphQL] Aufgrund von Unterschieden in der Architektur nutzt \ac{AWS} Amplify mit AWS AppSync einen GraphQL-Server, während Firebase ohne einen solchen auskommt, da Funktionen direkt aus dem Frontend aufgerufen werden können. Bei \ac{AWS} entstehen dadurch Nutzungskosten von \$ 4,00 für 1 Millionen Queries oder Mutations. Die ersten 250.000 Aufrufe sind dabei kostenfrei. Außerdem entstehen Datentransferkosten. Diese sind allerdings schon durch die Netzwerkkosten aus \ac{AWS} Lambda abgedeckt.
 \end{description}
 
 \section{Nutzungsbeispiel}
