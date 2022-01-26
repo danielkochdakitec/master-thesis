@@ -1,6 +1,6 @@
 \chapter{Vergleich der Cloud-Kosten}
 
-Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten \autocite{awsPricing} \autocite{gcpPricing} für die entwickelte Software am Standort Frankfurt verglichen. Die verwendeten Cloud-Dienste kommen aus der Architektur. Außerdem stellt das Kapitel Nutzungsbeispiele vor, um zu ermitteln, für welchen Fall welcher Dienst wirtschaftlicher ist. Zunächst folgt die Auflistung der Kosten in unterschiedliche Kategorien.
+Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten \autocite{awsPricing} \autocite{gcpPricing} für die entwickelte Software am Standort Frankfurt verglichen. Die verwendeten Cloud-Dienste kommen aus der Architektur. Außerdem stellt das Kapitel ein Nutzungsszenario für eine Video-Plattform vor, um zu ermitteln, für welchen Fall welcher Dienst wirtschaftlicher ist. Zunächst folgt die Auflistung der Kosten in unterschiedliche Kategorien.
 
 \section{Hosting-Kosten}
 
@@ -129,9 +129,9 @@ Zu beachten ist zuletzt, dass einige Dienste für \ac{AWS} Amplify benötigt wer
 \item[GraphQL] Aufgrund von Unterschieden in der Architektur nutzt \ac{AWS} Amplify mit AWS AppSync einen GraphQL-Server, während Firebase ohne einen solchen auskommt, da Funktionen direkt aus dem Frontend aufgerufen werden können. Bei \ac{AWS} entstehen dadurch Nutzungskosten von \$ 4,00 für 1 Millionen Queries oder Mutations. Die ersten 250.000 Aufrufe sind dabei kostenfrei. Außerdem entstehen Datentransferkosten. Diese sind allerdings schon durch die Netzwerkkosten aus \ac{AWS} Lambda abgedeckt.
 \end{description}
 
-\section{Nutzungsbeispiel}
+\section{Nutzungsszenario}
 
-Der letzte Abschnitt stellt ein Nutzungsszenario für die entwickelte Video-Plattform dar. \autoref{ParameterNutzungsszenario} definiert die Eingangsparameter für die Berechnung. Dies entspricht einer Video-Plattform, welche täglich aktualisiert wird,  500.000 Nutzer hat und jeder Nutzer durchschnittlich 30 Videos im Monat schaut. Das Beispiel setzt damit vor allem einen Fokus auf Plattformen mit vielen Bild- und Videoaufrufen.
+Der letzte Abschnitt stellt ein Nutzungsszenario für die entwickelte Video-Plattform dar. \autoref{ParameterNutzungsszenario} definiert die Eingangsparameter für die Berechnung. Dies entspricht einer Video-Plattform, welche täglich aktualisiert wird,  500.000 Nutzer hat und jeder Nutzer durchschnittlich 30 Videos im Monat schaut. Das Szenario setzt damit vor allem einen Fokus auf Plattformen mit vielen Bild- und Videoaufrufen.
 
 \begin{table}[h]
   \caption{Eingangsparameter des Nutzungsszenarios}
@@ -147,6 +147,7 @@ Der letzte Abschnitt stellt ein Nutzungsszenario für die entwickelte Video-Plat
       \emph{Größe des Frontend-Builds} & 5 MB \\
       \emph{Nutzer pro Monat} & 500.000 \\
       \emph{Deployments pro Monat } & 30 \\
+      \emph{Anzahl an Videoauflistungen pro Monat} & 5.000.000 \\
       \emph{Anzahl an aufgerufenen Videos pro Monat} & 15.000.000 \\
       \emph{Anzahl an hochgeladenen Videos pro Monat} & 1.800 \\
       \emph{Anzahl an aktualisierten Videos pro Monat} & 1.000 \\
@@ -164,9 +165,50 @@ Der letzte Abschnitt stellt ein Nutzungsszenario für die entwickelte Video-Plat
   \rmfamily
 \end{table}
 
-daraus ergibt sich:
-Hosting - Übertragene Daten: 2500	GB
-15001800	Interaktionen im Monat (View, Upload)
+\autoref{BerechnungNutzungsszenario} zeigt die dazugehörigen Kosten. Die Berechnung erfolgt mit Kalkulation der Netto-Preise in US-Dollar inklusive kostenloser Kontingente. Für die Berechnung sind folgende Aspekte zu beachten:
+
+\begin{itemize}
+  \item Für die Computing-Zeit wurden bei \ac{AWS} Amplify die Anzahl der Videoauflistungen und der hochgeladenen sowie aufgerufenen Videos angenommen. Die Anzahl der aktualisierten und gelöschten Videos läuft nicht über eine Funktion sondern geht direkt auf die Datenbank mittels eines VTL-Resolvers von \ac{AWS} AppSync aus. Bei Firestore ist dies nicht der Fall. Hier fließen alle Metriken mit in die Computing-Zeit ein.
+\end{itemize}
+
+zwischenschritte
+
+\begin{table}[h]
+  \caption{Berechnung des Nutzungsszenarios}
+  \label{BerechnungNutzungsszenario}
+  \renewcommand{\arraystretch}{1.2}
+  \centering
+  \sffamily
+  \begin{footnotesize}
+    \begin{tabularx}{0.9\textwidth}{l r r}
+      \toprule
+      \textbf{Kostenart} & \textbf{AWS Amplify} & \textbf{Firebase}\\
+      \midrule
+      \emph{Hosting - Gespeicherte Daten} & \$ 0,00  & \$ 0,00 \\
+      \emph{Hosting - Übertragene Daten} & \$ 372,75 & \$ 373,38 \\
+      \emph{Computing - Funktionsdauer} & \$ 13,96 & \$ 14,66 \\
+      \emph{Computing - Funktionsaufrufe} & \$ 2,80 & \$ 2,60 \\
+      \emph{Computing - Ausgehende Netzwerktransfer} & \$ 2,70 & \$ 0,00 \\
+      \emph{Storage - Gespeicherte Daten} & \$ 122,50 & \$ 115,00 \\
+      \emph{Storage - Get-Anfragen} & \$ 0,00 & \$ 0,00 \\
+      \emph{Storage - Put-Anfragen} & \$ 6,44 & \$ 5,98 \\
+      \emph{Storage - Ausgehender Netzwerktransfer} & \$ 42.291,20 & \$ 61.757,36 \\
+      \emph{Datenbank - Gespeicherte Daten} & \$ 0,00 & \$ 0,00 \\
+      \emph{Datenbank - Lesezugriffe} & \$ 45,75 & \$ 58,31 \\
+      \emph{Datenbank - Schreibzugriffe} & \$ 0,04 & \$ 0,00 \\
+      \emph{Datenbank - Löschzugriffe} & \$ 0,00 & \$ 0,00 \\
+      \emph{Datenbank - Ausgehender Netzwerktransfer} & \$ 1,35 & \$ 0,60 \\
+      \emph{Datenbank - Backup} & \$ 0,01 & \$ 0,00 \\
+      \emph{Video-Transkodierung} & \$ 30,60 & \$ 54,00 \\
+      \emph{Event-Übertragungen} & \$ 1,00 & n. v. \\
+      \emph{GraphQL-Service} & \$ 59,02 & n. v. \\
+      \emph{} &  &  \\
+      \textbf{Summe} & \$ 42.950,12 & \$ 62.381,89 \\
+      \bottomrule
+    \end{tabularx}
+  \end{footnotesize}
+  \rmfamily
+\end{table}
 
 \section{Zusammenfassung}
 
