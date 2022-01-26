@@ -147,14 +147,17 @@ Der letzte Abschnitt stellt ein Nutzungsszenario für die entwickelte Video-Plat
       \emph{Größe des Frontend-Builds} & 5 MB \\
       \emph{Nutzer pro Monat} & 500.000 \\
       \emph{Deployments pro Monat } & 30 \\
+       &  &  \\
       \emph{Anzahl an Videoauflistungen pro Monat} & 5.000.000 \\
       \emph{Anzahl an aufgerufenen Videos pro Monat} & 15.000.000 \\
       \emph{Anzahl an hochgeladenen Videos pro Monat} & 1.800 \\
       \emph{Anzahl an aktualisierten Videos pro Monat} & 1.000 \\
       \emph{Anzahl an gelöschten Videos pro Monat} & 10 \\
+       &  &  \\
       \emph{Durchschnittliche Funktionsdauer} & 0,25 sec \\
       \emph{Durchschnittlicher Verbrauch pro Funktion} & 256 MB \\
       \emph{Durchschnittliche Netzwerknutzung pro Funktion} & 2 KB \\
+       &  &  \\
       \emph{Gespeicherte Videos} & 100.000 \\
       \emph{Durchschnittliche Video-Größe in MB} & 50 MB \\
       \emph{Durchschnittliche Video-Länge} & 1 min \\
@@ -178,34 +181,52 @@ Der letzte Abschnitt stellt ein Nutzungsszenario für die entwickelte Video-Plat
       \toprule
       \textbf{Kostenart} & \textbf{AWS Amplify} & \textbf{Firebase}\\
       \midrule
-      \emph{Hosting - Gespeicherte Daten} & \$ 0,00  & \$ 0,00 \\
-      \emph{Hosting - Übertragene Daten} & \$ 372,75 & \$ 373,38 \\
-      \textbf{Summe (Hosting)} & \$ 372,75 & \$ 373,38 \\
-      \emph{} &  &  \\
-
+      \textbf{Hosting} &  &  \\
+       &  &  \\
+      \emph{Gespeicherte Daten} & \$ 0,00  & \$ 0,00 \\
+      \emph{Übertragene Daten} & \$ 372,75 & \$ 373,38 \\
+       &  &  \\
+      Summe & \$ 372,75 & \$ 373,38 \\
+       &  &  \\
+      \textbf{Computing} &  &  \\
+       &  &  \\
       \emph{Computing - Funktionsdauer} & \$ 19,17 & \$ 20,13 \\
       \emph{Computing - Funktionsaufrufe} & \$ 3,80 & \$ 3,60 \\
       \emph{Computing - Ausgehende Netzwerktransfer} & \$ 3,60 & \$ 4,20 \\
-      \emph{Storage - Gespeicherte Daten} & \$ 122,50 & \$ 115,00 \\
-      \emph{Storage - Get-Anfragen} & \$ 0,00 & \$ 0,00 \\
-      \emph{Storage - Put-Anfragen} & \$ 6,44 & \$ 5,98 \\
-      \emph{Storage - Ausgehender Netzwerktransfer} & \$ 42.291,20 & \$ 61.757,36 \\
-      \emph{Datenbank - Gespeicherte Daten} & \$ 0,00 & \$ 0,00 \\
-      \emph{Datenbank - Lesezugriffe} & \$ 61,00 & \$ 77,81 \\
-      \emph{Datenbank - Schreibzugriffe} & \$ 0,04 & \$ 0,00 \\
-      \emph{Datenbank - Löschzugriffe} & \$ 0,00 & \$ 0,00 \\
-      \emph{Datenbank - Ausgehender Netzwerktransfer} & \$ 1,80 & \$ 1,20 \\
-      \emph{Datenbank - Backup} & \$ 0,01 & \$ 0,00 \\
-      \emph{Video-Transkodierung} & \$ 30,60 & \$ 54,00 \\
+       &  &  \\
+      Summe & \$ 26,57 & \$ 27,93 \\
+       &  &  \\
+      \textbf{Storage} &  &  \\
+       &  &  \\
+      \emph{Gespeicherte Daten} & \$ 122,50 & \$ 115,00 \\
+      \emph{Get-Anfragen} & \$ 0,00 & \$ 0,00 \\
+      \emph{Put-Anfragen} & \$ 6,44 & \$ 5,98 \\
+      \emph{Ausgehender Netzwerktransfer} & \$ 42.291,20 & \$ 61.757,36 \\
+       &  &  \\
+      Summe & \$ 42.420,14 & \$ 61.878,34 \\
+       &  &  \\
+      \textbf{Datenbank} &  &  \\
+       &  &  \\
+      \emph{Gespeicherte Daten} & \$ 0,00 & \$ 0,00 \\
+      \emph{Lesezugriffe} & \$ 61,00 & \$ 77,81 \\
+      \emph{Schreibzugriffe} & \$ 0,04 & \$ 0,00 \\
+      \emph{Löschzugriffe} & \$ 0,00 & \$ 0,00 \\
+      \emph{Ausgehender Netzwerktransfer} & \$ 1,80 & \$ 1,20 \\
+      \emph{Backup} & \$ 0,01 & \$ 0,00 \\
+       &  &  \\
+      Summe & \$ 62,85 & \$ 79,01 \\
+       &  &  \\
+      \textbf{Video-Transkodierung} &  &  \\
+       &  &  \\
+      Summe & \$ 30,60 & \$ 54,00 \\
+       &  &  \\
+      \textbf{Sonstiges} &  &  \\
+      &  &  \\
       \emph{Event-Übertragungen} & \$ 1,00 & n. v. \\
       \emph{GraphQL-Service} & \$ 59,02 & n. v. \\
-      \emph{} &  &  \\
-      \textbf{Summe (Computing)} & \$ 26,57 & \$ 27,93 \\
-      \textbf{Summe (Storage)} & \$ 42.420,14 & \$ 61.878,34 \\
-      \textbf{Summe (Datenbank)} & \$ 62,85 & \$ 79,01 \\
-      \textbf{Summe (Video-Transkodierung)} & \$ 30,6 & \$ 54 \\
-      \textbf{Summe (Sonstiges)} & \$ 80,02 & \$ 0,00 \\
-      \emph{} &  &  \\
+       &  &  \\
+      Summe & \$ 60,02 & \$ 0,00 \\
+       &  &  \\
       \textbf{Summe (gerundet)} & \$ 42.993 & \$ 62.413 \\
       \bottomrule
     \end{tabularx}
@@ -213,7 +234,9 @@ Der letzte Abschnitt stellt ein Nutzungsszenario für die entwickelte Video-Plat
   \rmfamily
 \end{table}
 
-Der Preis ist auf Grund der kostenlosen Kontingente bzw. im Falle der Löschzugriffe auf Grund der geringen Nutzung in vier Fällen gleich. Zwar ist Firebase in den restlichen 57 Prozent der Fälle kostengünstiger als \ac{AWS} Amplify, dennoch ist der Gesamtpreis pro Monat bei Firebase um 45 Prozent höher als der Preis von \ac{AWS} Amplify. Dies lässt sich anhand der deutlich geringeren ausgehenden Netzwerktransferkosten bei \ac{AWS} erklären. Würden diese nicht beachtet werden, ergäbe sich ein relativ ähnliches Bild, nur, dass \ac{AWS} Amplify dann nun 7 Prozent teurer ist.
+Im den Bereich Hosting, Computing, Storage und Datenbank ist \ac{AWS} Amplify günstiger als Firebase. Lediglich im Bereich Sonstiges werden bei Firebase keine Kosten verursacht, während in \ac{AWS} Amplify durch den GraphQL-Service Kosten verursacht werden. Insgesamt ist damit für diesen Anwendungsfall \ac{AWS} Amplify deutlich günstiger als Firebase. Dies lässt sich anhand der deutlich geringeren ausgehenden Netzwerktransferkosten bei \ac{AWS} erklären.
+
+Werden die Storage-Kosten nicht beachtet, ergibt sich, dass \ac{AWS} Amplify 7 Prozent teurer ist. Allerdings ist es fraglich, ob die Architektur in Firebase ohne eine einheitliche GraphQL-Schnittstelle dies rechtfertigt.
 
 \section{Zusammenfassung}
 
