@@ -93,7 +93,7 @@ In den ersten drei Kategorien ist der Google Cloud Storage kostengünstiger. Die
       \emph{Lesezugriffe / 100k (kostenfrei)} & \$ 0,305  & \$ 0,39 (50k) \\
       \emph{Schreibzugriffe / 100k (kostenfrei)} & \$ 1,525  & \$ 1,17 (20k) \\
       \emph{Löschzugriffe / 100k (kostenfrei)} &  s. Schreiben & \$ 0,13 (20k) \\
-      \emph{Netzwerktransfer / GB (kostenfrei)} & \$ 0,09 (AppSync) & \$ 0,12 - \$ 0,08 (10 GB) \\
+      \emph{Netzwerktransfer / GB (kostenfrei)} & \$ 0,09 - AppSync & \$ 0,12 - \$ 0,08 (10 GB) \\
       \emph{Backup / GB} & \$ 0,1224 & s. Lesezugriff \\
       \bottomrule
     \end{tabularx}
@@ -131,15 +131,42 @@ Zu beachten ist zuletzt, dass einige Dienste für \ac{AWS} Amplify benötigt wer
 
 \section{Nutzungsbeispiel}
 
-Der letzte Abschnitt stellt ein Nutzungsszenario mit den berechneten Kosten dar.
+Der letzte Abschnitt stellt ein Nutzungsszenario für die entwickelte Video-Plattform dar. \autoref{ParameterNutzungsszenario} definiert die Eingangsparameter für die Berechnung. Dies entspricht einer Video-Plattform, welche täglich aktualisiert wird,  500.000 Nutzer hat und jeder Nutzer durchschnittlich 30 Videos im Monat schaut. Das Beispiel setzt damit vor allem einen Fokus auf Plattformen mit vielen Bild- und Videoaufrufen.
 
-- 10 MB Buildgröße
-- 200.000 Nutzer im Monat
-- 30 Deployment im Monat
+\begin{table}[h]
+  \caption{Eingangsparameter des Nutzungsszenarios}
+  \label{ParameterNutzungsszenario}
+  \renewcommand{\arraystretch}{1.2}
+  \centering
+  \sffamily
+  \begin{footnotesize}
+    \begin{tabularx}{0.9\textwidth}{l l l}
+      \toprule
+      \textbf{Parameter} & \textbf{Wert}\\
+      \midrule
+      \emph{Größe des Frontend-Builds} & 5 MB \\
+      \emph{Nutzer pro Monat} & 500.000 \\
+      \emph{Deployments pro Monat } & 30 \\
+      \emph{Anzahl an aufgerufenen Videos pro Monat} & 15.000.000 \\
+      \emph{Anzahl an hochgeladenen Videos pro Monat} & 1.800 \\
+      \emph{Anzahl an aktualisierten Videos pro Monat} & 1.000 \\
+      \emph{Anzahl an gelöschten Videos pro Monat} & 10 \\
+      \emph{Durchschnittliche Funktionsdauer} & 0,25 sec \\
+      \emph{Durchschnittlicher Verbrauch pro Funktion} & 256 MB \\
+      \emph{Durchschnittliche Netzwerknutzung pro Funktion} & 2 KB \\
+      \emph{Gespeicherte Videos} & 100.000 \\
+      \emph{Durchschnittliche Video-Größe in MB} & 50 MB \\
+      \emph{Durchschnittliche Video-Länge} & 1 min \\
+      \emph{Durchschnittliche Größe in Datenbank} & 1 KB \\
+      \bottomrule
+    \end{tabularx}
+  \end{footnotesize}
+  \rmfamily
+\end{table}
 
-
-
-
+daraus ergibt sich:
+Hosting - Übertragene Daten: 2500	GB
+15001800	Interaktionen im Monat (View, Upload)
 
 \section{Zusammenfassung}
 
