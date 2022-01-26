@@ -165,13 +165,7 @@ Der letzte Abschnitt stellt ein Nutzungsszenario für die entwickelte Video-Plat
   \rmfamily
 \end{table}
 
-\autoref{BerechnungNutzungsszenario} zeigt die dazugehörigen Kosten. Die Berechnung erfolgt mit Kalkulation der Netto-Preise in US-Dollar inklusive kostenloser Kontingente. Für die Berechnung sind folgende Aspekte zu beachten:
-
-\begin{itemize}
-  \item Für die Computing-Zeit wurden bei \ac{AWS} Amplify die Anzahl der Videoauflistungen und der hochgeladenen sowie aufgerufenen Videos angenommen. Die Anzahl der aktualisierten und gelöschten Videos läuft nicht über eine Funktion sondern geht direkt auf die Datenbank mittels eines VTL-Resolvers von \ac{AWS} AppSync aus. Bei Firestore ist dies nicht der Fall. Hier fließen alle Metriken mit in die Computing-Zeit ein.
-\end{itemize}
-
-zwischenschritte
+\autoref{BerechnungNutzungsszenario} zeigt die dazugehörigen Kosten. Die Berechnung erfolgt mit Kalkulation der Netto-Preise in US-Dollar inklusive kostenloser Kontingente. Für die Computing-Zeit wurden bei \ac{AWS} Amplify die Anzahl der Videoauflistungen und der hochgeladenen sowie aufgerufenen Videos angenommen. Die Anzahl der aktualisierten und gelöschten Videos läuft nicht über eine Lambda-Funktion, sondern geht direkt mittels eines VTL-Resolvers von \ac{AWS} AppSync auf die Datenbank  aus. Bei Firestore ist dies nicht der Fall. Hier fließen alle Metriken mit in die Computing-Zeit ein.
 
 \begin{table}[h]
   \caption{Berechnung des Nutzungsszenarios}
@@ -203,6 +197,7 @@ zwischenschritte
       \emph{Event-Übertragungen} & \$ 1,00 & n. v. \\
       \emph{GraphQL-Service} & \$ 59,02 & n. v. \\
       \emph{} &  &  \\
+      \textbf{Summe (exklusive Storage, gerundet)} & \$ 573 & \$ 534 \\
       \textbf{Summe (gerundet)} & \$ 42.993 & \$ 62.413 \\
       \bottomrule
     \end{tabularx}
@@ -210,6 +205,8 @@ zwischenschritte
   \rmfamily
 \end{table}
 
+Der Preis ist auf Grund der kostenlosen Kontingente bzw. im Falle der Löschzugriffe auf Grund der geringen Nutzung in vier Fällen gleich. Zwar ist Firebase in den restlichen 57 Prozent der Fälle kostengünstiger als \ac{AWS} Amplify, dennoch ist der Gesamtpreis pro Monat bei Firebase um 45 Prozent höher als der Preis von \ac{AWS} Amplify. Dies lässt sich anhand der deutlich geringeren ausgehenden Netzwerktransferkosten bei \ac{AWS} erklären. Würden diese nicht beachtet werden, ergäbe sich ein relativ ähnliches Bild, nur, dass \ac{AWS} Amplify dann nun 7 Prozent teurer ist.
+
 \section{Zusammenfassung}
 
-zusammenfassung aller dienste und wo welcher dienst günstiger ist
+Zusammenfassend lässt sich sagen, dass Firebase meistens dann günstiger ist, wenn die Plattformen geringe Nutzerzahlen haben und wenige Medieninhalte ausliefern. Je größer allerdings eine Plattform wird, desto mehr Netzwerktransfer wird verursacht. Dies führt bei großen Werten dazu, dass die Kosten für den Netzwerktransfer wichtiger als die Kosten für anderen Berechnungen sind, wie das folgende Beispiel gezeigt hat.
