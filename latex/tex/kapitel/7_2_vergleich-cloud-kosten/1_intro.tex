@@ -2,7 +2,11 @@
 
 Im folgenden Kapitel werden die monatlich anfallenden Cloud-Kosten \autocite{awsPricing} \autocite{gcpPricing} für die entwickelte Software am Standort Frankfurt verglichen. Die verwendeten Cloud-Dienste kommen aus der Architektur. Außerdem stellt das Kapitel ein Nutzungsszenario für eine Video-Plattform vor, um zu ermitteln, für welchen Fall welcher Dienst wirtschaftlicher ist. Zunächst folgt die Auflistung der Kosten in unterschiedliche Kategorien.
 
-\section{Hosting-Kosten}
+\section{Kostenarten}
+
+Zunächst folgt die Auflistung der Kostenarten der beiden Cloud-Anbieter. Dabei stellt der letzte Unterabschnitt die Kosten für Dienste dar, die sich nicht direkt vergleichen lassen wie \ac{AWS} AppSync oder die \ac{AWS} EventBridge.
+
+\subsection{Hosting}
 
 \begin{figure}%
     \centering
@@ -28,7 +32,7 @@ Ein Vergleich der Build-Zeit findet an dieser Stelle nicht statt. \ac{AWS} Ampli
 
 Zusammenfassend lässt sich im Bereich Hosting kaum ein Kostenunterschied feststellen. Dies liegt daran, dass der  Proportionalitätsfaktor der übertragenen Daten bei beiden Diensten gleich ist.
 
-\section{Computing-Kosten}
+\subsection{Computing}
 
 \begin{figure}
   \centering
@@ -53,7 +57,7 @@ Auch bei den Funktionsaufrufen ist \ac{AWS} Lambda nach 3 Millionen Aufrufen nur
 
 Abgesehen vom kostenlosen Kontingent von Google Cloud Functions ist zusammenfassend \ac{AWS} Lambda wirtschaftlicher, da die Preise günstiger sind und auf Grund der besseren Rundung nur das bezahlt wird, was auch genutzt wird.
 
-\section{Storage-Kosten}
+\subsection{Storage}
 
 \begin{figure}
   \centering
@@ -76,7 +80,7 @@ Die Dienste nutzen den Storage für die Ablage der Videos. Die Kosten unterteile
 
 In den ersten drei Kategorien ist der Google Cloud Storage kostengünstiger. Die Netzwerkkosten sind bei \ac{AWS} abgesehen vom kostenlosen Kontingent von Google immer günstiger. Zusammenfassend ist damit die Google Cloud in der Kategorie Storage in den meisten Fällen kostengünstiger. Allerdings könnte sich für eine Video-Plattform, welche über 50 TB an Daten ausgibt, die mehr als 50 Prozent günstigeren ausgehenden Netzwerktransfer-Kosten positiv auswirken.
 
-\section{Datenbank-Kosten}
+\subsection{Datenbank}
 
 \begin{table}[h]
   \caption{Kostenvergleich zwischen DynamoDB und Firestore}
@@ -109,7 +113,7 @@ Vergleichbar sind allerdings die gespeicherten Daten. Diese sind für DynamoDB u
 
 Alles in allem lässt sich beim Thema Datenbank an dieser Stelle nicht eindeutig sagen, welcher Dienst wirtschaftlicher ist. Das liegt daran, dass es auf den Use-Case und die genauen Werte ankommt und die Vergleichbarkeit auf Grund von unterschiedlichen Preismodellen nicht vollständig gegeben ist.
 
-\section{Videokonvertierungskosten}
+\subsection{Videokonvertierung}
 
 \begin{figure}
   \centering
@@ -120,7 +124,7 @@ Alles in allem lässt sich beim Thema Datenbank an dieser Stelle nicht eindeutig
 
 Dieser Dienst wird genutzt, um das Wasserzeichen auf den hochgeladenen Videos zu platzieren. Die Werte beziehen sich auf die Konvertierung von Videos in HD-Qualität. Für \ac{AWS} Elemental Media Convert fallen \$ 0,017 pro Minute an. Für die Google Transcoder API fallen \$ 0,030 pro Minute an. \autoref{KostenVideoTranscoding} stellt diesen Zusammenhang dar. In diesem Bereich schneidet \ac{AWS} für jede Dauer besser ab.
 
-\section{Sonstige Kosten}
+\subsection{Sonstige}
 
 Zu beachten ist zuletzt, dass einige Dienste für \ac{AWS} Amplify benötigt werden, die in Firebase nicht vorhanden sind oder in beiden Diensten nicht abgerechnet werden.
 \begin{description}
