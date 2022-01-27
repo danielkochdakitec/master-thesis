@@ -1,23 +1,33 @@
 \chapter{Vergleich der Lösungen}
 
-- Time to execute
+(fokus für dieses Projekt, aber auch tendenziell generell)
 
-- Welche Komplnenten kann man verwenden vs muss man selbst coden
+- Allgemeines
+  - Anzahl der Nutzer
+  - Zufriedenheit / Akzeptanz
+  - Zeit im Markt
+  - Sonstige Fakten
+  - GitHub Stars
 
-ggf. generelle Vergleichspunkte (Anzahl der Nutzer, Zufriedenheit, Akzeptant, etc., Zeit im Markt)
-
-- Architektur und Implementierung
+- Entwicklungszeit
+  - SAM in Amplify, Emulator gibt es bei Firebase
   - Auth:
+    - Welche
     - Amplify hat Groups in Cognito, Cognito ist umfangreicher
     - Authentication hat keine Gruppen, daher eigene Tabelle und Logik (= umfangreicher)
-  - Manuelle Anpassung von Ressourcen: Einige Anpassungen an von Amplify bereitgestellten Ressourcen lassen sich im CloudFormation-Template nicht verändern. Der Build-Prozess überschreibt die Veränderung, so dass folgendes Szenario nicht möglich ist: Im \textit{AuthStack} muss die Identifikation des User-Pools statt die des Identity-Pools genutzt werden, damit die Lambda-Funktion weiß, um welchen Nutzer es sich handelt. Als Workaround muss die Änderung manuell in die Ressource eingetragen werden. Das ist sehr fehleranfällig, da bei einem erneuten Setup des Projektes diese manuelle Änderung immer wieder eingespielt werden muss.
+  - Firebase hat keine einheitliche AppSync-Schnittstelle, die direkt auf dynamodb resolved, sondern man muss das selbst schreiben
+
+- Wiederverwendbarkeit
+  - Weitere Dienste einbinden
+    - Manuelle Anpassung von Ressourcen: Einige Anpassungen an von Amplify bereitgestellten Ressourcen lassen sich im CloudFormation-Template nicht verändern. Der Build-Prozess überschreibt die Veränderung, so dass folgendes Szenario nicht möglich ist: Im \textit{AuthStack} muss die Identifikation des User-Pools statt die des Identity-Pools genutzt werden, damit die Lambda-Funktion weiß, um welchen Nutzer es sich handelt. Als Workaround muss die Änderung manuell in die Ressource eingetragen werden. Das ist sehr fehleranfällig, da bei einem erneuten Setup des Projektes diese manuelle Änderung immer wieder eingespielt werden muss.
     - abhängig von Amplify-CLI, selbst erstellen fast kaum möglich
- - SAM in Amplify, Emulator gibt es bei Firebase
- - Firebase hat keine einheitliche AppSync Schnittstelle, die direkt auf dynamodb resolved, sondern man muss das selbst schreiben
+
+
+
+
+
  - Serverless, CDK, FIrebase ist infraaturcture im code
  - Amplify generell komplexer als Firebase, Setup war schwerer, mehr Fehler, Firebase war einfacher
- - Firebase Storage kennt keine privaten user-Spaces, amplify hat das direkt mit S3 integriert
-- Wiederverwendbarkeit von Code
 - Entwicklungszeit
 - Wartbarkeit
 - Flexibilität des Frameworks
