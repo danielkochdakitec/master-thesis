@@ -1,10 +1,7 @@
 \section{Zielsetzung und Methodik}
 
-Das Ziel der Arbeit ist es, AWS Amplify und Firebase zu vergleichen. Dazu werden die folgenden Anforderungen für ein Video-Portal definiert:
+Das Ziel der Arbeit ist es die beiden Backend-as-a-service-Plattformen \ac{AWS} Amplify und Firebase zu vergleichen. Dies ist sinnvoll, um herauszufinden, welche der beiden Plattformen wirtschaftlich günstiger für die Entwicklung und das Hosting einer entsprechenden Software ist. Um dieses Ziel zu erreichen, muss definiert werden, anhand welcher Kriterien der Vergleich stattfindet. Die Arbeit fokussiert sich dabei auf den Entwicklungsaufwand sowie die monatlichen Kosten der Cloud. Um ein reales Beispiel zu simulieren, werden als nächstes die folgenden funktionalen (FA1 - FA7) und nicht-funktionalen (NF1 - NF6) Anforderungen sowie die Rahmenbedingungen (R1 - R5) für ein Video-Portal definiert. Dieses wird für diese Arbeit prototypisch entwickelt und ausgewertet.
 
-<todo>: warum macht ein Vergleich Sinn? Was wird genau verglichen? Was sind die Metriken, nach denen man das vergleicht?
-
-Die funktionalen Anforderungen beschreiben, was die Video"=Plattform leisten muss:
 \begin{description}
    \item[F1 - Registrierung] Das System muss dem Benutzer die Möglichkeit geben, sich zu registrieren. Dies erfolgt unter Angabe der Attribute E"=Mail, Telefonnummer und Passwort. \label{F1}
    \item[F2 - Login] Das System muss dem Benutzer die Möglichkeit geben, sich mit seiner E"=Mail Adresse und seinem Passwort einzuloggen. \label{F2}
@@ -13,20 +10,12 @@ Die funktionalen Anforderungen beschreiben, was die Video"=Plattform leisten mus
    \item[F5 - Videos auflisten] Das System muss dem Benutzer die Möglichkeit geben, alle Videos aufzulisten. Die Videos müssen über das Titel"=Feld durchsuchbar sein. Dabei ist eine exakte Suche ausreichend. \label{F5}
    \item[F6 - Video bearbeiten] Das System muss dem Benutzer die Möglichkeit geben, eigene Videos zu bearbeiten, um den Titel oder die Beschreibung zu ändern. Trägt der Benutzer die Rolle des Administrators, darf dieser auch fremde Videos bearbeiten. \label{F6}
    \item[F7 - Videos löschen] Das System muss dem Benutzer die Möglichkeit geben, selbst hochgeladenen Videos zu löschen. Trägt der Nutzer die Rolle des Administrators, darf dieser auch fremde Videos löschen. \label{F7}
-\end{description}
-
-Die nichtfunktionalen Anforderungen beschreiben die Qualitätsmerkmale der zu entwickelnden Video"=Plattform:
-\begin{description}
    \item[NF1 - Verfügbarkeit] Das System muss zu 99,9\% pro Jahr verfügbar sein. Ein Deployment darf nicht zu einem Systemausfall führen.\label{NF1}
    \item[NF2 - Skalierbarkeit] Das System muss bei Lastspitzen automatisch skalieren.\label{NF2}
    \item[NF3 - Analysierbarkeit] Das System muss so aufgesetzt werden, dass jeder Backend"=Aufruf durch Log"=Dateien nachvollziehbar ist.\label{NF3}
    \item[NF4 - Interoperabilität] Das System muss gängige Schnittstellen wie REST oder GraphQL anbieten.\label{NF4}
    \item[NF5 - Backups] Das System muss automatisiert Backups für mindestens sieben Tage anlegen.\label{NF6}
    \item[NF6 - Wiederherstellbarkeit] Das System muss im Falle eines Ausfalls oder eines Datenverlusts innerhalb von einer Stunde wiederherstellbar sein.\label{NF7}
-\end{description}
-
-Um eine möglichst gute Vergleichbarkeit zwischen \ac{AWS} Amplify und Firebase herzustellen, müssen Rahmenbedingungen für die Video"=Plattform definiert werden:
-\begin{description}
    \item[R1 - Keine externen Cloud-Dienste] Das System darf nur Dienste innerhalb der zu entwickelnden Cloud nutzen. Beispielsweise dürfen keine externen Dienste für die Video"=Bearbeitung genutzt werden.
    \item[R2 - Keine Eigenentwicklungen] Das System sollte bei gängigen Problemen weitestgehend bestehende Lösungen der Cloud nutzen, statt Komponenten neu zu entwickeln. Beispielweise sollte eine User"=Authentifizierung nicht von Grund auf neu entwickelt werden. Wenn es keine bestehende Lösung gibt, darf die Software allerdings eine Eigenentwicklung nutzen.
    \item[R3 - Geringe Betriebskosten] Das System muss so konzipiert werden, dass die Betriebskosten der Anwendung minimal gehalten werden.
