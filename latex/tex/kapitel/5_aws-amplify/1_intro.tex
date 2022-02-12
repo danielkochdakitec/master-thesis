@@ -171,7 +171,7 @@ Einen Ausschnitt der Anpassungen am Plugin \textit{createVideo} zeigt \autoref{l
 
 Für die Backend-Logik wird ein GraphQL-Schema in AppSync benötigt. Dieses stellt die nötigen Verbindungen zu den Lambda-Funktionen und der DynamoDB her. \autoref{lst:AmplifyGraphQLSchema} zeigt dieses Schema.
 
-Die beiden Mutationen \textit{createVideo} und \textit{createPresignedVideoLink} rufen mit den Funktionsparametern die definierte Funktion auf. Der Funktionsname enthält das aktuelle Environment, damit mehrere Git-Branches möglich sind.
+Die beiden Mutationen \textit{createVideo} und \textit{createPresignedVideoLink} rufen mit den Funktionsparametern die definierte Funktion auf. Der Funktionsname enthält das aktuelle Environment, damit mehrere Entwicklungs-Branches möglich sind.
 
 Des Weiteren wird ein Video-Type definiert. Über den \textit{@model}-Parameter werden alle Aktionen bis auf \textit{Create} und \textit{onCreateVideo} ausgeschlossen, da diese selbst programmiert und nicht über VTL-Resolver zu DynamoDB abgebildet werden. Über den \textit{@auth}-Parameter werden die benötigten Zugriffskontrollen etabliert. Die Definition sorgt dafür, dass nur der Besitzer des Videos sowie ein Administrator ein Video löschen oder aktualisieren darf. Die Aktionen Lesen und Erstellen sind immer erlaubt. Aus diesem Schema erstellt AppSync automatisch eine GraphQL-API, die das Frontend für Abfragen auf die Videos nutzen kann. Die API bietet auch Filtermöglichkeiten an, um die Suche nach dem Video-Titel abzubilden.
 
