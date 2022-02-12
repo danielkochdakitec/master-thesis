@@ -10,9 +10,9 @@ Verglichen werden der Entwicklungsprozess sowie die Ebenen Infrastruktur, Backen
 
 Für die lokale Entwicklung bietet \ac{AWS} Amplify die Möglichkeit, \ac{AWS} AppSync und Lambda sowie Amazon DynamoDB und S3 lokal zu betreiben und zu testen. Dies beschleunigt die lokale Entwicklung, da Änderungen nicht zwangsläufig sofort in die Cloud hochgeladen werden müssen, was eine Wartezeit von einigen Minuten bei diesem Projekt bedeutet. Mit dem Feature \textit{Emulator} bietet auch Firebase eine solche Möglichkeit an. Damit lassen sich die Dienste Storage, Auth, Firestore, Functions und Hosting für dieses Projekt lokal betreiben. Im Gegensatz zu \ac{AWS} Amplify werden damit noch zusätzlich die Bereiche Authentifizierung und Hosting des Frontends abgedeckt. Obwohl diese Bereiche zusätzlich abgedeckt sind, ergibt sich kein zeitlicher Vorteil für Firebase. Ohnehin lässt sich das Frontend lokal starten und die Konfiguration der Authentifizierung ändert sich nur in den seltensten Fällen.
 
-Ein weiterer Vergleichspunkt ist das Deployment der Anwendungen. Während \ac{AWS} Amplify eine integrierte CI/CD-Pipeline mittels \ac{AWS} CodeBuild anbietet, muss in Firebase auf eine eigenen Pipeline, zum Beispiel über GitHub Actions, zurückgegriffen werden. Dieses bedeutet zusätzlichen Aufwand beim Setup der Entwicklungsumgebung. Allerdings existiert für die fehlende integrierte Pipeline von Firebase eine vordefinierte Datei, was den Aufwand sehr gering hält.
+Ein weiterer Vergleichspunkt ist das Deployment der Anwendungen. Während \ac{AWS} Amplify eine integrierte CI/CD-Pipeline mittels \ac{AWS} CodeBuild anbietet, muss in Firebase auf eine eigenen Pipeline, zum Beispiel über GitHub Actions, zurückgegriffen werden. Dieses bedeutet zusätzlichen Aufwand beim Setup der Entwicklungsumgebung. Allerdings existiert für die fehlende integrierte Pipeline von Firebase eine vordefinierte Datei, was den Aufwand sehr gering hält. Auf der anderen Seite basiert das Deployment von \ac{AWS} Amplify auf CloudFormation-Templates. Auf Grund der Komplexität dieses Vorgehens, passieren hier mehr Fehler, als wenn es diese nicht gibt.
 
-Es ergibt sich damit kein wesentlicher Zeitvorteil auf Grund des Entwicklungsprozesses für eines der beiden Anbieter.
+Daher ist zusammenfassend der Entwicklungsprozess von Firebase schneller, da die Komplexität geringer ist und Entwickler weniger Fehler machen können.
 
 \subsection{Infrastruktur}
 
@@ -24,7 +24,7 @@ Damit ist \ac{AWS} Amplify zwar sehr mächtig, wenn es darum geht, Dienste hinzu
 
 Dagegen ergibt sich die Infrastruktur in Firebase direkt aus dem Code und es sind keine weiteren Definitionen wie in \ac{AWS} Amplify nötig. Das ist zunächst einmal weniger zeitaufwendig für den Entwickler. Allerdings kommt durch die geringere  Komplexität der Nachteil, dass Infrastrukturen nicht beliebig konfiguriert werden können.
 
-Zusammenfassend ist \ac{AWS} Amplify damit komplexer und umfangreicher und damit langsamer zu entwickeln. Mit Firebase lässt sich zwar nicht jedes beliebige Cloud-Setup abbilden, allerdings ist die Entwicklungszeit damit auch wesentlich schneller.
+Zusammenfassend ist \ac{AWS} Amplify damit komplexer und umfangreicher und damit langsamer zu entwickeln. Mit Firebase lässt sich zwar nicht jedes beliebige Cloud-Setup abbilden, allerdings ist die Entwicklungszeit damit auch schneller.
 
 \subsection{Backend}
 
@@ -44,6 +44,22 @@ GraphQL
 
 \section{Zusammenfassung}
 
-- Amplify generell komplexer als Firebase, Setup war schwerer, mehr Fehler, Firebase war einfacher
+TODO: - Amplify generell komplexer als Firebase, Setup war schwerer, mehr Fehler, Firebase war einfacher
 
-<Tabelle mit Kategorien der Entwicklung: wo war was schneller und warum>
+\autoref{tab:entwicklungszeit} visualisiert die Ergebnisse des Vergleichs.
+
+\begin{table}[h]
+  \caption{Vergleich der Entwicklungszeit}
+  \label{tab:entwicklungszeit}
+  \centering
+  \begin{tabular}{lccc}
+    \toprule
+    & \ac{AWS} Amplify 1 & Firebase 2\\
+    \midrule
+    Entwicklungsprozess	& \harveyBallThreeQuarter & \harveyBallFull \\
+    Infrastruktur	& \harveyBallHalf & \harveyBallFull \\
+    Backend	& \harveyBallFull & \harveyBallThreeQuarter \\
+    Frontend	& \harveyBallThreeQuarter & \harveyBallThreeQuarter \\
+    \bottomrule
+  \end{tabular}
+\end{table}
