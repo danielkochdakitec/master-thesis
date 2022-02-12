@@ -36,12 +36,15 @@ Weiterhin ist zu erwähnen, dass Amazon Cognito ein Gruppenkonzept anbietet, wel
 
 Ein weiterer Vergleichspunkt ist die Videokonvertierung. Hieran lässt sich wieder erkennen, dass die \ac{AWS}-Cloud komplexer ist. Während bei Firebase ein einziger API-Aufruf zur Transcoder-API reicht, müssen bei /ac{AWS} mehrere Infrastruktur-Elemente erstellt werden. Zum einen wird eine Lambda-Funktion für den eigentlichen Aufruf benötigt. Dann wird ein MediaConvert Job-Template benötigt. Eine weitere EventBridge-Regel und eine zusätzliche Lambda-Funktion werden benötigt, um über die erfolgreiche Transkodierung benachrichtigt zu werden. Das macht es möglich, komplexere Architekturen abzubilden, jedoch erhöht dies gleichzeitig die Entwicklungszeit.
 
-Alles in allem ist damit die Entwicklungszeit für beide Dienste schon sehr gering, da es wenig Boilerplate-Code gibt, jedoch ist die Entwicklung in Firebase nochmal schneller, da die Architektur einfach gehalten werden kann.
+Alles in allem ist damit die Entwicklungszeit für beide Dienste geringer als ohne Backend-as-a-service Tools, da es wenig Boilerplate-Code gibt, jedoch ist die Entwicklung in Firebase nochmal schneller, da die Architektur einfach gehalten werden kann.
 
 \subsection{Frontend}
 
-GraphQL
-- funktionen callen vs app sync
+Im Frontend spiegelt sich das wieder, was das Backend als Schnittstelle anbietet. Das bedeutet, dass in \ac{AWS} Amplify eine GraphQL-Schnittstelle angesprochen wird und in Firebase einzelnen Cloud Functions aufgerufen werden. Die GraphQL-Anbindung hat mehr Zeit erfordert, da neben dem Funktionsaufruf auch der Query bzw. die Mutation samt deren Eingangs- und Ausgangsparameter definiert werden musste.
+
+Ein weiterer Unterschied gibt es bei der Anbindung an die Authentifizieruns-Dienste. Während es bei Cognito fertigen Code gab, um Login, Logout, Registrierung sowie die Absperrung von Seiten, die nur eingeloggten Nutzern angezeigt werden sollen, musste dies bei Firebase teilweise zusätzlich programmiert werden. Zwar gibt es eine Komponente, die einige Logik übernimmt, jedoch nicht nahtlos mit dem React Router zusammenspielt.
+
+Damit ist die Entwicklungszeit in diesem Projekt für das Frontend relativ ausgeglichen. Auf der einen Seite wird etwas mehr Zeit für die Schnittstelle bei \ac{AWS} Amplify benötigt. Seitens Firebase wird mehr Zeit für das User-Management benötigt.
 
 \section{Zusammenfassung}
 
@@ -57,7 +60,7 @@ TODO: noch granularer aufzeigen
   \centering
   \begin{tabular}{lccc}
     \toprule
-    & \ac{AWS} Amplify 1 & Firebase 2\\
+    & \ac{AWS} Amplify & Firebase\\
     \midrule
     Entwicklungsprozess	& \harveyBallThreeQuarter & \harveyBallFull \\
     Infrastruktur	& \harveyBallHalf & \harveyBallFull \\
