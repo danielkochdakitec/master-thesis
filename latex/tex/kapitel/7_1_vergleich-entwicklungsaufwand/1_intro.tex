@@ -2,31 +2,45 @@
 
 Das folgende Kapitel vergleicht \ac{AWS} Amplify mit Firebase anhand der entwickelten Plattformen. Dabei liegt der Fokus des Vergleichs auf dem Entwicklungsaufwand.
 
-\section{Emulator}
+\section{Vergleichskategorien}
 
-- SAM in Amplify, Emulator gibt es bei Firebase
+Verglichen werden der Entwicklungsprozess sowie die Ebenen Infrastruktur, Backend und Frontend.
 
-\section{Authentication}
+\subsection{Entwicklungsprozess}
+
+Für die lokale Entwicklung bietet \ac{AWS} Amplify die Möglichkeit, \ac{AWS} AppSync und Lambda sowie Amazon DynamoDB und S3 lokal zu betreiben und zu testen. Dies beschleunigt die lokale Entwicklung, da Änderungen nicht zwangsläufig sofort in die Cloud hochgeladen werden müssen, was eine Wartezeit von einigen Minuten bei diesem Projekt bedeutet. Mit dem Feature \textit{Emulator} bietet auch Firebase eine solche Möglichkeit an. Damit lassen sich die Dienste Storage, Auth, Firestore, Functions und Hosting für dieses Projekt lokal betreiben. Im Gegensatz zu \ac{AWS} Amplify werden damit noch zusätzlich die Bereiche Authentifizierung und Hosting des Frontends abgedeckt. Obwohl diese Bereiche zusätzlich abgedeckt sind, ergibt sich kein zeitlicher Vorteil für Firebase. Ohnehin lässt sich das Frontend lokal starten und die Konfiguration der Authentifizierung ändert sich nur in den seltensten Fällen.
+
+Ein weiterer Vergleichspunkt ist das Deployment der Anwendungen. Während \ac{AWS} Amplify eine integrierte CI/CD-Pipeline mittels \ac{AWS} CodeBuild anbietet, muss in Firebase auf eine eigenen Pipeline, zum Beispiel über GitHub Actions, zurückgegriffen werden. Dieses bedeutet zusätzlichen Aufwand beim Setup der Entwicklungsumgebung. Allerdings existiert für die fehlende integrierte Pipeline von Firebase eine vordefinierte Datei, was den Aufwand sehr gering hält.
+
+Es ergibt sich damit kein wesentlicher Zeitvorteil auf Grund des Entwicklungsprozesses für eines der beiden Anbieter.
+
+\subsection{Infrastruktur}
+
+Für Änderungen an der Infrastruktur werden bei \ac{AWS} CloudFormation-Templates genutzt. Dadurch lassen sich die meisten Ressourcen von \ac{AWS} abbilden. In diesem Projekt sind das zum Beispiel eine MediaConvert Job Template oder eine EventBridge Regel. Einige Anpassungen an von Amplify bereitgestellten Ressourcen lassen sich im CloudFormation-Template allerdings nicht verändern. Der Build-Prozess überschreibt die Veränderung, so dass beispielsweise das folgende Szenario nicht möglich ist:
+
+Im \textit{AuthStack} muss die Identifikation des User-Pools statt die des Identity-Pools genutzt werden, damit die enstprechende Lambda-Funktion die Information erhält, um welchen Nutzer es sich handelt. Als Workaround muss die Änderung manuell in die Cognito-Ressource eingetragen werden. Das ist sehr fehleranfällig, da bei einem erneuten Setup des Projektes die manuelle Änderung immer wieder eingespielt werden muss.
+
+Damit ist \ac{AWS} Amplify zwar sehr mächtig, wenn es darum geht, Dienste hinzuzufügen, welche nicht in Amplify vorkonfiguriert sind, allerdings ist es problematisch bestehende Dienste beliebig anzupassen.
+
+Dagegen ergibt sich die Infrastruktur in Firebase direkt aus dem Code und es sind keine weiteren Definitionen wie in \ac{AWS} Amplify nötig. Das ist zunächst einmal weniger zeitaufwendig für den Entwickler. Allerdings kommt durch die geringere  Komplexität der Nachteil, dass Infrastrukturen nicht beliebig konfiguriert werden können.
+
+Zusammenfassend ist \ac{AWS} Amplify damit komplexer und umfangreicher und damit langsamer zu entwickeln. Mit Firebase lässt sich zwar nicht jedes beliebige Cloud-Setup abbilden, allerdings ist die Entwicklungszeit damit auch wesentlich schneller.
+
+\subsection{Backend}
 
 - Auth:
   - Welche
   - Amplify hat Groups in Cognito, Cognito ist umfangreicher
   - Authentication hat keine Gruppen, daher eigene Tabelle und Logik (= umfangreicher)
 
-  - Manuelle Anpassung von Ressourcen: Einige Anpassungen an von Amplify bereitgestellten Ressourcen lassen sich im CloudFormation-Template nicht verändern. Der Build-Prozess überschreibt die Veränderung, so dass folgendes Szenario nicht möglich ist: Im \textit{AuthStack} muss die Identifikation des User-Pools statt die des Identity-Pools genutzt werden, damit die Lambda-Funktion weiß, um welchen Nutzer es sich handelt. Als Workaround muss die Änderung manuell in die Ressource eingetragen werden. Das ist sehr fehleranfällig, da bei einem erneuten Setup des Projektes diese manuelle Änderung immer wieder eingespielt werden muss.
-
-\section{GraphQL}
+- mehr noch zu Firebase
 
 - Firebase hat keine einheitliche AppSync-Schnittstelle, die direkt auf dynamodb resolved, sondern man muss das selbst schreiben
 
-\section{CI/CD Pipeline}
+\subsection{Frontend}
 
-- eigene CI/CD Pipeline für Firebase, Amplify hatte das schon
-
-\section{Einbindung des Transkodierungsdiensts}
-
-- Weitere Dienste einbinden
-- abhängig von Amplify-CLI, selbst erstellen fast kaum möglich
+GraphQL
+- funktionen callen vs app sync
 
 \section{Zusammenfassung}
 
