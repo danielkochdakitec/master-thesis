@@ -8,7 +8,9 @@ Verglichen werden der Entwicklungsprozess sowie die Ebenen Infrastruktur, Backen
 
 \subsection{Entwicklungsprozess}
 
-Für die lokale Entwicklung bietet \ac{AWS} Amplify die Möglichkeit, \ac{AWS} AppSync und Lambda sowie Amazon DynamoDB und S3 lokal zu betreiben und zu testen. Dies beschleunigt die lokale Entwicklung, da Änderungen nicht zwangsläufig sofort in die Cloud hochgeladen werden müssen, was eine Wartezeit von einigen Minuten bei diesem Projekt bedeutet. Mit dem Feature \textit{Emulator} bietet auch Firebase eine solche Möglichkeit an. Damit lassen sich die Dienste Storage, Auth, Firestore, Functions und Hosting für dieses Projekt lokal betreiben. Im Gegensatz zu \ac{AWS} Amplify werden damit noch zusätzlich die Bereiche Authentifizierung und Hosting des Frontends abgedeckt. Obwohl diese Bereiche zusätzlich abgedeckt sind, ergibt sich kein zeitlicher Vorteil für Firebase. Ohnehin lässt sich das Frontend lokal starten und die Konfiguration der Authentifizierung ändert sich nur in den seltensten Fällen.
+Für die lokale Entwicklung bietet \ac{AWS} Amplify die Möglichkeit, \ac{AWS} AppSync und Lambda sowie Amazon DynamoDB und S3 lokal zu betreiben und zu testen. Dies beschleunigt die lokale Entwicklung, da Änderungen nicht zwangsläufig sofort in die Cloud hochgeladen werden müssen, was eine Wartezeit von einigen Minuten bei diesem Projekt bedeutet.
+
+Mit dem Feature \textit{Emulator} bietet auch Firebase eine solche Möglichkeit an. Damit lassen sich die Dienste Storage, Auth, Firestore, Functions und Hosting für dieses Projekt lokal betreiben. Im Gegensatz zu \ac{AWS} Amplify werden damit noch zusätzlich die Bereiche Authentifizierung und Hosting des Frontends abgedeckt. Obwohl diese Bereiche zusätzlich abgedeckt sind, ergibt sich kein zeitlicher Vorteil für Firebase. Ohnehin lässt sich das Frontend lokal starten und die Konfiguration der Authentifizierung ändert sich nur in den seltensten Fällen.
 
 Ein weiterer Vergleichspunkt ist das Deployment der Anwendungen. Während \ac{AWS} Amplify eine integrierte CI/CD-Pipeline mittels \ac{AWS} CodeBuild anbietet, muss in Firebase auf eine eigenen Pipeline, zum Beispiel über GitHub Actions, zurückgegriffen werden. Dieses bedeutet zusätzlichen Aufwand beim Setup der Entwicklungsumgebung. Jedoch existiert für die fehlende integrierte Pipeline von Firebase eine vordefinierte Datei für GitHub Actions, was den Aufwand sehr gering hält. Auf der anderen Seite basiert das Deployment von \ac{AWS} Amplify auf CloudFormation-Templates. Auf Grund der Komplexität dieses Vorgehens, passieren hier mehr Fehler, als wenn es diese nicht gibt.
 
@@ -40,19 +42,15 @@ Alles in allem ist damit die Entwicklungszeit für beide Dienste geringer als oh
 
 \subsection{Frontend}
 
-Im Frontend spiegelt sich das wieder, was das Backend als Schnittstelle anbietet. Das bedeutet, dass in \ac{AWS} Amplify eine GraphQL-Schnittstelle angesprochen wird und in Firebase einzelnen Cloud Functions aufgerufen werden. Die GraphQL-Anbindung hat mehr Zeit erfordert, da neben dem Funktionsaufruf auch der Query bzw. die Mutation samt deren Eingangs- und Ausgangsparameter definiert werden musste.
+Im Frontend spiegelt sich das wieder, was das Backend als Schnittstelle anbietet. Das bedeutet, dass in \ac{AWS} Amplify eine GraphQL-Schnittstelle angesprochen wird und in Firebase einzelnen Cloud Functions aufgerufen werden. Die GraphQL-Anbindung hat mehr Zeit erfordert, da neben dem Funktionsaufruf auch die Queries und die Mutations samt deren Eingangs- und Ausgangsparameter definiert werden mussten.
 
-Ein weiterer Unterschied gibt es bei der Anbindung an die Authentifizieruns-Dienste. Während es bei Cognito fertigen Code gab, um Login, Logout, Registrierung sowie die Absperrung von Seiten, die nur eingeloggten Nutzern angezeigt werden sollen, musste dies bei Firebase teilweise zusätzlich programmiert werden. Zwar gibt es eine Komponente, die einige Logik übernimmt, jedoch nicht nahtlos mit dem React Router zusammenspielt.
+Ein weiterer Unterschied gibt es bei der Anbindung an die Authentifizieruns-Dienste. Während es bei Cognito fertigen Code gab, um Login, Logout, Registrierung sowie die Absperrung von Seiten, die nur eingeloggten Nutzern angezeigt werden sollen, musste dies bei Firebase teilweise zusätzlich programmiert werden. Zwar gibt es bei Firebase eine Komponente, die einige Logik übernimmt, jedoch nicht nahtlos mit dem React Router zusammenspielt.
 
-Damit ist die Entwicklungszeit in diesem Projekt für das Frontend relativ ausgeglichen. Auf der einen Seite wird etwas mehr Zeit für die Schnittstelle bei \ac{AWS} Amplify benötigt. Seitens Firebase wird mehr Zeit für das User-Management benötigt.
+Damit ist die Entwicklungszeit in diesem Projekt am Frontend relativ ausgeglichen. Auf der einen Seite wird etwas mehr Zeit für die Schnittstelle bei \ac{AWS} Amplify benötigt. Seitens Firebase wird mehr Zeit für das User-Management benötigt.
 
 \section{Zusammenfassung}
 
-TODO: - Amplify generell komplexer als Firebase, Setup war schwerer, mehr Fehler, Firebase war einfacher
-
 \autoref{tab:entwicklungszeit} visualisiert die Ergebnisse des Vergleichs.
-
-TODO: noch granularer aufzeigen
 
 \begin{table}[h]
   \caption{Vergleich der Entwicklungszeit}
@@ -69,3 +67,5 @@ TODO: noch granularer aufzeigen
     \bottomrule
   \end{tabular}
 \end{table}
+
+Zusammenfassend lässt sich festhalten, dass die Implementierung des Projekts mit \ac{AWS} Amplify auf Grund der Komplexität der \ac{AWS}-Cloud zeitaufwendiger als mit Firebase ist. Je komplexer die Anforderungen sind, desto eher macht demnach eine Architektur in der \ac{AWS}-Cloud Sinn. Für überschaubare Projekte, wie dieses, bietet sich auf Grund der Zeiteinsparung jedoch Firebase mehr an.
