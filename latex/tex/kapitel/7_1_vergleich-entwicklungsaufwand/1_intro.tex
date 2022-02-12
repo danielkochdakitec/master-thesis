@@ -28,14 +28,15 @@ Zusammenfassend ist \ac{AWS} Amplify damit komplexer und umfangreicher und damit
 
 \subsection{Backend}
 
-- Auth:
-  - Welche
-  - Amplify hat Groups in Cognito, Cognito ist umfangreicher
-  - Authentication hat keine Gruppen, daher eigene Tabelle und Logik (= umfangreicher)
+Auch im Backend unterscheidet sich die Entwicklung. \ac{AWS} Amplify nutzt mit AppSync eine GraphQL-Schnittstelle, während Firebase darauf verzichtet. Für ein Projekt dieser Größe und auf Grund der Tatsache, dass die Schnittstelle nur sehr wenige Routen anbietet, ist dies kein Risiko für das Projekt, sondern eine sinnvolle Zeiteinsparung.
 
-- mehr noch zu Firebase
+Auf der anderen Seite kann \ac{AWS} AppSync über die VTL-Resolver Routen, welche keine zusätzliche Logik benötigen, ohne Code zu DynamoDB abbilden. Die Zugriffskontrollen werden über das GraphQL-Schema definiert. Dies verringert die Entwicklungszeit von \ac{AWS} Amplify. Wird jedoch dennoch zusätzlicher Code für eine Route benötigt, muss eine Lambda-Funktion inklusive der benötigten Berechtigungen erstellt werden. Dies tritt im Projekt mehrmals auf und kostet daher mehr Zeit, als in Firebase. In Firebase ist die Infrastruktur direkt im Code, was es die Definition einer Funktion deutlich vereinfacht.
 
-- Firebase hat keine einheitliche AppSync-Schnittstelle, die direkt auf dynamodb resolved, sondern man muss das selbst schreiben
+Weiterhin ist zu erwähnen, dass Amazon Cognito ein Gruppenkonzept anbietet, welches nahtlos mit \ac{AWS} AppSync und Amplify integriert. Dies ist in Firebase nicht der Fall, so dass die Anforderungen, verschiedene Gruppen wie Administratoren abzubilden, bei Firebase selbst programmiert werden muss.
+
+Ein weiterer Vergleichspunkt ist die Videokonvertierung. Hieran lässt sich wieder erkennen, dass die \ac{AWS}-Cloud komplexer ist. Während bei Firebase ein einziger API-Aufruf zur Transcoder-API reicht, müssen bei /ac{AWS} mehrere Infrastruktur-Elemente erstellt werden. Zum einen wird eine Lambda-Funktion für den eigentlichen Aufruf benötigt. Dann wird ein MediaConvert Job-Template benötigt. Eine weitere EventBridge-Regel und eine zusätzliche Lambda-Funktion werden benötigt, um über die erfolgreiche Transkodierung benachrichtigt zu werden. Das macht es möglich, komplexere Architekturen abzubilden, jedoch erhöht dies gleichzeitig die Entwicklungszeit.
+
+Alles in allem ist damit die Entwicklungszeit für beide Dienste schon sehr gering, da es wenig Boilerplate-Code gibt, jedoch ist die Entwicklung in Firebase nochmal schneller, da die Architektur einfach gehalten werden kann.
 
 \subsection{Frontend}
 
@@ -48,6 +49,8 @@ TODO: - Amplify generell komplexer als Firebase, Setup war schwerer, mehr Fehler
 
 \autoref{tab:entwicklungszeit} visualisiert die Ergebnisse des Vergleichs.
 
+TODO: noch granularer aufzeigen
+
 \begin{table}[h]
   \caption{Vergleich der Entwicklungszeit}
   \label{tab:entwicklungszeit}
@@ -58,7 +61,7 @@ TODO: - Amplify generell komplexer als Firebase, Setup war schwerer, mehr Fehler
     \midrule
     Entwicklungsprozess	& \harveyBallThreeQuarter & \harveyBallFull \\
     Infrastruktur	& \harveyBallHalf & \harveyBallFull \\
-    Backend	& \harveyBallFull & \harveyBallThreeQuarter \\
+    Backend	& \harveyBallThreeQuarter & \harveyBallFull \\
     Frontend	& \harveyBallThreeQuarter & \harveyBallThreeQuarter \\
     \bottomrule
   \end{tabular}
