@@ -32,7 +32,7 @@ Ein Nachteil von \ac{FaaS} sind beispielsweise die Startzeit von Funktionen. Je 
 
 \subsection{\acl{BaaS}}
 
-\acf{BaaS} zielt darauf ab, dass Entwickler im Backend auf bereits bestehende Schnittstellen zugreifen können, um gängige Herausforderungen mit möglichst wenig Quellcode lösen zu können. Die folgende Auflistung gibt eine erste Übersicht über diese Schnittstellen:
+\acf{BaaS}, auch \ac{MBaaS} genannt, wenn es speziell um mobile Applikationen geht, zielt darauf ab, dass Entwickler im Backend auf bereits bestehende Schnittstellen zugreifen können, um gängige Herausforderungen mit möglichst wenig Quellcode lösen zu können. Die folgende Auflistung gibt eine erste Übersicht über die oftmals schon vorhandenen Schnittstellen:
 \begin{itemize}
   \item Authentifizierung- und Autorisierung
   \item Hosting
@@ -41,23 +41,22 @@ Ein Nachteil von \ac{FaaS} sind beispielsweise die Startzeit von Funktionen. Je 
   \item Storage
   \item Analytics
   \item Geo-Dienste
-  \item Maschnielles Lernen
+  \item Maschinelles Lernen
 \end{itemize}
 
-Der Fokus wandert damit vom Backend hin zum Frontend, welches die Schnittstellen aufruft. Dennoch gibt es auch im Backend Quellcode, der geschrieben werden muss. Dies erfolgt wieder über Funktionen durch \ac{FaaS}. /ac{AWS} Amplify und Firebase lassen sich in die Kategorie der \ac{BaaS} eingliedern. Wird \ac{BaaS} mit \ac{FaaS} spricht man nach Mike Roberts auch von Serverless \autocite{brandon2017serverless}.
+Der Fokus wandert damit vom Backend hin zum Frontend, welches die Schnittstellen aufruft. Dennoch gibt es auch im Backend Quellcode, der geschrieben werden muss. Dies erfolgt wieder über Funktionen durch \ac{FaaS}. \ac{AWS} Amplify und Firebase lassen sich in die Kategorie der \ac{BaaS} eingliedern. Wird \ac{BaaS} mit \ac{FaaS} kombiniert, spricht man nach Mike Roberts auch von Serverless \autocite{brandon2017serverless}.
 
 Die Vor- und Nachteile sind nahezu deckungsgleich mit denen von \ac{FaaS}. Es lässt sich noch hinzufügen, dass der Vendor lock-in bei \ac{BaaS} sich nochmal vergrößert, da viele verschiedene Dienste eines einzelnen Anbieters genutzt werden. Außerdem kann das Debugging und Monitoring auf Grund verschiedener Dienste komplexer als in üblichen Anwendungen werden.
 
 \subsection{\acl{SaaS}}
 
-- Software as a Service
-    - Applikationen als Dienst
-    - This is a service offering in which various applications and services are made remotely available by CSPs and are mostly based on customer’s demand over the internet (Murugesan and Bojanova, 2016)
-    - Subscriber based => daher günstiger, da nicht die ganze Software gekauft und deployed, gehostet werden muss + inkludiert Updates
-    - nachteile: Kaum kontrolle über das Produkt, da es für viele ausgeliefert wird, Daten liegen beim Anbieter und nicht in der Firma selbst,
-    - Google’s G Suite, Atlassian’s Jira, Slack Technologies’ Slack, Microsoft 365, Azure IoT Central and Azure Sentinel, Microsoft’s Power Platform, Dynamics 365, Salesforce.com, and Oracle’s NetSuite are some of the Juggernauts of SaaS offerings.
+\ac{SaaS} ist die gesamte Applikation als Dienst für den Endnutzer. Meistens ist eine Software dieser Art über ein oftmals monatliches Abonnement zu erhalten. Beispiels für Proukte dieser Art sind Slack, Microsoft 365, Salesforce oder Atlassian Jira.
+
+Der Vorteil bei \ac{SaaS} ist, dass nicht die gesamte Software gekauft und bereitgestellt werden muss. Außerdem liefert der Hersteller regelmäßige Updates. Der Kunde muss sich also in der Regel nur noch um die Konfiguration der Anwendung selbst kümmern, während der Rest vollständig übernommen wird. Nachteilig ist damit allerdings auch, dass der Nutzer kaum Kontrolle über das Produkt hat. Des Weiteren liegen die Daten auch hier wieder auf einem externen Rechenzentrum, was auf Grund von Datensicherheit und der Datenschutz-Grundverordnung eine Hürde darstellt.
 
 \subsection{Abgrenzung der Begriffe}
+
+todo
 
 \section{Anbieter von \acl{BaaS}}
 
