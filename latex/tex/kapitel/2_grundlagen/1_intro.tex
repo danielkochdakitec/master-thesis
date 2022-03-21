@@ -6,7 +6,7 @@ Dieses Kapitel stellt die Grundlagen der Arbeit dar. Diese bestehen aus den vers
 
 Einer der Vorreiter des Cloud Computing ist John McCarthy, der in einer Rede am Massachusetts Institute of Technology (MIT) 1961 den Begriff des Utility Computings prägte. In dieser Rede ging er davon aus, dass in der Zukunft Rechenleistung ebenso wie das Telefonsystem als öffentliche Versorgung organisiert sind. Vergleichbar soll diese Versorgung dann mit Wasser, Strom und Gas sein. Entsprechend haben sich bis heute einige große Cloud-Anbieter wie \ac{AWS}, Google Cloud Platform oder Microsoft Azure entwickelt. Deren Geschäftsmodell begann damit, dass sie ihre überschüssige Rechenleistung als öffentlichen Dienst angeboten haben. Dies wird aber mehr und mehr zum Kerngeschäft dieser Unternehmen. \autocite{buyya2013mastering}
 
-Allgemein lässt sich die Cloud in verschiedene Service-Modelle wie \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, \ac{BaaS} oder \ac{SaaS} unterteilen. Die Definition, Abgrenzung und Einordnung dieser Modelle und Begriffe wird in verschiedener Literatur \autocite{jiang2020overview} \autocite{kumar2019serverless} \autocite{dahunsi2021commercial} behandelt. Zusätzlich ist noch zu erwähnen, dass schlussendlich alles als Dienst angeboten werden kann. So hat sich \ac{XaaS} etabliert. Weitere Beispiele für die solche Cloud-Dienste angeboten werden, sind AI as a Service, API as a Service, Analytics as a Service oder Knowledge as a Service.
+Allgemein lässt sich die Cloud in verschiedene Service-Modelle wie \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, \ac{BaaS} oder \ac{SaaS} unterteilen. Die Definition, Abgrenzung und Einordnung dieser Modelle und Begriffe wird in verschiedener Literatur \autocite{jiang2020overview}\autocite{kumar2019serverless}\autocite{dahunsi2021commercial} behandelt. Zusätzlich ist noch zu erwähnen, dass schlussendlich alles als Dienst angeboten werden kann. So hat sich \ac{XaaS} etabliert. Weitere Beispiele für die solche Cloud-Dienste angeboten werden, sind AI as a Service, API as a Service, Analytics as a Service oder Knowledge as a Service.
 
 \subsection{\acl{IaaS}}
 
@@ -14,7 +14,7 @@ Bei \acf{IaaS} stellt der Anbieter dem Kunden Infrastrukturelemente für eine So
 
 Der Vorteil liegt darin, dass auf Grund der Vertragsstruktur jederzeit neue Elemente hinuzugebucht oder gekündigt werden können. Das macht \acl{IaaS} flexibler und skalierbarer gegenüber dem herkömmlichen Ansatz, Server für eine bestimmte Vertragslaufzeit zu mieten oder gar vollständig zu erwerben. Auch soll ein Anreiz sein, dass dies gegenüber dem herkömmlichen Ansatz kostengünstiger ist.
 
-Nachteilig ist allerdings, dass die Server extern liegen und somit die Sicherheit nicht in der eigenen Hand liegt, was eine gängige Herausforderung beim Cloud Computing darstellt. So wie bei allen weiteren Service-Modellen benötigt der Kunde eine stetige Internetverbindung zum Server, selbst wenn es sich nur um eine firmeninterne Anwendung handelt.
+Nachteilig ist allerdings, dass die Server in einem externen Rechenzentrum liegen und somit die Sicherheit nicht in der eigenen Hand liegt, was eine gängige Herausforderung beim Cloud Computing darstellt. So wie bei allen weiteren Service-Modellen benötigt der Kunde eine stetige Internetverbindung zum Server, selbst wenn es sich nur um eine firmeninterne Anwendung handelt.
 
 \subsection{\acl{PaaS}}
 
@@ -28,27 +28,25 @@ Die Domänenlogik einer Anwendung kann mittels \acf{FaaS} abgebildet werden. Es 
 
 Ein Vorteil von \ac{FaaS} ist die Skalierbarkeit, die vom Anbieter selbst verwaltet wird. Außerdem ist \ac{FaaS} plattformunabhängig, so dass in jeder angebotenen Programmiersprache entwickelt werden kann. Dadurch, dass nur das bezahlt wird, was auch genutzt wird, ist \ac{FaaS} in der Regel kostengünstiger als dauerhaft einen Server laufen zu lassen. Des Weiteren bieten die meisten Anbieter auch schon direkt Anbindungen zum Logging und Monitoring ein, was die Überwachung der Funktionen vereinfacht.
 
+Ein Nachteil von \ac{FaaS} sind beispielsweise die Startzeit von Funktionen. Je größer der Speicherplatz einer Funktion ist, desto länger dauert die Startzeit von Funktionen. Möchte der Entwickler keine Aufwärmzeit, muss für Provisioned Concurrency bezahlt werden. Ein weiterer Nachteil ist, dass Funktionen eine maximale Ausführungsdauer haben, welche von Cloud-Anbieter variiert. Für größere Workloads muss dann eine Alternative gefunden werden.
+
 \subsection{\acl{BaaS}}
 
-- Backend as a Service
-    - z.B Managed Database by DigitalOcean, Google Firebase, and Microsoft Azure
+\acf{BaaS} zielt darauf ab, dass Entwickler im Backend auf bereits bestehende Schnittstellen zugreifen können, um gängige Herausforderungen mit möglichst wenig Quellcode lösen zu können. Die folgende Auflistung gibt eine erste Übersicht über diese Schnittstellen:
+\begin{itemize}
+  \item Authentifizierung- und Autorisierung
+  \item Hosting
+  \item Datenbank-Management
+  \item Push Notifications
+  \item Storage
+  \item Analytics
+  \item Geo-Dienste
+  \item Maschnielles Lernen
+\end{itemize}
 
-bietet aN:
-  Database management
-  Cloud storage (for user-generated content)
-  User authentication
-  Push notifications
-  Remote updating
-  Hosting
-  Other platform- or vendor-specific functionalities; for instance, Firebase offers Google search indexing
+Der Fokus wandert damit vom Backend hin zum Frontend, welches die Schnittstellen aufruft. Dennoch gibt es auch im Backend Quellcode, der geschrieben werden muss. Dies erfolgt wieder über Funktionen durch \ac{FaaS}. /ac{AWS} Amplify und Firebase lassen sich in die Kategorie der \ac{BaaS} eingliedern. Wird \ac{BaaS} mit \ac{FaaS} spricht man nach Mike Roberts auch von Serverless \autocite{brandon2017serverless}.
 
-- /MBaaS
-- Storage as a Service
-- Database as a Service
-- XaaS
-
-was davon ist Amplify, und Firebase, ist das serverless oder BaaS oder mBaas? oder alles?
-==> daraus ergibt sich + FaaS Serverless (auch wenn das Zitat sagt, dass es nur BaaS + Faas => )
+Die Vor- und Nachteile sind nahezu deckungsgleich mit denen von \ac{FaaS}. Es lässt sich noch hinzufügen, dass der Vendor lock-in bei \ac{BaaS} sich nochmal vergrößert, da viele verschiedene Dienste eines einzelnen Anbieters genutzt werden. Außerdem kann das Debugging und Monitoring auf Grund verschiedener Dienste komplexer als in üblichen Anwendungen werden.
 
 \subsection{\acl{SaaS}}
 
