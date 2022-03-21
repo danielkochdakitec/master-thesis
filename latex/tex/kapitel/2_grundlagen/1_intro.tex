@@ -1,12 +1,12 @@
 \chapter{Grundlagen}
 
-Dieses Kapitel stellt die Grundlagen der Arbeit dar. Diese lassen sich in die Abschnitte Begriffe sowie \ac{AWS} Amplify und Firebase aufteilen. Der erste Abschnitt erklärt die nötigen Modelle und grenzt diese voneinander ab. Darauf folgt die Vorstellung der Tools \ac{AWS} Amplify und Firebase. <TODO> text anpassen
+Dieses Kapitel stellt die Grundlagen der Arbeit dar. Diese bestehen aus den verschiedenen Service-Modellen des Cloud Computings, welche definiert und voneinander abgegrenzt werden. Darauf folgt ein Abschnitt, der die nötigen Tools der Anwendungen sowie weitere dieser Art vorstellt.
 
 \section{Service-Modelle}
 
 Einer der Vorreiter des Cloud Computing ist John McCarthy, der in einer Rede am Massachusetts Institute of Technology (MIT) 1961 den Begriff des Utility Computings prägte. In dieser Rede ging er davon aus, dass in der Zukunft Rechenleistung ebenso wie das Telefonsystem als öffentliche Versorgung organisiert sind. Vergleichbar soll diese Versorgung dann mit Wasser, Strom und Gas sein. Entsprechend haben sich bis heute einige große Cloud-Anbieter wie \ac{AWS}, Google Cloud Platform oder Microsoft Azure entwickelt. Deren Geschäftsmodell begann damit, dass sie ihre überschüssige Rechenleistung als öffentlichen Dienst angeboten haben. Dies wird aber mehr und mehr zum Kerngeschäft dieser Unternehmen. \autocite{buyya2013mastering}
 
-Allgemein lässt sich die Cloud in verschiedene Service-Modelle wie \ac{IaaS}, \ac{PaaS}, \ac{FaaS} oder \ac{SaaS} unterteilen. Weitere Modelle sind \ac{BaaS}, \ac{MBaaS} und \ac{STaaS}. Die Definition, Abgrenzung und Einordnung dieser Modelle und Begriffe wird in verschiedener Literatur \autocite{jiang2020overview} \autocite{kumar2019serverless} \autocite{dahunsi2021commercial} behandelt.
+Allgemein lässt sich die Cloud in verschiedene Service-Modelle wie \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, \ac{BaaS} oder \ac{SaaS} unterteilen. Die Definition, Abgrenzung und Einordnung dieser Modelle und Begriffe wird in verschiedener Literatur \autocite{jiang2020overview} \autocite{kumar2019serverless} \autocite{dahunsi2021commercial} behandelt. Zusätzlich ist noch zu erwähnen, dass schlussendlich alles als Dienst angeboten werden kann. So hat sich \ac{XaaS} etabliert. Weitere Beispiele für die solche Cloud-Dienste angeboten werden, sind AI as a Service, API as a Service, Analytics as a Service oder Knowledge as a Service.
 
 \subsection{\acl{IaaS}}
 
@@ -18,21 +18,20 @@ Nachteilig ist allerdings, dass die Server extern liegen und somit die Sicherhei
 
 \subsection{\acl{PaaS}}
 
-\acf{PaaS} baut auf \acl{IaaS} auf und bietet zusätzliche weitere Leistungen.
+\acf{PaaS} baut auf \acl{IaaS} auf und bietet zusätzlich eine Entwicklungsplattform mit Tools zum Entwickeln als Dienst an. Beispiele für \ac{PaaS} sind \ac{AWS} Elastic Beanstalk, Google App Engine und Heroku.
 
-z.B AWS Elastic Beanstalk
-Google App Engine, Heroku
-
-- Platform as a Service
-    - Entwicklungsplattform
-    - Tools zum Entwickeln
-    - Für Entwickler gedacht, um Software-Prdoukte zu bauen
-    - Schnellere Software-Entwicklung
-        - Amazon Web Services (AWS) Elastic Bean- stalk, Oracle Cloud Platform (OCP), Google App Engine, Microsoft Azure, Heroku, and IBM Cloud Platform.
+Die Vor- und Nachteile von \acl{IaaS} treffen hier auch zu. Zusätzlich ist ein Vorteil, dass der Kunde sich nicht mehr selbst um die Hard- und Software kümmern muss, sondern sich lediglich auf die Entwicklung von Software-Produkten fokussieren kann. Der Anbieter selbst wickelt die Wartung und Pflege ab. Ein Nachteil ist, dass Entwickler keinen Einfluss auf die Umgebung selbst nehmen können, falls sie diese im Zweifelsfall verändern müssen.
 
 \subsection{\acl{FaaS}}
 
+Die Domänenlogik einer Anwendung kann mittels \acf{FaaS} abgebildet werden. Es handelt sich um Funktionen, die mit Parametern über Trigger aufgerufen werden können. Solch eine Funktion liegt nicht auf eigenen Servern, sondern beim jeweiligen Anbieter. Die Abgrenzung zu \ac{PaaS} ist, dass es sich hierbei nur um Funktionen handelt, während es sich bei \ac{PaaS} um eine ganze Anwendung handelt. Somit entsteht bei \ac{FaaS} die Anwendung dadurch, dass beispielsweise ein API-Gateway die Funktion aufruft. Beispiele für \ac{FaaS} sind \ac{AWS} Lambda, Google Cloud Functions oder Azure Functions.
+
+Ein Vorteil von \ac{FaaS} ist die Skalierbarkeit, die vom Anbieter selbst verwaltet wird. Außerdem ist \ac{FaaS} plattformunabhängig, so dass in jeder angebotenen Programmiersprache entwickelt werden kann. Dadurch, dass nur das bezahlt wird, was auch genutzt wird, ist \ac{FaaS} in der Regel kostengünstiger als dauerhaft einen Server laufen zu lassen. Des Weiteren bieten die meisten Anbieter auch schon direkt Anbindungen zum Logging und Monitoring ein, was die Überwachung der Funktionen vereinfacht.
+
 \subsection{\acl{BaaS}}
+
+- Backend as a Service
+    - z.B Managed Database by DigitalOcean, Google Firebase, and Microsoft Azure
 
 bietet aN:
   Database management
@@ -53,9 +52,14 @@ was davon ist Amplify, und Firebase, ist das serverless oder BaaS oder mBaas? od
 
 \subsection{\acl{SaaS}}
 
-\subsection{Abgrenzung der Begriffe}
+- Software as a Service
+    - Applikationen als Dienst
+    - This is a service offering in which various applications and services are made remotely available by CSPs and are mostly based on customer’s demand over the internet (Murugesan and Bojanova, 2016)
+    - Subscriber based => daher günstiger, da nicht die ganze Software gekauft und deployed, gehostet werden muss + inkludiert Updates
+    - nachteile: Kaum kontrolle über das Produkt, da es für viele ausgeliefert wird, Daten liegen beim Anbieter und nicht in der Firma selbst,
+    - Google’s G Suite, Atlassian’s Jira, Slack Technologies’ Slack, Microsoft 365, Azure IoT Central and Azure Sentinel, Microsoft’s Power Platform, Dynamics 365, Salesforce.com, and Oracle’s NetSuite are some of the Juggernauts of SaaS offerings.
 
-\subsection{Vergleich mit traditionellen Architekturen}
+\subsection{Abgrenzung der Begriffe}
 
 \section{Anbieter von \acl{BaaS}}
 
