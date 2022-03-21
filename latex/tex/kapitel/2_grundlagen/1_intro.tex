@@ -1,23 +1,68 @@
 \chapter{Grundlagen}
 
-Dieses Kapitel stellt die Grundlagen der Arbeit dar. Diese lassen sich in die Abschnitte Begriffe sowie \ac{AWS} Amplify und Firebase aufteilen. Der erste Abschnitt definiert die Begriffe \ac{FaaS} und \ac{BaaS} und grenzt diese von den weiteren Modellen ab. Darauf folgt die Vorstellung der \acl{BaaS} Tools \ac{AWS} Amplify und Firebase.
+Dieses Kapitel stellt die Grundlagen der Arbeit dar. Diese lassen sich in die Abschnitte Begriffe sowie \ac{AWS} Amplify und Firebase aufteilen. Der erste Abschnitt erklärt die nötigen Modelle und grenzt diese voneinander ab. Darauf folgt die Vorstellung der Tools \ac{AWS} Amplify und Firebase. <TODO> text anpassen
 
-\section{Begriffe}
+\section{Service-Modelle}
 
-Einer der Vorreiter des Cloud Computing ist John McCarthy, der in einer Rede am Massachusetts Institute of Technology (MIT) 1961 den Begriff des Utility Computings prägte. In dieser Rede ging er davon aus, dass in der Zukunft Rechenleistung ebenso wie das Telefonsystem als öffentliche Versorgung organisiert sind. Vergleichbar soll diese Versorgung dann mit Wasser, Strom und Gas sein. Daraus haben sich bis heute einige große Cloud-Anbieter wie \ac{AWS}, Google Cloud Platform oder Microsoft Azure entwickelt. Deren Geschäftsmodell begann damit, dass sie ihre überschüssige Rechenleistung als öffentlichen Dienst angeboten haben. Dies wird aber mehr und mehr zum Kerngeschäft dieser Unternehmen. \autocite{buyya2013mastering}
+Einer der Vorreiter des Cloud Computing ist John McCarthy, der in einer Rede am Massachusetts Institute of Technology (MIT) 1961 den Begriff des Utility Computings prägte. In dieser Rede ging er davon aus, dass in der Zukunft Rechenleistung ebenso wie das Telefonsystem als öffentliche Versorgung organisiert sind. Vergleichbar soll diese Versorgung dann mit Wasser, Strom und Gas sein. Entsprechend haben sich bis heute einige große Cloud-Anbieter wie \ac{AWS}, Google Cloud Platform oder Microsoft Azure entwickelt. Deren Geschäftsmodell begann damit, dass sie ihre überschüssige Rechenleistung als öffentlichen Dienst angeboten haben. Dies wird aber mehr und mehr zum Kerngeschäft dieser Unternehmen. \autocite{buyya2013mastering}
 
-Allgemein lässt sich die Cloud in verschiedene Service-Modelle wie \ac{IaaS}, \ac{PaaS}, \ac{FaaS} oder \ac{SaaS} unterteilen. Es gibt noch weitere Modelle wie \ac{BaaS}, \ac{MBaaS}, die eine Kombination aus mehreren Service-Modellen sind. Die Definition, Abgrenzung und Einordnung dieser Modelle wird in verschiedener Literatur \autocite{jiang2020overview} \autocite{kumar2019serverless} \autocite{dahunsi2021commercial} behandelt.
+Allgemein lässt sich die Cloud in verschiedene Service-Modelle wie \ac{IaaS}, \ac{PaaS}, \ac{FaaS} oder \ac{SaaS} unterteilen. Weitere Modelle sind \ac{BaaS}, \ac{MBaaS} und \ac{STaaS}. Die Definition, Abgrenzung und Einordnung dieser Modelle und Begriffe wird in verschiedener Literatur \autocite{jiang2020overview} \autocite{kumar2019serverless} \autocite{dahunsi2021commercial} behandelt.
 
-  \subsection{Function-as-a-service}
-  \subsection{Backend-as-a-service}
-  - was ist das genau und wie funktioniert es
-  - was sind gängige beispiele dafür
-  \subsection{Infrastructure-as-a-service}
-- Infrastructure as Code (?)
+\subsection{\acl{IaaS}}
 
-  \subsection{Platform-as-a-service}
+Bei \acf{IaaS} stellt der Anbieter dem Kunden Infrastrukturelemente für eine Software bereit. Beispiele für solche Elemente sind virtuelle Maschinen, Server, Speicherplätze und Netzwerke. Bei \ac{AWS} gibt es für die genannten Beispiele die \ac{EC2}. In der Google Cloud Platform ist es die Compute Engine. In der Regel zahlt der Kunde nur für das, was er in einem bestimmten Zeitabschnitt tatsächlich genutzt hat.
 
-\section{AWS Amplify}
+Der Vorteil liegt darin, dass auf Grund der Vertragsstruktur jederzeit neue Elemente hinuzugebucht oder gekündigt werden können. Das macht \acl{IaaS} flexibler und skalierbarer gegenüber dem herkömmlichen Ansatz, Server für eine bestimmte Vertragslaufzeit zu mieten oder gar vollständig zu erwerben. Auch soll ein Anreiz sein, dass dies gegenüber dem herkömmlichen Ansatz kostengünstiger ist.
+
+Nachteilig ist allerdings, dass die Server extern liegen und somit die Sicherheit nicht in der eigenen Hand liegt, was eine gängige Herausforderung beim Cloud Computing darstellt. So wie bei allen weiteren Service-Modellen benötigt der Kunde eine stetige Internetverbindung zum Server, selbst wenn es sich nur um eine firmeninterne Anwendung handelt.
+
+\subsection{\acl{PaaS}}
+
+\acf{PaaS} baut auf \acl{IaaS} auf und bietet zusätzliche weitere Leistungen.
+
+z.B AWS Elastic Beanstalk
+Google App Engine, Heroku
+
+- Platform as a Service
+    - Entwicklungsplattform
+    - Tools zum Entwickeln
+    - Für Entwickler gedacht, um Software-Prdoukte zu bauen
+    - Schnellere Software-Entwicklung
+        - Amazon Web Services (AWS) Elastic Bean- stalk, Oracle Cloud Platform (OCP), Google App Engine, Microsoft Azure, Heroku, and IBM Cloud Platform.
+
+\subsection{\acl{FaaS}}
+
+\subsection{\acl{BaaS}}
+
+bietet aN:
+  Database management
+  Cloud storage (for user-generated content)
+  User authentication
+  Push notifications
+  Remote updating
+  Hosting
+  Other platform- or vendor-specific functionalities; for instance, Firebase offers Google search indexing
+
+- /MBaaS
+- Storage as a Service
+- Database as a Service
+- XaaS
+
+was davon ist Amplify, und Firebase, ist das serverless oder BaaS oder mBaas? oder alles?
+==> daraus ergibt sich + FaaS Serverless (auch wenn das Zitat sagt, dass es nur BaaS + Faas => )
+
+\subsection{\acl{SaaS}}
+
+\subsection{Abgrenzung der Begriffe}
+
+\subsection{Vergleich mit traditionellen Architekturen}
+
+\section{Anbieter von \acl{BaaS}}
+
+\subsection{AWS Amplify}
+
+\subsubsection{Placeholder 1}
+\subsubsection{Placeholder 2}
 
 \autocite{dahunsi2021commercial}
 \autocite{amplifyDocs}
@@ -39,7 +84,10 @@ Allgemein lässt sich die Cloud in verschiedene Service-Modelle wie \ac{IaaS}, \
   - DynamoDB
   - CloudFront (weil kurz erwähnt)
 
-\section{Firebase}
+\subsection{Firebase}
+
+\subsubsection{Placeholder 1}
+\subsubsection{Placeholder 2}
 
 \autocite{moroney2017definitive}
 \autocite{firebaseDocs}
@@ -53,3 +101,7 @@ Allgemeines:
   - Zeit im Markt
   - Sonstige Fakten
   - GitHub Stars
+
+\subsection{Weitere Anbieter}
+
+todo
