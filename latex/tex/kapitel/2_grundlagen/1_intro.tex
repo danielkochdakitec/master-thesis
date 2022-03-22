@@ -24,7 +24,7 @@ Die Vor- und Nachteile von \acl{IaaS} treffen hier auch zu. Zusätzlich ist ein 
 
 \subsection{\acl{FaaS}}
 
-Die Domänenlogik einer Anwendung kann mittels \acf{FaaS} abgebildet werden. Es handelt sich um Funktionen, die mit Parametern über Trigger aufgerufen werden können. Solch eine Funktion liegt nicht auf eigenen Servern, sondern beim jeweiligen Anbieter. Die Abgrenzung zu \ac{PaaS} ist, dass es sich hierbei nur um Funktionen handelt, während es sich bei \ac{PaaS} um eine ganze Anwendung handelt. Somit entsteht bei \ac{FaaS} die Anwendung dadurch, dass beispielsweise ein API-Gateway die Funktion aufruft. Beispiele für \ac{FaaS} sind \ac{AWS} Lambda, Google Cloud Functions oder Azure Functions.
+Die Domänenlogik einer Anwendung kann mittels \acf{FaaS} abgebildet werden. Es handelt sich um Funktionen, die mit Parametern über Trigger aufgerufen werden können. Solch eine Funktion liegt nicht auf eigenen Servern, sondern beim jeweiligen Anbieter. Die Abgrenzung zu \ac{PaaS} ist, dass es sich hierbei nur um Funktionen handelt, während es sich bei \ac{PaaS} um eine ganze Anwendung handelt. Somit entsteht bei \ac{FaaS} die Anwendung dadurch, dass beispielsweise ein API-Gateway die Funktion aufruft. Beispiele für \ac{FaaS} sind \ac{AWS} Lambda, Google Cloud Functions, Azure Functions oder IBM OpenWhisk.
 
 Ein Vorteil von \ac{FaaS} ist die Skalierbarkeit, die vom Anbieter selbst verwaltet wird. Außerdem ist \ac{FaaS} plattformunabhängig, so dass in jeder angebotenen Programmiersprache entwickelt werden kann. Dadurch, dass nur das bezahlt wird, was auch genutzt wird, ist \ac{FaaS} in der Regel kostengünstiger als dauerhaft einen Server laufen zu lassen. Des Weiteren bieten die meisten Anbieter auch schon direkt Anbindungen zum Logging und Monitoring ein, was die Überwachung der Funktionen vereinfacht.
 
@@ -56,7 +56,35 @@ Der Vorteil bei \ac{SaaS} ist, dass nicht die gesamte Software gekauft und berei
 
 \subsection{Abgrenzung der Begriffe}
 
-todo
+\begin{table}[h]
+  \caption{Vergleich von Service-Modellen der Cloud}
+  \label{Kap2:ServiceModelleVergleich1}
+  \renewcommand{\arraystretch}{1.2}
+  \centering
+  \sffamily
+  \begin{footnotesize}
+    \begin{tabular}{l l l l l}
+    \toprule
+    & \textbf{\ac{IaaS}} & \textbf{\ac{PaaS}} & \textbf{\ac{FaaS}} & \textbf{\ac{SaaS}}\\
+    \midrule
+    \textit{Entwicklungseffizienz} & Gering	&	Mittel	& Hoch & Hoch\\
+    \textit{Skalierbarkeit} & Gering	&	Mittel & Hoch & Hoch\\
+    \textit{Wartung} &	Gering	&	Hoch & Hoch & Hoch\\
+    \textit{Kosten}	&	Hoch		&	Hoch & Gering & Hoch\\
+    \textit{Anwender}	&	Administrator		&	Entwickler & Entwickler & Anwender\\
+    \bottomrule
+    \end{tabular}
+  \end{footnotesize}
+  \rmfamily
+\end{table}
+
+\autoref{Kap2:ServiceModelleVergleich1} vergleicht \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, damit implizit auch \ac{BaaS}, und \ac{SaaS} anhand den Kriterien Entwicklungseffizienz, Skalierbarkeit, Wartung, Kosten und den Anwendern.
+
+Von links nach rechts nimmt dabei der Fokus auf die Business-Logik zu. Während bei \ac{IaaS} nur Infrastrukturelemente bereitgestellt werden, wird bei \ac{SaaS} die ganze Anwendung bereitgestellt. Dem entsprechend nimmt auch die Abstraktion von links nach rechts zu. Folglich nimmt die Flexibilität ab, da der Anwender bei \ac{SaaS} höchstens noch die Anwendung konfigurieren kann. Zwischen \ac{PaaS} und \ac{SaaS} hat \ac{FaaS} den Vorteil, dass dieser Dienst noch für Entwickler gedacht ist und damit flexibel genug ist, um Anwendungen aufzubauen. Dieser Vorteil trifft entsprechend auch auf \ac{BaaS} zu. \ac{FaaS} und \ac{BaaS} stellen alle nötigen Ressourcen exklusive des Anwendungslogik zur Verfügung.
+
+Die Graphik mit Zitat \autocite{jiang2020overview}
+
+\autoref{TODO2} vergleicht die Service-Modelle ebenfalls uns zeigt auf, welche Elemente von welchem Modell geliefert werden. Dabei ist auffällig, dass von links nach rechts mehr bereitgestellt wird. Für die Neuentwicklung von Anwendungen ist damit \ac{FaaS} und \ac{BaaS} geeignet, da nur die Anwendungslogik geschrieben werden muss.
 
 \section{Anbieter von \acl{BaaS}}
 
