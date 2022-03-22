@@ -57,8 +57,8 @@ Der Vorteil bei \ac{SaaS} ist, dass nicht die gesamte Software gekauft und berei
 \subsection{Abgrenzung der Begriffe}
 
 \begin{table}[h]
-  \caption{Vergleich von Service-Modellen der Cloud}
-  \label{Kap2:ServiceModelleVergleich1}
+  \caption{Vergleich von Service-Modellen \autocite{jiang2020overview}}
+  \label{Kap2:ServiceModelleVergleich}
   \renewcommand{\arraystretch}{1.2}
   \centering
   \sffamily
@@ -78,13 +78,18 @@ Der Vorteil bei \ac{SaaS} ist, dass nicht die gesamte Software gekauft und berei
   \rmfamily
 \end{table}
 
-\autoref{Kap2:ServiceModelleVergleich1} vergleicht \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, damit implizit auch \ac{BaaS}, und \ac{SaaS} anhand den Kriterien Entwicklungseffizienz, Skalierbarkeit, Wartung, Kosten und den Anwendern.
+\autoref{Kap2:ServiceModelleVergleich} vergleicht \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, damit implizit auch \ac{BaaS}, und \ac{SaaS} anhand den Kriterien Entwicklungseffizienz, Skalierbarkeit, Wartung, Kosten und den Anwendern.
 
 Von links nach rechts nimmt dabei der Fokus auf die Business-Logik zu. Während bei \ac{IaaS} nur Infrastrukturelemente bereitgestellt werden, wird bei \ac{SaaS} die ganze Anwendung bereitgestellt. Dem entsprechend nimmt auch die Abstraktion von links nach rechts zu. Folglich nimmt die Flexibilität ab, da der Anwender bei \ac{SaaS} höchstens noch die Anwendung konfigurieren kann. Zwischen \ac{PaaS} und \ac{SaaS} hat \ac{FaaS} den Vorteil, dass dieser Dienst noch für Entwickler gedacht ist und damit flexibel genug ist, um Anwendungen aufzubauen. Dieser Vorteil trifft entsprechend auch auf \ac{BaaS} zu. \ac{FaaS} und \ac{BaaS} stellen alle nötigen Ressourcen exklusive des Anwendungslogik zur Verfügung.
 
-Die Graphik mit Zitat \autocite{jiang2020overview}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.75\columnwidth]{2_grundlagen/vergleich-service-modelle.png}
+  \caption{Vergleich der Elemente von Service-Modellen \autocite{jiang2020overview}}
+  \label{Kap2:VergleichServiceModelleElemente}
+\end{figure}
 
-\autoref{TODO2} vergleicht die Service-Modelle ebenfalls uns zeigt auf, welche Elemente von welchem Modell geliefert werden. Dabei ist auffällig, dass von links nach rechts mehr bereitgestellt wird. Für die Neuentwicklung von Anwendungen ist damit \ac{FaaS} und \ac{BaaS} geeignet, da nur die Anwendungslogik geschrieben werden muss.
+\autoref{Kap2:VergleichServiceModelleElemente} vergleicht die Service-Modelle ebenfalls uns zeigt auf, welche Elemente von welchem Modell geliefert werden. Dabei ist auffällig, dass von links nach rechts mehr Elemente bereitgestellt werden. Für die Neuentwicklung von Anwendungen bedeutet das, dass \ac{FaaS} und \ac{BaaS} geeignet sind, da nur die Anwendungslogik geschrieben werden muss und die restlichen Elemente vom Anbieter selbst kommen.
 
 \section{Anbieter von \acl{BaaS}}
 
