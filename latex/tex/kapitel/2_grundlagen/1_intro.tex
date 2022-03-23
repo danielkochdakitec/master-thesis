@@ -133,7 +133,7 @@ Im Frontend können die existierenden Funktionen von Amplify genutzt werden, um 
 
 \subsubsection{Weitere Libraries}
 
-Nun folgt die Auflistung weiterer Libraries, die Amplify bietet.
+\ac{AWS} Amplify bietet eine Reihe weiterer Libraries, welche im folgenden kurz dargestellt werden.
 \begin{itemize}
    \item \textit{API (\acs{REST})} wird genutzt, um \acs{REST}-APIs über den Dienst \ac{AWS} API Gateway abzubilden.
    \item \textit{Geo} wird genutzt, um APIs und User Interfaces für Karten und Standortsuchen über den \ac{AWS}-Dienst Amazon Location Service zu verwenden.
@@ -164,18 +164,25 @@ Für die Datenbank kann der Entwickler zwischen der Firestore Database und der R
 
 \subsubsection{Authentication}
 
-Auch Firebase bietet eine Authentication-Library für Frontend und Backend an. Diese funktioniert ähnlich wie die aus \ac{AWS} Amplify.
+Auch Firebase bietet eine Authentication-Library für Frontend und Backend an. Diese funktioniert ähnlich wie die aus \ac{AWS} Amplify. Ebenfalls ist eine fertige Implementierung vorhanden. Auch hier können bei Bedarf eigene UI-Komponenten für Login, Registrierung und weitere Authentifizierungsdienste geschrieben werden. Der Social Sign-In ist über Google, Apple, Facebook, Twitter und GitHub möglich.
 
+\subsubsection{Storage}
 
-Cloud Messaging
-Remote Config
-Firebase ML
+Auch die Storage-Library unterscheidet sich für den einfachen Bedarf an benutzerspezifischen Inhalten kaum von \ac{AWS} Amplify. Im Hintergrund wird der Cloud Storage-Dienst genutzt. Das Berechtigungssystem wird bei diesem Dienst über Regeln definiert, welche eine Konfigurationsdatei darstellen. Diese Regeln können auch an das Authentication-System geknüpft sein, um einen privaten Benutzerbereich zu schaffen.
 
-Google Analytics
-Remote Config
-Performance Monitoring
-Test Lab
+\subsubsection{Weitere Libraries}
 
-todo
+Firebase bietet zudem eine Menge an weiteren Libraries.
+
+\begin{itemize}
+  \item \textit{Cloud Messaging} wird genutzt, um Push-Notifiations abzubilden.
+  \item \textit{Firebase ML} wird für Text-, Bild-, Gesichts und Objekterkennung sowie Übersetzungen, intelligenten Antworten oder Barcode-Scans genutzt.
+  \item \textit{Google Analytics} wird zum Tracking von Userverhalten genutzt.
+  \item \textit{Remote Config} wird genutzt, um Verhalten mit Feature-Flags zu ändern und zu testen.
+  \item \textit{Performance Monitoring} wird zum Überwachen der Latenzzeiten genutzt.
+  \item \textit{Test Lab} wird zum Testen der Anwendung auf verschiedenen Endgeräten genutzt.
+\end{description}
+
+Zusätzlich gibt es bei Firebase eine Menge Extensions, um das System schnell zu erweitern. Beispiele dafür sind Payment-Anbindungen, Bildbearbeitungstools oder ein URL-Shortener.
 
 \subsection{Weitere Anbieter}
