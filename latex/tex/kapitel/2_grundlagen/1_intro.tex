@@ -84,7 +84,7 @@ Von links nach rechts nimmt dabei der Fokus auf die Business-Logik zu. Während 
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.75\columnwidth]{2_grundlagen/vergleich-service-modelle.png}
+  \includegraphics[width=0.9\columnwidth]{2_grundlagen/vergleich-service-modelle.pdf}
   \caption{Vergleich der Elemente von Service-Modellen \autocite{jiang2020overview}}
   \label{Kap2:VergleichServiceModelleElemente}
 \end{figure}
@@ -93,30 +93,47 @@ Von links nach rechts nimmt dabei der Fokus auf die Business-Logik zu. Während 
 
 \section{Anbieter von \acl{BaaS}}
 
-\subsection{AWS Amplify}
+Im folgenden Abschnitt werden nun die für diese Arbeit relevanten Anbieter von \ac{BaaS} vorgestellt. Außerdem wird eine Übersicht über weitere Anbieter gegeben.
 
-\subsubsection{Placeholder 1}
-\subsubsection{Placeholder 2}
+\subsection{\acs{AWS} Amplify}
 
-\autocite{dahunsi2021commercial}
-\autocite{amplifyDocs}
-\autocite{lysakov2021security}
-\autocite{mathew2014overview}
-\autocite{beach2014aws}
+Da der Release von \ac{AWS} Amplify erst im November 2018 war, gibt es kaum wissenschaftliche Arbeiten, die sich mit \ac{AWS} Amplify selbst beschäftigen. Zur Erläuterung technischer Sachverhalte von \ac{AWS} Amplify eignet sich daher die offizielle Amplify Dokumentation \autocite{amplifyDocs}. Allerdings verbindet \ac{AWS} Amplify verschiedene Cloud-Dienste. Über diese Dienste lässt sich einiges an Literatur finden  \autocite{dahunsi2021commercial}\autocite{lysakov2021security}\autocite{mathew2014overview}\autocite{beach2014aws}.
 
-  - Amplify
-  - Amplify CLI
-  - Custom Plugins
-  - Wie sieht die Infrastrutkur aus, wie der code, wie das frontend?
-  - CloudFormation
-  - AppSync
-  - Lambda
-  - S3
-  - Cognito
-  - MediaConvert
-  - Amazon EventBridge
-  - DynamoDB
-  - CloudFront (weil kurz erwähnt)
+Die offizielle Dokumentation beschreibt \ac{AWS} Amplify als eine Menge von Tools aus \ac{AWS} sowie Funktionalitäten, die Entwickler schnell und unkompliziert zusammenstecken können. Dies hat das Ziel, sowohl ein Backend als auch ein dazugehöriges Frontend in kürzester Zeit aufbauen und ausliefern zu können. Des Weiteren wird damit geworben, dass es keine Erfahrung im Bereich Cloud benötigt.
+
+\ac{AWS} Amplify ist damit ein Wrapper um etliche \ac{AWS}-Dienste. Dieser Wrapper begünstigt den Einstieg in die Cloud-Dienste durch das Framework selbst. Die Libraries werden in Form von Quellcode zusammengefügt. Der Quellcode lässt sich über das Command-line Interface bedienen. Werden zusätzliche Dienste benötigt, kann das auf Code-Level selbst oder über ein Custom Plugin geschehen, welches die nötigen Dienste erstellt. Des Weiteren bietet \ac{AWS} Amplify ein Hosting des Frontends über CloudFront und S3 an. Alle Dienste werden in der \ac{AWS} CloudFormation als Stacks bereitgestellt.
+
+Im den nächsten Unterabschnitten werden die für diese Arbeit relevanten Amplify Libraries sowie weitere Libraries zusammengefasst dargestellt und erläutert.
+
+\subsubsection{API (GraphQL)}
+
+Mit dieser Library lassen sich GraphQL-Schnittstellen entwickeln. Der dahinterliegende Dienst ist \ac{AWS} AppSync. In jedem Fall wird eine Datenquelle benötigt, welche häufig die NoSQL-Datenbank Amazon DynamoDB ist. Wenn einzelne Queries oder Mutations Logik benötigen, dann besteht die Möglichkeit diese entweder mit der Programmiersprache VTL aufzulösen oder einen eigenen Resolver über \ac{AWS} Lambda hinzuzufügen. Weitere Funktionalitäten dieser Library sind die Authentifizierung über Amazon Cognito, \ac{AWS} IAM, einen API-Key oder eine eigene Lambda-Funktion. Auch Subscriptions bei definierten Events wie dem Erstellen, Aktualisieren oder Löschen eines Datensatzes sind möglich.
+
+Für das Frontend besteht die Möglichkeit den Amplify GraphQL Client zu nutzen.
+
+\subsubsection{Authentication}
+
+Mit der Authentication-Library lassen sich sowohl für das Frontend als auch für das Backend Registrierung, Authentifizierung, Autorisierung und weitere Operationen abbilden. Im Backend wird dazu Amazon Cognito genutzt. Weitere Funktionalitäten dieses Dienstes sind Social Sign In (über Google, Facebook, Amazon und Apple), Multi-Factor Authentication, verschiedene Authentication-Abläufe sowie das Merken eines Geräts.
+
+Im Frontend kann auf ein bereitgestelltes User Interface zurückgegriffen werden. Für weitere Anpassungen kann auch ein eigenes User Interface erstellt werden, was auf die selben Logik-Funktionen von Amplify zugreifen würde.
+
+\subsubsection{Storage (S3)}
+
+Mit der Storage-Library können Benutzerinhalte verwaltet werden. Im Backend wird dafür \ac{AWS} S3 verwendet, der als Speicherort für die Dateien dient. Im Standardfall wird der Bucket in einen öffentlichen, geschützten und privaten Bereich aufgeteilt. Auf den öffentlichen Bereich kann jeder Nutzer lesen und schreiben. Für den geschützten und privaten Bereich muss der Nutzer über \ac{AWS} Cognito eingeloggt sein. Beim geschützten Bereich kann nur der Besitzer schreiben, während alle anderen Nutzer lesen können. Im privaten Bereich kann nur der Benutzer lesen und schreiben. Wichtig ist zu erwähnen, dass die Identität und nicht die Benutzerkennung als Ordner-Pfad gesetzt werden. Dies benötigt eine Umrechnung, sollte eine Lambda-Funktion zu einem Nutzer den dazugehörigen Ordner finden wollen.
+
+Im Frontend können die existierenden Funktionen von Amplify genutzt werden, um mit dem Storage zu agieren. Dabei werden in der Regel \textit{Signed URLs} verwendet.
+
+\subsubsection{Weitere Libraries}
+
+Nun folgt die Auflistung weiterer Libraries, die Amplify bietet.
+\begin{description}
+   \item[API (\acs{REST})] wird genutzt, um \acs{REST}-APIs über AWS API Gateway abzubilden.
+   \item[Geo] wird genutzt, um APIs und User Interfaces für Karten und Location-Suchen nutzen.
+   \item[DataStore] wird genutzt, um Daten mit einer Schnittstelle sowohl im Online- als auch im Offlinefall einheitlich zu verwalten.
+   \item[Interactions] werden genutzt, um Chatbots in die Anwendung zu integrieren.
+   \item[Predictions] wird für gängige Aufgaben der künstlichen Intelligenz wie beispielsweise Übersetzungen, Text-to-Speach und Labelling genutzt.
+   \item[XR] wird für Augmented reality and Virtual Reality genutzt.
+\end{description}
 
 \subsection{Firebase}
 
