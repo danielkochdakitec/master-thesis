@@ -99,11 +99,19 @@ Im folgenden Abschnitt werden nun die für diese Arbeit relevanten Anbieter von 
 
 Da der Release von \ac{AWS} Amplify erst im November 2018 war, gibt es kaum wissenschaftliche Arbeiten, die sich mit \ac{AWS} Amplify selbst beschäftigen. Zur Erläuterung technischer Sachverhalte von \ac{AWS} Amplify eignet sich daher die offizielle Amplify Dokumentation \autocite{amplifyDocs}. Allerdings verbindet \ac{AWS} Amplify verschiedene Cloud-Dienste. Über diese Dienste lässt sich einiges an Literatur finden  \autocite{dahunsi2021commercial}\autocite{lysakov2021security}\autocite{mathew2014overview}\autocite{beach2014aws}.
 
-Die offizielle Dokumentation beschreibt \ac{AWS} Amplify als eine Menge von Tools aus \ac{AWS} sowie Funktionalitäten, die Entwickler schnell und unkompliziert zusammenstecken können. Dies hat das Ziel, sowohl ein Backend als auch ein dazugehöriges Frontend in kürzester Zeit aufbauen und ausliefern zu können. Des Weiteren wird damit geworben, dass es keine Erfahrung im Bereich Cloud benötigt.
+Die offizielle Dokumentation beschreibt \ac{AWS} Amplify als eine Menge von Tools aus \ac{AWS} sowie Funktionalitäten, die Entwickler schnell und unkompliziert zusammenstecken können. Dies hat das Ziel, sowohl ein Backend als auch ein dazugehöriges Frontend in kürzester Zeit aufbauen und ausliefern zu können. Des Weiteren wird damit geworben, dass Entwickler keine Erfahrung im Bereich Cloud benötigen.
 
-\ac{AWS} Amplify ist damit ein Wrapper um etliche \ac{AWS}-Dienste. Dieser Wrapper begünstigt den Einstieg in die Cloud-Dienste durch das Framework selbst. Die Libraries werden in Form von Quellcode zusammengefügt. Der Quellcode lässt sich über das Command-line Interface bedienen. Werden zusätzliche Dienste benötigt, kann das auf Code-Level selbst oder über ein Custom Plugin geschehen, welches die nötigen Dienste erstellt. Des Weiteren bietet \ac{AWS} Amplify ein Hosting des Frontends über CloudFront und S3 an. Alle Dienste werden in der \ac{AWS} CloudFormation als Stacks bereitgestellt.
+\ac{AWS} Amplify ist damit ein Wrapper um etliche \ac{AWS}-Dienste. Dieser Wrapper begünstigt den Einstieg in die Cloud-Dienste durch das Framework selbst. Die Libraries werden in Form von Quellcode zusammengefügt. Der Quellcode lässt sich über das Command-line Interface bedienen oder selbst anpassen. Werden zusätzliche Dienste benötigt, kann das auf Code-Level selbst oder über ein Custom Plugin geschehen, welches die nötigen Dienste erstellt.
 
-Im den nächsten Unterabschnitten werden die für diese Arbeit relevanten Amplify Libraries sowie weitere Libraries zusammengefasst dargestellt und erläutert.
+Des Weiteren bietet \ac{AWS} Amplify ein Hosting des Frontends über CloudFront und S3 an. Alle Dienste werden in der \ac{AWS} CloudFormation als Stacks bereitgestellt. \ac{AWS} Amplify ist für die folgenden Plattformen geeignet:
+\begin{itemize}
+  \item Apple (iOS)
+  \item Android
+  \item Web
+  \item React Native
+\end{itemize}
+
+In den nächsten Unterabschnitten werden die für diese Arbeit relevanten Amplify Libraries sowie weitere Libraries zusammengefasst dargestellt und erläutert.
 
 \subsubsection{API (GraphQL)}
 
@@ -126,19 +134,48 @@ Im Frontend können die existierenden Funktionen von Amplify genutzt werden, um 
 \subsubsection{Weitere Libraries}
 
 Nun folgt die Auflistung weiterer Libraries, die Amplify bietet.
-\begin{description}
-   \item[API (\acs{REST})] wird genutzt, um \acs{REST}-APIs über AWS API Gateway abzubilden.
-   \item[Geo] wird genutzt, um APIs und User Interfaces für Karten und Location-Suchen nutzen.
-   \item[DataStore] wird genutzt, um Daten mit einer Schnittstelle sowohl im Online- als auch im Offlinefall einheitlich zu verwalten.
-   \item[Interactions] werden genutzt, um Chatbots in die Anwendung zu integrieren.
-   \item[Predictions] wird für gängige Aufgaben der künstlichen Intelligenz wie beispielsweise Übersetzungen, Text-to-Speach und Labelling genutzt.
-   \item[XR] wird für Augmented reality and Virtual Reality genutzt.
+\begin{itemize}
+   \item \textit{API (\acs{REST})} wird genutzt, um \acs{REST}-APIs über den Dienst \ac{AWS} API Gateway abzubilden.
+   \item \textit{Geo} wird genutzt, um APIs und User Interfaces für Karten und Standortsuchen über den \ac{AWS}-Dienst Amazon Location Service zu verwenden.
+   \item \textit{DataStore} wird genutzt, um Daten mit einer Schnittstelle sowohl im Online- als auch im Offlinefall einheitlich über \ac{AWS} AppSync zu verwalten.
+   \item \textit{Interactions} werden genutzt, um Chatbots über Amazon Lex in die Anwendung zu integrieren.
+   \item \textit{Predictions} wird für gängige Aufgaben der künstlichen Intelligenz wie beispielsweise Übersetzungen, Text-to-Speach und Labelling genutzt. Dabei kommen die Dienste Amazon Translate, Amazon Polly, Amazon Transcribe, Amazon Rekognition, Amazon Textract, and Amazon Comprehend zum Einsatz.
+   \item \textit{XR} wird für Augmented Reality and Virtual Reality genutzt.
 \end{description}
 
 \subsection{Firebase}
 
-\autocite{moroney2017definitive}
-\autocite{tanna2018serverless}
-\autocite{firebaseDocs}
+Firebase wurde im Jahr 2011 veröffentlicht und 2014 von Google übernommen. Im Gegensatz zu \ac{AWS} Amplify gibt es hier umfassende wissenschaftliche Literatur \autocite{moroney2017definitive}\autocite{tanna2018serverless}. Daneben bietet Firebase ebenfalls eine ausführliche Dokumentation\autocite{firebaseDocs} an.
+
+Auch Firebase bietet etliche Libraries an, um Backend- und Frontendanwendungen zu entwickeln. Diese nutze teilweise auch andere Cloud-Dienste der Google Cloud Platform, andere sind wiederum direkt für Firebase geschrieben. Firebase ist für die Entwicklung auf den folgenden Plattformen geeignet:
+\begin{itemize}
+  \item Apple (iOS)
+  \item Android
+  \item Web
+  \item C++
+  \item Unity
+\end{itemize}
+
+\subsubsection{Cloud Functions}
+
+Im Gegensatz zu \ac{AWS} Amplify gibt es hier keine GraphQL- oder Rest-Schnittstelle. Funktionen, auch \texti{Cloud Functions} genannt, werden stattdessen direkt aufgerufen. Diese können sowohl aus dem Frontend als auch durch eine Aktion im Backend aufgerufen werden. Ersteres erfordert die nötigen Berechtigungen für diese Funktion. Letzteres kann beispielsweise durch einen Trigger wie \texti{document.create} aus der Datenbank ausgelöst werden.
+
+Für die Datenbank kann der Entwickler zwischen der Firestore Database und der Realtime Database wählen. Die Realtime Database ist die erste Version, während die Firestore Database eine schnellere und besser skalierbare Datenbank mit einem intuitiveren Datenmodell ist. Beide Datenbanken bieten entsprechende Frontend-Libraries an. Anders als in traditionellen Systemen besteht die Möglichkeit, dass das Frontend mit entsprechenden Berechtigungen ohne eine Funktion aufzurufen in die Datenbank schreiben kann. Die Sicherheitskonfiguration der Datenbank muss dafür so angepasst werden, dass Nutzer keine Datensätze anderer Nutzer überschreiben können.
+
+\subsubsection{Authentication}
+
+Auch Firebase bietet eine Authentication-Library für Frontend und Backend an. Diese funktioniert ähnlich wie die aus \ac{AWS} Amplify.
+
+
+Cloud Messaging
+Remote Config
+Firebase ML
+
+Google Analytics
+Remote Config
+Performance Monitoring
+Test Lab
+
+todo
 
 \subsection{Weitere Anbieter}
