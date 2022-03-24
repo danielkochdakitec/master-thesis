@@ -1,1 +1,27 @@
 \chapter{Zusammenfassung}
+
+Das Ziel der Arbeit war es, herauszufinden, ob das \ac{BaaS}-Tool \ac{AWS} Amplify oder Firebase aus der Google Cloud Platform für ein definiertes Szenario wirtschaftlich besser geeignet ist.
+
+Dazu führt diese Arbeit zunächst in das Thema ein und definiert in \autoref{kap1} die zu Grunde liegende Methodik. Anhand der Kriterien des Entwicklungsaufwands und der monatlichen Cloud-Kosten soll die Wirtschaftlichkeit überprüft werden. Dazu müssen prototypisch zwei Plattformen entwickelt werden, die dann verglichen werden. Für diese werden dann Anforderungen und Randbedingungen definiert, damit die Anwendung vergleichbar bleibt.
+
+\autoref{kap2} stellt die Grundlagen für die Arbeit dar. Das Kapitel geht auf die verschiedenen Service-Modelle ein und grenzt diese voneinander ab. Dann folgt eine Übersicht über die \ac{BaaS}-Anbieter. Speziell wird dabei ein Fokus auf die verwendeten Dienste gesetzt.
+
+\autoref{kap3} zeigt verwandte Arbeiten, die mit einem \ac{BaaS}-Tool eine Plattform entwickelt haben und grenzt die Arbeit von diesen ab.
+
+\autoref{kap4} und \autoref{kap5} stellt nun auf die Architektur und die Implementierung der Plattformen dar. Anhand der Erkentnisse daraus, kann der Vergleich stattfinden.
+
+In \autoref{kap6} werden die beiden Anbieter anhand des Entwicklungsaufwands verglichen. Der Vergleich erfolgt anhand der Kriterien des Entwicklungsprozesses, der Infrastruktur, des Backends und des Frontends. Das Resultat ergab, dass der Aufwand für dieses Projekt mit \ac{AWS} Amplify auf Grund der Komplexität der \ac{AWS}-Cloud zeitaufwendiger ist. Daraus folgte auch, dass \ac{AWS} für komplexe Anwendungen sinnvoll ist. Für diese Anwendung war die Entwicklung mit Firebase schneller.
+
+In \autoref{kap7} erfolgt eine weiterer Vergleich anhand der monatlich anfallenden Cloud-Kosten. Zuerst werden die Kosten einzeln dargestellt und verglichen. Dann wird für ein definiertes Szenario mit 500 Tausend Nutzern berechnet, wie hoch die Kosten pro Monat sind. Dabei war \ac{AWS} Amplify auf Grund der Netzwerktransferkosten deutlich günstiger. Daraus ließ sich schließen, dass Firebase für kleine überschaubare Anwendungen wirtschaftlicher ist, während \ac{AWS} für große Anwendungen wirtschaftlicher ist.
+
+Zusammenfassend lässt sich festhalten, dass Firebase für überschaubare Anwendungen wirtschaftlicher ist, sowohl in der Entwicklungszeit als auch in den monatlich anfallenden Kosten. Jedoch eignet sich \ac{AWS} Amplify für Anwendungen mit hohen Nutzerzahlen und komplexen Anforderungen mehr.
+
+\chapter{Ausblick}
+
+Weiterführend ist auch ein Vergleich anderer \ac{BaaS}-Tools sinnvoll. Nicht nur \ac{AWS} und die Google Cloud Platform sind große Anbieter für Cloud-Dienste, sondern nur ein Teil davon. Auch wenn \ac{AWS} zu dem jetzigen Zeitpunkt Marktführer ist, kann sich das Umfeld in Zukunft sehr schnell ändern.
+
+Auch kann es für die Kostenanalyse nützlich sein, weitere Szenarien aufzusetzen. Eine Video-Plattform benötigt in der Regel sehr viel Netzwerktransfer. Fraglich ist, wie die Kostenstruktur bei Anwendungen ohne exzessive Medieninhalte, aber mit mehr Berechnungen im Backend aussieht.
+
+Des Weiteren kann auch ein Vergleich zwischen \ac{BaaS}-Tools und dem \ac{AWS} \ac{CDK} interessant sein. Das Framework bietet die Möglichkeit Cloud-Infrastruktur auf Code-Level aufzusetzen.  Dies entspricht dem Zusammensetzen von Cloud-Diensten und \ac{API}s über den Code selbst. Dies könnte eine Möglichkeit für komplexe Projekte sein, \ac{BaaS}-Tools abzulösen. Denn auch \ac{BaaS}-Tools sind nur auf einen bestimmten Anwendungsfall vorgesehen. Je einfacher es dem Entwickler gemacht wird, desto mehr geht es in Richtung \ac{SaaS}, was wieder weniger Flexibilität für den Entwickler bedeutet.
+
+Auch \ac{AWS} Amplify nutzt das \ac{CDK} im Hintergrund, also könnten Entwickler auch auf die Idee kommen, direkt auf die \ac{CDK} zu wechseln, um mehr Flexibilität zu haben und nicht mehr von einem \ac{BaaS}-Tool abhängig zu sein. Firebase bietet  eine solche Möglichkeit aktuell nicht an.
