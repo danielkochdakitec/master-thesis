@@ -32,7 +32,7 @@ Ebenfalls wie bei \ac{AWS} Amplify lässt sich die Architektur von Firebase in P
     \end{itemize}
 \end{itemize}
 
-Auch hier werden ausschließlich interne Dienste der Google Cloud verwendet, so dass die Rahmenbedingungen nicht missachtet sind und die beiden Technologien vergleichbar sind. Abgesehen von Cloud-Diensten ist der Unterschied beider Projekte auf technischer Ebene, dass die Firebase-Anwendung im Backend TypeScript statt JavaScript verwendet.
+Auch hier werden ausschließlich interne Dienste der Google Cloud verwendet, so dass die Rahmenbedingungen nicht missachtet sind und die beiden Technologien vergleichbar sind. Abgesehen von anderen Cloud-Diensten, ist der Unterschied beider Projekte auf technischer Ebene, dass die Firebase-Anwendung im Backend TypeScript statt JavaScript verwendet.
 
 Als nächstes werden Lösungsansätze, um die nichtfunktionalen Anforderungen, auch Qualitätsziele genannt, zu erreichen:
 
@@ -47,7 +47,7 @@ Als nächstes werden Lösungsansätze, um die nichtfunktionalen Anforderungen, a
 
 \subsection{Bausteinsicht}
 
-Wie bei \ac{AWS} Amplify gibt es eine Unterteilung zwischen Frontend, auf das dieses Kapitel nicht näher eingeht und dem Backend, welches wichtig für die Vergleichbarkeit der Anwendungen ist. Das Backend besteht aus den folgenden Bausteinen:
+Wie auch bei \ac{AWS} Amplify gibt es eine Unterteilung zwischen Frontend und dem Backend. Das Backend besteht aus den folgenden Bausteinen:
 
 \begin{itemize}
   \item{Der Dienst \textit{Authentication} regelt die Authentifizierung und die Autorisierung von Benutzern.}
@@ -119,7 +119,7 @@ Im Gegensatz zu \ac{AWS} Amplify verwendet Firebase keine Stacks, sondern stellt
 
 \section{Implementierung}
 
-Die Implementierung in Firebase unterscheidet die Themen Backend und Frontend. Eine Darstellung der Infrastruktur ist nicht nötig, da die Infrastruktur nicht auf Stacks aufbaut, sondern Elemente wie Funktionen direkt im Code definiert werden.
+Die Implementierung in Firebase unterscheidet die Themen Backend und Frontend. Eine Darstellung der Infrastruktur ist nicht nötig, da die Infrastruktur nicht auf Stacks aufbaut, sondern Elemente wie Funktionen direkt im Code definiert werden. Das hat zur Folge, dass in Firebase anders als bei \ac{AWS} Amplify Dienste nicht als Template definiert werden können, was die Flexibilität verringert, die bei komplexeren Projekten nötig sein kann.
 
 Die Anwendung wird wesentlich über eine Konfigurationsdatei definiert. Dort werden Hosting, Cloud Functions, Cloud Storage und Cloud Firestore definiert. Die Datei wird in \autoref{lst:FirebaseConfiguration} dargestellt.
 
@@ -241,6 +241,6 @@ Um Dateien in den Storage hochzuladen, wird die Storage-Komponente aus Firebase 
   label=lst:FirebaseFrontendUpload
 ]{\srcloc/firebase/frontend-upload.js}
 
-Um Kollisionen von Dateinamen zu vermeiden, wird vor den Dateinamen eine \ac{UUID} gehängt und außerdem von einfachen Zufallszahlen-Generatoren abgesehen.
+Um Kollisionen von Dateinamen zu vermeiden, wird vor den Dateinamen ein \ac{UUID} gehängt statt einen einfachen Zufallszahlengenerator zu nutzen.
 
 Beim Hochladen können auf verschiedene Ereignisse reagiert werden. In regelmäßigen Zeitabschnitten wird der Fortschritt des Uploads über eine Funktion aufgerufen. Damit lässt sich eine Ladeanimation mit einem Fortschrittsbalken realisieren. Ist der Upload abgeschlossen, wird ebenfalls eine Funktion aufgerufen.

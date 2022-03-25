@@ -56,17 +56,17 @@ Die Architektur ist unterteilt in Frontend (Präsentationsschicht) und Backend (
 \begin{itemize}
   \item{Der \textit{RootStack} enthält alle darunterliegenden Stacks sowie Ressourcen zum Deployment von Amplify.}
 
-  \item{Der \textit{ApiStack} besteht aus den Diensten AppSync und DynamoDB. AppSync besteht aus einer GraphQLApi, die ein GraphQLSchema enthält. Außerdem nutzt AppSync Resolver, um ein Mapping über VTL zur DynamoDB-Tabelle zu ermöglichen. Um eine Verbindung zu einer Lambda-Funktion zu ermöglichen, existiert auch mindestens eine DataSource.}
+  \item{Der \textit{ApiStack} besteht aus den Diensten AppSync und DynamoDB. AppSync besteht aus einer \textit{GraphQLApi}, die ein \textit{GraphQLSchema} enthält. Außerdem nutzt AppSync Resolver, um ein Mapping über VTL zur DynamoDB-Tabelle zu ermöglichen. Um eine Verbindung zu einer Lambda-Funktion zu ermöglichen, existiert auch mindestens eine DataSource.}
 
-  \item{Der \textit{AuthStack} regelt die Authentifizierung und Autorisierung von Benutzern über den Dienst Cognito. Dieser besteht aus einem UserPool und einem IdentityPool und den entsprechenden IAM-Rollen und Policies. Des weiteren besteht der Stack aus einem UserPoolClient, über welchen Anfragen auf Cognito erfolgen können. Amplify definiert auch weitere Lambda-Funktionen, um zusätzliche Logik für die Authentifizierung zu ermöglichen.}
+  \item{Der \textit{AuthStack} regelt die Authentifizierung und Autorisierung von Benutzern über den Dienst Cognito. Dieser besteht aus einem \textit{UserPool} und einem \textit{IdentityPool} und den entsprechenden IAM-Rollen und Policies. Des weiteren besteht der Stack aus einem \textit{UserPoolClient}, über welchen Anfragen auf Cognito erfolgen können. Amplify definiert auch weitere Lambda-Funktionen, um zusätzliche Logik für die Authentifizierung zu ermöglichen.}
 
-  \item{Der \textit{AuthUserPoolGroupStack} dient zur Verwaltung der zusätzlichen UserPoolGroup für Administratoren.}
+  \item{Der \textit{AuthUserPoolGroupStack} dient zur Verwaltung der zusätzlichen \textit{UserPoolGroup} für Administratoren.}
 
   \item{Der \textit{StorageStack} dient zur Speicherung der Videos. Dieser enthält einen S3-Bucket sowie eine dazugehören Policy, welchen es Benutzern ermöglicht, Dateien in eigene Ordner hochzuladen sowie andere Ordner lesen zu dürfen. Die Policy unterscheidet zwischen öffentlichen, geschützten und privaten Geltungsbereichen.}
 
   \item{Der \textit{FunctionLayerStack} bündelt die Node.js-Module als Lambda-Layer, den die weiteren Lambda-Funktionen nutzen.}
 
-  \item{Der \textit{FunctionCreateVideoStack} übernimmt die Erstellung eines Videos in Form einer Lambda-Funktion. Außerdem erstellt der Stack in MediaConvert ein JobTemplate und eine Queue. Des Weiteren definiert der Stack die nötige Policy und Rolle, um der Lambda-Funktion die Zugriffe auf andere Dienste zu ermöglichen.}
+  \item{Der \textit{FunctionCreateVideoStack} übernimmt die Erstellung eines Videos in Form einer Lambda-Funktion. Außerdem erstellt der Stack in MediaConvert ein \textit{JobTemplate} und eine \textit{Queue}. Des Weiteren definiert der Stack die nötige Policy und Rolle, um der Lambda-Funktion die Zugriffe auf andere Dienste zu ermöglichen.}
 
   \item{Der \textit{FunctionVideoConvertedStack} besteht aus einer EventBridge-Regel, die bei einer Konvertierung eines Videos aufgerufen wird. Außerdem wird eine Lambda-Funktion mit der nötigen Policy und Rolle erstellt.}
 
@@ -142,7 +142,7 @@ Das Frontend wird separat, also nicht über Stacks, verteilt. Dazu nutzt Amplify
 
 \section{Implementierung}
 
-Die Implementierung in Amplify unterscheidet die Themen Infrastruktur, Backend und Frontend. Zwar liegt die Infrastruktur-Definition und der Backend-Code vereint in Plugins, die sich im selben Repository befinden, dennoch können sie separat betrachtet werden.
+Die Implementierung in Amplify unterscheidet die Themen Infrastruktur, Backend und Frontend. Zwar liegt die Infrastruktur-Definition und der Backend-Code vereint in Plugins, die sich im selben Repository befinden, dennoch können sie dort nochmal unterschieden werden.
 
 \subsection{Infrastruktur}
 
@@ -150,8 +150,7 @@ Für die Infrastruktur müssen einige Plugins verändert werden, da Amplify nich
 
 Das CloudFormation-Template für das Plugin \textit{createVideo} wird um die nötigen Ressourcen für die Video-Konvertierung erweitert. Das Plugin \textit{videoConverted} wird um eine Regel erweitert, die zum Abschluss der Video-Konvertierung die Lambda-Funktion ausführt. Alle Plugins, bei denen Lambda-Funktionen auf andere Dienste zugreifen, erhalten zusätzliche Berechtigungen für den aufzurufenden Dienst im Template.
 
-Einen Ausschnitt der Anpassungen am Plugin \textit{createVideo} zeigt \autoref{lst:AmplifyCreateVideo}. Hier ist die Ergänzung der Attribute \textit{MediaConvertJobTemplate} und \textit{MediaConvertQueue} und deren Definitionen zu sehen. Wichtig dabei ist, dass der Name des Diensts jeweils das aktuelle Environment beinhaltet. Sonst wäre es nicht möglich über verschiedene Git-Branches zu arbeiten, da die Namen eindeutig sein müssen. Das Attribut \textit{SettingsJson}, welches hier nicht vollständig dargestellt ist, speichert die Definition für die Video-Konvertierung.
-
+Einen Ausschnitt der Anpassungen am Plugin \textit{createVideo} zeigt \autoref{lst:AmplifyCreateVideo}. Hier ist die Ergänzung der Attribute \textit{MediaConvertJobTemplate} und \textit{MediaConvertQueue} und deren Definitionen zu sehen. Wichtig dabei ist, dass der Name des Diensts jeweils das aktuelle Environment beinhaltet. Sonst wäre es nicht möglich über verschiedene Git-Branches und Umgebungen zu arbeiten, da die Namen eindeutig sein müssen. Das Attribut \textit{SettingsJson}, welches hier nicht vollständig dargestellt ist, speichert die Definition für die Video-Konvertierung.
 \lstinputlisting[
   language=JavaScript,
   extendedchars=true,
@@ -164,7 +163,7 @@ Einen Ausschnitt der Anpassungen am Plugin \textit{createVideo} zeigt \autoref{l
   tabsize=2,
   breaklines=true,
   showtabs=false,
-  caption={Amplify Custom Plugin},
+  caption={Amplify Plugin für MediaConvert},
   label=lst:AmplifyCreateVideo
 ]{\srcloc/amplify/cf-create-video.json}
 

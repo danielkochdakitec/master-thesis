@@ -13,15 +13,15 @@ Für die lokale Entwicklung bietet \ac{AWS} Amplify die Möglichkeit, \ac{AWS} A
 
 Mit dem Feature \textit{Emulator} bietet auch Firebase eine solche Möglichkeit an. Damit lassen sich die Dienste Storage, Auth, Firestore, Functions und Hosting für dieses Projekt lokal betreiben. Im Gegensatz zu \ac{AWS} Amplify werden damit noch zusätzlich die Bereiche Authentifizierung und Hosting des Frontends abgedeckt. Obwohl diese Bereiche zusätzlich abgedeckt sind, ergibt sich kein zeitlicher Vorteil für Firebase. Ohnehin lässt sich das Frontend lokal starten und die Konfiguration der Authentifizierung ändert sich nur in den seltensten Fällen.
 
-Ein weiterer Vergleichspunkt ist das Deployment der Anwendungen. Während \ac{AWS} Amplify eine integrierte CI/CD-Pipeline mittels \ac{AWS} CodeBuild anbietet, muss in Firebase auf eine eigenen Pipeline, zum Beispiel über GitHub Actions, zurückgegriffen werden. Dieses bedeutet zusätzlichen Aufwand beim Setup der Entwicklungsumgebung. Jedoch existiert für die fehlende integrierte Pipeline von Firebase eine vordefinierte Datei für GitHub Actions, was den Aufwand sehr gering hält. Auf der anderen Seite basiert das Deployment von \ac{AWS} Amplify auf CloudFormation-Templates. Auf Grund der Komplexität dieses Vorgehens, passieren hier mehr Fehler, als wenn es diese nicht gibt.
+Ein weiterer Vergleichspunkt ist das Deployment der Anwendungen. Während \ac{AWS} Amplify eine integrierte CI/CD-Pipeline mittels \ac{AWS} CodeBuild anbietet, muss in Firebase auf eine eigenen Pipeline, zum Beispiel über GitHub Actions, zurückgegriffen werden. Dieses bedeutet zusätzlichen Aufwand beim Setup der Entwicklungsumgebung. Jedoch existiert für die fehlende integrierte Pipeline von Firebase eine vordefinierte Datei für GitHub Actions, was den Aufwand sehr gering hält. Auf der anderen Seite basiert das Deployment von \ac{AWS} Amplify auf CloudFormation-Templates. Auf Grund der Komplexität dieses Vorgehens, passieren hier mehr Fehler, als wenn es diese nicht gäbe.
 
-Daher ist zusammenfassend der Entwicklungsprozess von Firebase schneller, da die Komplexität geringer ist und Entwickler weniger Fehler machen können.
+Daher ist zusammenfassend der Entwicklungsprozess von Firebase in dem Falle der Video-Plattform schneller, da die Komplexität geringer ist und Entwickler weniger Fehler machen können.
 
 \subsection{Infrastruktur}
 
-Für Änderungen an der Infrastruktur werden bei \ac{AWS} CloudFormation-Templates genutzt. Dadurch lassen sich die meisten Ressourcen von \ac{AWS} abbilden. In diesem Projekt sind das zum Beispiel ein MediaConvert Job Template oder eine EventBridge Regel. Einige Anpassungen an von Amplify bereitgestellten Ressourcen lassen sich im CloudFormation-Template allerdings nicht verändern. Der Build-Prozess überschreibt die Veränderung, so dass beispielsweise das folgende Szenario nicht möglich ist:
+Für Änderungen an der Infrastruktur werden bei \ac{AWS} CloudFormation-Templates genutzt. Dadurch lassen sich die meisten Ressourcen von \ac{AWS} abbilden. In diesem Projekt sind das zum Beispiel ein MediaConvert Job-Template oder eine EventBridge Regel. Einige Anpassungen an von Amplify bereitgestellten Ressourcen lassen sich im CloudFormation-Template allerdings nicht verändern. Der Build-Prozess überschreibt die Veränderung, so dass beispielsweise das folgende Szenario nicht möglich ist:
 
-Im \textit{AuthStack} muss die Identifikation des User-Pools statt die des Identity-Pools genutzt werden, damit die enstprechende Lambda-Funktion die Information erhält, um welchen Nutzer es sich handelt. Als Workaround muss die Änderung manuell in die Cognito-Ressource eingetragen werden. Das ist sehr fehleranfällig, da bei einem erneuten Setup des Projektes die manuelle Änderung immer wieder eingespielt werden muss. Dies ist nur ein Beispiel von vielen Herausforderungen, die dabei auftreten können.
+Im \textit{AuthStack} muss die Identifikation des User-Pools statt die des Identity-Pools genutzt werden, damit die enstprechende Lambda-Funktion die Information erhält, um welchen Nutzer es sich handelt. Als Workaround muss die Änderung manuell in die Cognito-Ressource eingetragen werden. Das ist sehr fehleranfällig, da bei einem erneuten Setup des Projektes die manuelle Änderung immer wieder eingespielt werden muss.
 
 Damit ist \ac{AWS} Amplify zwar sehr mächtig, wenn es darum geht, Dienste hinzuzufügen, welche nicht in Amplify vorkonfiguriert sind, allerdings ist es problematisch bestehende Dienste beliebig anzupassen.
 
@@ -37,9 +37,9 @@ Auf der anderen Seite kann \ac{AWS} AppSync über die VTL-Resolver Routen, welch
 
 Weiterhin ist zu erwähnen, dass Amazon Cognito ein Gruppenkonzept anbietet, welches nahtlos mit \ac{AWS} AppSync und Amplify integriert. Dies ist in Firebase nicht der Fall, so dass die Anforderungen, verschiedene Gruppen wie Administratoren abzubilden, bei Firebase selbst programmiert werden muss.
 
-Ein weiterer Vergleichspunkt ist die Videokonvertierung. Hieran lässt sich wieder erkennen, dass die \ac{AWS}-Cloud komplexer ist. Während bei Firebase ein einziger API-Aufruf zur Transcoder-API reicht, müssen bei /ac{AWS} mehrere Infrastruktur-Elemente erstellt werden. Zum einen wird eine Lambda-Funktion für den eigentlichen Aufruf benötigt. Dann wird ein MediaConvert Job-Template benötigt. Eine weitere EventBridge-Regel und eine zusätzliche Lambda-Funktion werden benötigt, um über die erfolgreiche Transkodierung benachrichtigt zu werden. Das macht es möglich, komplexere Architekturen abzubilden, jedoch erhöht dies gleichzeitig die Entwicklungszeit.
+Ein weiterer Vergleichspunkt ist die Videokonvertierung. Hieran lässt sich wieder erkennen, dass die \ac{AWS}-Cloud komplexer ist. Während bei Firebase ein einziger API-Aufruf zur Transcoder-API reicht, müssen bei \ac{AWS} mehrere Infrastruktur-Elemente erstellt werden. Zum einen wird eine Lambda-Funktion für den eigentlichen Aufruf benötigt. Dann wird ein MediaConvert Job-Template benötigt. Eine weitere EventBridge-Regel und eine zusätzliche Lambda-Funktion werden benötigt, um über die erfolgreiche Transkodierung benachrichtigt zu werden. Das macht es möglich, komplexere Architekturen abzubilden, jedoch erhöht dies gleichzeitig die Entwicklungszeit.
 
-Alles in allem ist damit die Entwicklungszeit für beide Dienste geringer als ohne Backend-as-a-service Tools, da es wenig Boilerplate-Code gibt, jedoch ist die Entwicklung in Firebase nochmal schneller, da die Architektur einfach gehalten werden kann.
+Alles in allem ist damit die Entwicklungszeit für beide Dienste geringer als ohne Backend-as-a-service Tools, da es wenig Boilerplate-Code gibt, jedoch ist die Entwicklung in Firebase nochmals schneller, da die Architektur einfach gehalten werden kann.
 
 \subsection{Frontend}
 
@@ -54,7 +54,7 @@ Damit ist die Entwicklungszeit in diesem Projekt am Frontend relativ ausgegliche
 \autoref{tab:entwicklungszeit} visualisiert die Ergebnisse des Vergleichs.
 
 \begin{table}[h]
-  \caption{Vergleich der Entwicklungszeit}
+  \caption{Vergleich der Entwicklungszeit der Video-Plattform}
   \label{tab:entwicklungszeit}
   \centering
   \begin{tabular}{lccc}
