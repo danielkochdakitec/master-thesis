@@ -1,12 +1,12 @@
 \chapter{Grundlagen}\label{kap2}
 
-Dieses Kapitel stellt die Grundlagen der Arbeit dar. Diese bestehen aus den verschiedenen Service-Modellen des Cloud Computings, welche definiert und voneinander abgegrenzt werden. Darauf folgt ein Abschnitt, der die nötigen Tools der Anwendungen sowie weitere dieser Art vorstellt.
+Dieses Kapitel stellt die Grundlagen der Arbeit dar. Diese bestehen aus den verschiedenen Service-Modellen des Cloud Computings, welche definiert und voneinander abgegrenzt werden. Darauf folgt ein Abschnitt, der die nötigen \ac{BaaS}-Dienste der Anwendungen sowie weitere Dienste darstellt.
 
 \section{Service-Modelle}
 
-Einer der Vorreiter des Cloud Computing ist John McCarthy, der in einer Rede am Massachusetts Institute of Technology (MIT) 1961 den Begriff des Utility Computings prägte. In dieser Rede ging er davon aus, dass in der Zukunft Rechenleistung ebenso wie das Telefonsystem als öffentliche Versorgung organisiert sind. Vergleichbar soll diese Versorgung dann mit Wasser, Strom und Gas sein. Entsprechend haben sich bis heute einige große Cloud-Anbieter wie \ac{AWS}, Google Cloud Platform oder Microsoft Azure entwickelt. Deren Geschäftsmodell begann damit, dass sie ihre überschüssige Rechenleistung als öffentlichen Dienst angeboten haben. Dies wird aber mehr und mehr zum Kerngeschäft dieser Unternehmen. \autocite{buyya2013mastering}
+Die Cloud lässt sich in verschiedene Service-Modelle wie \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, \acf{BaaS} oder \ac{SaaS} unterteilen. Die Definition, Abgrenzung und Einordnung dieser Modelle und Begriffe wird in verschiedener Literatur \autocite{jiang2020overview}\autocite{kumar2019serverless}\autocite{dahunsi2021commercial} behandelt.
 
-Allgemein lässt sich die Cloud in verschiedene Service-Modelle wie \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, \ac{BaaS} oder \ac{SaaS} unterteilen. Die Definition, Abgrenzung und Einordnung dieser Modelle und Begriffe wird in verschiedener Literatur \autocite{jiang2020overview}\autocite{kumar2019serverless}\autocite{dahunsi2021commercial} behandelt. Zusätzlich ist noch zu erwähnen, dass schlussendlich alles als Dienst angeboten werden kann. So hat sich \ac{XaaS} etabliert. Weitere Beispiele für die solche Cloud-Dienste angeboten werden, sind AI as a Service, API as a Service, Analytics as a Service oder Knowledge as a Service.
+Zusätzlich ist noch zu erwähnen, dass schlussendlich jede Schnittstelle als Dienst angeboten werden kann. So spricht man auch von \ac{XaaS}. Weitere Beispiele für die solche Cloud-Dienste angeboten werden, sind AI as a Service, API as a Service, Analytics as a Service oder Knowledge as a Service.
 
 \subsection{\acl{IaaS}}
 
@@ -18,17 +18,19 @@ Nachteilig ist allerdings, dass die Server in einem externen Rechenzentrum liege
 
 \subsection{\acl{PaaS}}
 
-\acf{PaaS} baut auf \acl{IaaS} auf und bietet zusätzlich eine Entwicklungsplattform mit Tools zum Entwickeln als Dienst an. Beispiele für \ac{PaaS} sind \ac{AWS} Elastic Beanstalk, Google App Engine und Heroku.
+\acf{PaaS} baut auf \acl{IaaS} auf und bietet zusätzlich eine Entwicklungsplattform mit Tools zum Entwickeln als eigenen Dienst an. Beispiele für \ac{PaaS} sind \ac{AWS} Elastic Beanstalk, Google App Engine und Heroku.
 
-Die Vor- und Nachteile von \acl{IaaS} treffen hier auch zu. Zusätzlich ist ein Vorteil, dass der Kunde sich nicht mehr selbst um die Hard- und Software kümmern muss, sondern sich lediglich auf die Entwicklung von Software-Produkten fokussieren kann. Der Anbieter selbst wickelt die Wartung und Pflege ab. Ein Nachteil ist, dass Entwickler keinen Einfluss auf die Umgebung selbst nehmen können, falls sie diese im Zweifelsfall verändern müssen.
+Die Vor- und Nachteile von \acl{IaaS} treffen hier auch zu. Zusätzlich ist ein Vorteil, dass der Kunde sich nicht mehr selbst um die Hard- und Software kümmern muss, sondern sich lediglich auf die Entwicklung von Software-Produkten fokussieren kann. Der Anbieter selbst wickelt die Wartung und Pflege ab.
+
+Ein Nachteil ist, dass Entwickler keinen Einfluss mehr auf die Umgebung selbst nehmen können, falls sie diese im Zweifelsfall verändern müssen.
 
 \subsection{\acl{FaaS}}
 
-Die Domänenlogik einer Anwendung kann mittels \acf{FaaS} abgebildet werden. Es handelt sich um Funktionen, die mit Parametern über Trigger aufgerufen werden können. Solch eine Funktion liegt nicht auf eigenen Servern, sondern beim jeweiligen Anbieter. Die Abgrenzung zu \ac{PaaS} ist, dass es sich hierbei nur um Funktionen handelt, während es sich bei \ac{PaaS} um eine ganze Anwendung handelt. Somit entsteht bei \ac{FaaS} die Anwendung dadurch, dass beispielsweise ein API-Gateway die Funktion aufruft. Beispiele für \ac{FaaS} sind \ac{AWS} Lambda, Google Cloud Functions, Azure Functions oder IBM OpenWhisk.
+Die Domänenlogik einer Anwendung kann mittels \acf{FaaS} abgebildet werden. Es handelt sich um Funktionen, die mit Parametern über Trigger aufgerufen werden können. Solch eine Funktion liegt nicht auf eigenen Servern, sondern beim jeweiligen Anbieter. Die Abgrenzung zu \ac{PaaS} ist, dass es sich hierbei nur um Funktionen handelt, während es sich bei \ac{PaaS} um eine ganze Anwendung handelt. Somit entsteht bei \ac{FaaS} die Anwendung dadurch, dass beispielsweise ein \acs{API}-Gateway die Funktion aufruft. Beispiele für \ac{FaaS} sind \ac{AWS} Lambda, Google Cloud Functions, Azure Functions oder IBM OpenWhisk.
 
-Ein Vorteil von \ac{FaaS} ist die Skalierbarkeit, die vom Anbieter selbst verwaltet wird. Außerdem ist \ac{FaaS} plattformunabhängig, so dass in jeder angebotenen Programmiersprache entwickelt werden kann. Dadurch, dass nur das bezahlt wird, was auch genutzt wird, ist \ac{FaaS} in der Regel kostengünstiger als dauerhaft einen Server laufen zu lassen. Des Weiteren bieten die meisten Anbieter auch schon direkt Anbindungen zum Logging und Monitoring ein, was die Überwachung der Funktionen vereinfacht.
+Ein Vorteil von \ac{FaaS} ist die Skalierbarkeit, die konfiguriert werden kann und vom Anbieter bereitgestellt wird. Außerdem ist \ac{FaaS} plattformunabhängig, so dass in jeder angebotenen Programmiersprache entwickelt werden kann. Dadurch, dass nur das bezahlt wird, was auch genutzt wird, ist \ac{FaaS} in der Regel kostengünstiger als dauerhaft einen Server laufen zu lassen. Des Weiteren bieten die meisten Anbieter auch schon direkt Anbindungen für das Logging und das Monitoring ein, was die Überwachung der Funktionen vereinfacht.
 
-Ein Nachteil von \ac{FaaS} sind beispielsweise die Startzeit von Funktionen. Je größer der Speicherplatz einer Funktion ist, desto länger dauert die Startzeit von Funktionen. Möchte der Entwickler keine Aufwärmzeit, muss für Provisioned Concurrency bezahlt werden. Ein weiterer Nachteil ist, dass Funktionen eine maximale Ausführungsdauer haben, welche von Cloud-Anbieter variiert. Für größere Workloads muss dann eine Alternative gefunden werden.
+Ein Nachteil von \ac{FaaS} ist die Startzeit von Funktionen. Je größer der Speicherplatz einer Funktion ist, desto länger dauert das Aufwärmen dieser Funktion. Möchte der Entwickler keine Aufwärmzeit, muss für Provisioned Concurrency bezahlt werden. Ein weiterer Nachteil ist, dass Funktionen eine maximale Ausführungsdauer haben, welche von Cloud-Anbieter variiert. Für größere Workloads muss dann eine Alternative gefunden werden.
 
 \subsection{\acl{BaaS}}
 
@@ -50,9 +52,11 @@ Die Vor- und Nachteile sind nahezu deckungsgleich mit denen von \ac{FaaS}. Es l�
 
 \subsection{\acl{SaaS}}
 
-\ac{SaaS} ist die gesamte Applikation als Dienst für den Endnutzer. Meistens ist eine Software dieser Art über ein oftmals monatliches Abonnement zu erhalten. Beispiels für Proukte dieser Art sind Slack, Microsoft 365, Salesforce oder Atlassian Jira.
+\ac{SaaS} ist die gesamte Applikation als Dienst für den Endnutzer. Meistens ist eine Software dieser Art über ein oftmals monatliches Abonnement zu erhalten. Beispiels für Produkte dieser Art sind Slack, Microsoft 365, Salesforce oder Atlassian Jira.
 
-Der Vorteil bei \ac{SaaS} ist, dass nicht die gesamte Software gekauft und bereitgestellt werden muss. Außerdem liefert der Hersteller regelmäßige Updates. Der Kunde muss sich also in der Regel nur noch um die Konfiguration der Anwendung selbst kümmern, während der Rest vollständig übernommen wird. Nachteilig ist damit allerdings auch, dass der Nutzer kaum Kontrolle über das Produkt hat. Des Weiteren liegen die Daten auch hier wieder auf einem externen Rechenzentrum, was auf Grund von Datensicherheit und der Datenschutz-Grundverordnung eine Hürde darstellt.
+Der Vorteil bei \ac{SaaS} ist, dass nicht die gesamte Software gekauft und bereitgestellt werden muss, sondern, dass sie nur gemietet wird. Außerdem liefert der Hersteller regelmäßige Aktualisierungen. Der Kunde muss sich also in der Regel nur noch um die Konfiguration der Anwendung selbst kümmern, während der Rest vollständig übernommen wird.
+
+Nachteilig ist damit allerdings auch, dass der Nutzer kaum Kontrolle über das Produkt selbst hat. Des Weiteren liegen die Daten auch hier wieder auf einem externen Rechenzentrum, was auf Grund von Datensicherheit und der Datenschutz-Grundverordnung in vielen Unternehmen eine Hürde darstellt.
 
 \subsection{Abgrenzung der Begriffe}
 
@@ -78,9 +82,9 @@ Der Vorteil bei \ac{SaaS} ist, dass nicht die gesamte Software gekauft und berei
   \rmfamily
 \end{table}
 
-\autoref{Kap2:ServiceModelleVergleich} vergleicht \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, damit implizit auch \ac{BaaS}, und \ac{SaaS} anhand den Kriterien Entwicklungseffizienz, Skalierbarkeit, Wartung, Kosten und den Anwendern.
+\autoref{Kap2:ServiceModelleVergleich} vergleicht \ac{IaaS}, \ac{PaaS}, \ac{FaaS}, damit implizit auch \ac{BaaS}, und \ac{SaaS} anhand den Kriterien Entwicklungseffizienz, Skalierbarkeit, Wartung, Kosten und der Anwendergruppe.
 
-Von links nach rechts nimmt dabei der Fokus auf die Business-Logik zu. Während bei \ac{IaaS} nur Infrastrukturelemente bereitgestellt werden, wird bei \ac{SaaS} die ganze Anwendung bereitgestellt. Dem entsprechend nimmt auch die Abstraktion von links nach rechts zu. Folglich nimmt die Flexibilität ab, da der Anwender bei \ac{SaaS} höchstens noch die Anwendung konfigurieren kann. Zwischen \ac{PaaS} und \ac{SaaS} hat \ac{FaaS} den Vorteil, dass dieser Dienst noch für Entwickler gedacht ist und damit flexibel genug ist, um Anwendungen aufzubauen. Dieser Vorteil trifft entsprechend auch auf \ac{BaaS} zu. \ac{FaaS} und \ac{BaaS} stellen alle nötigen Ressourcen exklusive des Anwendungslogik zur Verfügung.
+Von links nach rechts nimmt dabei der Fokus auf die Business-Logik zu. Während bei \ac{IaaS} nur Infrastrukturelemente bereitgestellt werden, wird bei \ac{SaaS} die ganze Anwendung bereitgestellt. Dem entsprechend nimmt auch die Abstraktion von links nach rechts zu. Folglich nimmt die Flexibilität ab, da der Anwender bei \ac{SaaS} höchstens noch die Anwendung konfigurieren kann und selbst kein Quellcode mehr schreibt. Zwischen \ac{PaaS} und \ac{SaaS} hat \ac{FaaS} den Vorteil, dass dieser Dienst noch für Entwickler gedacht ist und damit flexibel genug ist, um Anwendungen aufzubauen. Dieser Vorteil trifft entsprechend auch auf \ac{BaaS} zu. \ac{FaaS} und \ac{BaaS} stellen alle nötigen Ressourcen exklusive des Anwendungslogik zur Verfügung.
 
 \begin{figure}[h]
   \centering
