@@ -105,7 +105,7 @@ Da der Release von \ac{AWS} Amplify erst im November 2018 war, gibt es kaum wiss
 
 Die offizielle Dokumentation beschreibt \ac{AWS} Amplify als eine Menge von Tools aus \ac{AWS} sowie Funktionalitäten, die Entwickler schnell und unkompliziert zusammenstecken können. Dies hat das Ziel, sowohl ein Backend als auch ein dazugehöriges Frontend in kürzester Zeit aufbauen und ausliefern zu können. Des Weiteren wird damit geworben, dass Entwickler keine Erfahrung im Bereich Cloud benötigen.
 
-\ac{AWS} Amplify ist damit ein Wrapper um etliche \ac{AWS}-Dienste. Dieser Wrapper begünstigt den Einstieg in die Cloud-Dienste durch das Framework selbst. Die Libraries werden in Form von Quellcode zusammengefügt. Der Quellcode lässt sich über das Command-line Interface bedienen oder selbst anpassen. Werden zusätzliche Dienste benötigt, kann das auf Code-Level selbst oder über ein Custom Plugin geschehen, welches die nötigen Dienste erstellt.
+\ac{AWS} Amplify ist damit ein Wrapper um etliche \ac{AWS}-Dienste. Dieser Wrapper begünstigt den Einstieg in die Cloud-Dienste durch das Framework selbst. Die Libraries werden in Form von Quellcode zusammengefügt. Der Quellcode lässt sich über das Command-line Interface bedienen oder selbst anpassen. Werden zusätzliche Dienste benötigt, kann das manuell auf Quellcode-Level selbst oder über ein Custom Plugin geschehen, welches die nötigen Dienste erstellt.
 
 Des Weiteren bietet \ac{AWS} Amplify ein Hosting des Frontends über CloudFront und S3 an. Alle Dienste werden in der \ac{AWS} CloudFormation als Stacks bereitgestellt. \ac{AWS} Amplify ist für die folgenden Plattformen geeignet:
 \begin{itemize}
@@ -121,7 +121,7 @@ In den nächsten Unterabschnitten werden die für diese Arbeit relevanten Amplif
 
 Mit dieser Library lassen sich GraphQL-Schnittstellen entwickeln. Der dahinterliegende Dienst ist \ac{AWS} AppSync. In jedem Fall wird eine Datenquelle benötigt, welche häufig die NoSQL-Datenbank Amazon DynamoDB ist. Wenn einzelne Queries oder Mutations Logik benötigen, dann besteht die Möglichkeit diese entweder mit der Programmiersprache VTL aufzulösen oder einen eigenen Resolver über \ac{AWS} Lambda hinzuzufügen. Weitere Funktionalitäten dieser Library sind die Authentifizierung über Amazon Cognito, \ac{AWS} IAM, einen API-Key oder eine eigene Lambda-Funktion. Auch Subscriptions bei definierten Events wie dem Erstellen, Aktualisieren oder Löschen eines Datensatzes sind möglich.
 
-Für das Frontend besteht die Möglichkeit den Amplify GraphQL Client zu nutzen.
+Für das Frontend besteht die Möglichkeit den Amplify GraphQL Client zu nutzen, um die Schnittstelle anzusprechen.
 
 \subsubsection{Authentication}
 
@@ -131,27 +131,27 @@ Im Frontend kann auf ein bereitgestelltes User Interface zurückgegriffen werden
 
 \subsubsection{Storage (S3)}
 
-Mit der Storage-Library können Benutzerinhalte verwaltet werden. Im Backend wird dafür \ac{AWS} S3 verwendet, der als Speicherort für die Dateien dient. Im Standardfall wird der Bucket in einen öffentlichen, geschützten und privaten Bereich aufgeteilt. Auf den öffentlichen Bereich kann jeder Nutzer lesen und schreiben. Für den geschützten und privaten Bereich muss der Nutzer über \ac{AWS} Cognito eingeloggt sein. Beim geschützten Bereich kann nur der Besitzer schreiben, während alle anderen Nutzer lesen können. Im privaten Bereich kann nur der Benutzer lesen und schreiben. Wichtig ist zu erwähnen, dass die Identität und nicht die Benutzerkennung als Ordner-Pfad gesetzt werden. Dies benötigt eine Umrechnung, sollte eine Lambda-Funktion zu einem Nutzer den dazugehörigen Ordner finden wollen.
+Mit der Storage-Library können Benutzerinhalte verwaltet werden. Im Backend wird dafür \ac{AWS} S3 verwendet, das als Speicherort für die Dateien dient. Im Standardfall wird der Bucket in einen öffentlichen, geschützten und privaten Bereich aufgeteilt. Auf den öffentlichen Bereich kann jeder Nutzer lesen und schreiben. Für den geschützten und privaten Bereich muss der Nutzer über \ac{AWS} Cognito eingeloggt sein. Beim geschützten Bereich kann nur der Besitzer schreiben, während alle anderen Nutzer lesen können. Im privaten Bereich kann nur der Besitzer des Ordners lesen und schreiben. Wichtig ist zu erwähnen, dass die Identität und nicht die Benutzerkennung als Ordner-Pfad gesetzt werden. Dies benötigt eine Umrechnung, sollte eine Lambda-Funktion zu einem Nutzer den dazugehörigen Ordner finden wollen.
 
-Im Frontend können die existierenden Funktionen von Amplify genutzt werden, um mit dem Storage zu agieren. Dabei werden in der Regel \textit{Signed URLs} verwendet.
+Im Frontend können die existierenden Funktionen von Amplify genutzt werden, um mit dem Storage zu agieren. Dabei werden in der Regel signierte Links verwendet.
 
 \subsubsection{Weitere Libraries}
 
-\ac{AWS} Amplify bietet eine Reihe weiterer Libraries, welche im folgenden kurz dargestellt werden.
+\ac{AWS} Amplify bietet eine Reihe weiterer Libraries, welche in der folgenden Liste kurz dargestellt werden:
 \begin{itemize}
    \item \textit{API (\acs{REST})} wird genutzt, um \acs{REST}-\acs{API}s über den Dienst \ac{AWS} API Gateway abzubilden.
    \item \textit{Geo} wird genutzt, um \acs{API}s und User Interfaces für Karten und Standortsuchen über den \ac{AWS}-Dienst Amazon Location Service zu verwenden.
-   \item \textit{DataStore} wird genutzt, um Daten mit einer Schnittstelle sowohl im Online- als auch im Offlinefall einheitlich über \ac{AWS} AppSync zu verwalten.
+   \item \textit{DataStore} wird genutzt, um Daten mit einer Schnittstelle sowohl im Online- als auch im Offline-Fall einheitlich über \ac{AWS} AppSync zu verwalten.
    \item \textit{Interactions} werden genutzt, um Chatbots über Amazon Lex in die Anwendung zu integrieren.
-   \item \textit{Predictions} wird für gängige Aufgaben der künstlichen Intelligenz wie beispielsweise Übersetzungen, Text-to-Speach und Labelling genutzt. Dabei kommen die Dienste Amazon Translate, Amazon Polly, Amazon Transcribe, Amazon Rekognition, Amazon Textract, and Amazon Comprehend zum Einsatz.
+   \item \textit{Predictions} werden für gängige Aufgaben der künstlichen Intelligenz wie beispielsweise Übersetzungen, Text-to-Speach oder Labelling benutzt. Dabei kommen die Dienste Amazon Translate, Amazon Polly, Amazon Transcribe, Amazon Rekognition, Amazon Textract, and Amazon Comprehend zum Einsatz.
    \item \textit{XR} wird für Augmented Reality and Virtual Reality genutzt.
 \end{description}
 
 \subsection{Firebase}
 
-Firebase wurde im Jahr 2011 veröffentlicht und 2014 von Google übernommen. Im Gegensatz zu \ac{AWS} Amplify gibt es hier umfassende wissenschaftliche Literatur \autocite{moroney2017definitive}\autocite{tanna2018serverless}. Daneben bietet Firebase ebenfalls eine ausführliche Dokumentation\autocite{firebaseDocs} an.
+Firebase wurde im Jahr 2011 veröffentlicht und 2014 von Google übernommen. Im Gegensatz zu \ac{AWS} Amplify gibt es hier umfassende wissenschaftliche Literatur \autocite{moroney2017definitive}\autocite{tanna2018serverless}. Daneben bietet Firebase ebenfalls eine ausführliche Dokumentation \autocite{firebaseDocs} an.
 
-Auch Firebase bietet etliche Libraries an, um Backend- und Frontendanwendungen zu entwickeln. Diese nutze teilweise auch andere Cloud-Dienste der Google Cloud Platform, andere sind wiederum direkt für Firebase geschrieben. Firebase ist für die Entwicklung auf den folgenden Plattformen geeignet:
+Auch Firebase bietet etliche Libraries an, um Backend- und Frontend-Anwendungen zu entwickeln. Diese nutze teilweise auch andere Cloud-Dienste der Google Cloud Platform, andere sind wiederum direkt für Firebase geschrieben. Firebase ist für die Entwicklung auf den folgenden Plattformen geeignet:
 \begin{itemize}
   \item Apple (iOS)
   \item Android
@@ -162,9 +162,9 @@ Auch Firebase bietet etliche Libraries an, um Backend- und Frontendanwendungen z
 
 \subsubsection{Cloud Functions}
 
-Im Gegensatz zu \ac{AWS} Amplify gibt es hier keine GraphQL- oder Rest-Schnittstelle. Funktionen, auch \texti{Cloud Functions} genannt, werden stattdessen direkt aufgerufen. Diese können sowohl aus dem Frontend als auch durch eine Aktion im Backend aufgerufen werden. Ersteres erfordert die nötigen Berechtigungen für diese Funktion. Letzteres kann beispielsweise durch einen Trigger wie \texti{document.create} aus der Datenbank ausgelöst werden.
+Im Gegensatz zu \ac{AWS} Amplify gibt es hier keine GraphQL- oder \acs{REST}-Schnittstelle. Funktionen, auch \texti{Cloud Functions} genannt, werden stattdessen direkt aufgerufen. Diese können sowohl aus dem Frontend als auch durch eine Aktion im Backend aufgerufen werden. Im Frontend erfordert das die entsprechenden Berechtigungen für diese Funktion. Im Backend kann der Aufruf durch einen Trigger, z. B. durch den Datenbank-Trigger \textit{document.create}, ausgelöst werden.
 
-Für die Datenbank kann der Entwickler zwischen der Firestore Database und der Realtime Database wählen. Die Realtime Database ist die erste Version, während die Firestore Database eine schnellere und besser skalierbare Datenbank mit einem intuitiveren Datenmodell ist. Beide Datenbanken bieten entsprechende Frontend-Libraries an. Anders als in traditionellen Systemen besteht die Möglichkeit, dass das Frontend mit entsprechenden Berechtigungen ohne eine Funktion aufzurufen in die Datenbank schreiben kann. Die Sicherheitskonfiguration der Datenbank muss dafür so angepasst werden, dass Nutzer keine Datensätze anderer Nutzer überschreiben können.
+Bei der Auswahl der Datenbank kann der Entwickler zwischen der Firestore Database und der Realtime Database wählen. Die Realtime Database ist die erste Version, während die Firestore Database eine schnellere und besser skalierbare Datenbank mit einem intuitiveren Datenmodell ist. Beide Datenbanken bieten entsprechende Frontend-Libraries an. Anders als in traditionellen Systemen besteht die Möglichkeit, dass das Frontend mit entsprechenden Berechtigungen ohne eine Funktion aufzurufen in die Datenbank schreiben kann. Die Sicherheitskonfiguration der Datenbank muss dafür so angepasst werden, dass Nutzer keine Datensätze anderer Nutzer überschreiben können.
 
 \subsubsection{Authentication}
 
@@ -172,12 +172,11 @@ Auch Firebase bietet eine Authentication-Library für Frontend und Backend an. D
 
 \subsubsection{Storage}
 
-Auch die Storage-Library unterscheidet sich für den einfachen Bedarf an benutzerspezifischen Inhalten kaum von \ac{AWS} Amplify. Im Hintergrund wird der Cloud Storage-Dienst genutzt. Das Berechtigungssystem wird bei diesem Dienst über Regeln definiert, welche eine Konfigurationsdatei darstellen. Diese Regeln können auch an das Authentication-System geknüpft sein, um einen privaten Benutzerbereich zu schaffen.
+Auch die Storage-Library unterscheidet sich für den einfachen Bedarf an benutzerspezifischen Inhalten kaum von \ac{AWS} Amplify. Im Hintergrund wird der Google-Dienst Cloud Storage benutzt. Das Berechtigungssystem wird bei diesem Dienst über Regeln definiert, die in einer Konfigurationsdatei stehen. Diese Regeln können auch an das Authentication-System geknüpft sein, um einen privaten Benutzerbereich zu schaffen.
 
 \subsubsection{Weitere Libraries}
 
-Firebase bietet zudem eine Menge an weiteren Libraries.
-
+Firebase bietet ebenfalls weiteren Libraries an:
 \begin{itemize}
   \item \textit{Cloud Messaging} wird genutzt, um Push-Notifiations abzubilden.
   \item \textit{Firebase ML} wird für Text-, Bild-, Gesichts und Objekterkennung sowie Übersetzungen, intelligenten Antworten oder Barcode-Scans genutzt.
@@ -187,11 +186,11 @@ Firebase bietet zudem eine Menge an weiteren Libraries.
   \item \textit{Test Lab} wird zum Testen der Anwendung auf verschiedenen Endgeräten genutzt.
 \end{description}
 
-Zusätzlich gibt es bei Firebase eine Menge Erweiterungen, um dem System neue Funktionen hinzuzufügen. Beispiele dafür sind Payment-Anbindungen, Bildbearbeitungstools oder ein URL-Shortener.
+Zusätzlich gibt es bei Firebase eine Menge fertiger Erweiterungen, um dem System neue Funktionen hinzuzufügen. Beispiele dafür sind Payment-Anbindungen, Bildbearbeitungstools oder ein Link-Shortener.
 
 \subsection{Weitere Anbieter}
 
-Der \ac{BaaS}-Anbieter Back4App bietet seinen Nutzern eine Liste bekannter weiterer Anbieter \autocite{mbaasComparison}. Diese werden in \autoref{Kap2:BaasAnbieter} folgenden zusammenfassend dargestellt. Die Darstellung der Funktionalitäten zeigt lediglich die für diesen Anbieter wichtigsten Funktionalitäten und ist damit nicht vollständig.
+Der \ac{BaaS}-Anbieter Back4App bietet seinen Nutzern eine Liste bekannter weiterer Anbieter \autocite{mbaasComparison}. Diese werden in \autoref{Kap2:BaasAnbieter} zusammenfassend dargestellt. Die Darstellung der Funktionalitäten zeigt lediglich die für diesen Anbieter wichtigsten Funktionalitäten und ist damit nicht vollständig.
 
 \begin{table}[h]
   \caption{Vergleich von \ac{BaaS}-Anbietern \autocite{mbaasComparison}}
