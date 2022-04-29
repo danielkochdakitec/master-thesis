@@ -5,9 +5,16 @@ input S3ObjectInput {
 }
 
 type Mutation {
-  createVideo(title: String!, description: String!, file: S3ObjectInput!):
-    String @function(name: "createVideo-${env}")
-  createPresignedVideoLink(videoId: String!):
+  createVideo(
+    title: String!,
+    description: String!,
+    file: S3ObjectInput!
+  ):
+    String @function(name: "createVideo-${env}"
+  )
+  createPresignedVideoLink(
+    videoId: String!
+  ):
     String @function(name: "createPresignedVideoLink-${env}")
 }
 
