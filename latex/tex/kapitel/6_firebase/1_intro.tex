@@ -40,7 +40,7 @@ Als nächstes werden Lösungsansätze, um die nichtfunktionalen Anforderungen, a
    \item[Verfügbarkeit] Firebase bietet für Frontend und Backend ein Zero-Downtime Deployment.
    \item[Skalierbarkeit] Durch die Serverless-Architektur skalieren Funktionen sowie Firestore automatisch innerhalb der Google-Cloud.
    \item[Analysierbarkeit] Durch den Einsatz von Cloud Logging können Anfragen für Funktionen nachvollzogen werden.
-   \item[Interoperabilität] Es wird keine REST- oder GraphQL-Schnittstelle genutzt. Stattdessen werden die Funktionen des Backends direkt aufgerufen. Damit ist die Interoperabilität nicht direkt gegeben.
+   \item[Interoperabilität] Es wird keine \ac{REST}- oder GraphQL-Schnittstelle genutzt. Stattdessen werden die Funktionen des Backends direkt aufgerufen. Damit ist die Interoperabilität nicht direkt gegeben.
    \item[Backups] Backups lassen sich automatisiert über Firestore aktivieren.
    \item[Wiederherstellbarkeit] Das Backup von Firestore muss manuell eingespielt werden.
 \end{description}
@@ -115,7 +115,7 @@ Die Laufzeitsicht beschreibt die wichtigsten Prozesse und wie die Bausteine mite
 
 \autoref{Firebase:verteilungssicht} stellt dar, wie die Anwendung bereitgestellt wird.
 
-Im Gegensatz zu \ac{AWS} Amplify verwendet Firebase keine Stacks, sondern stellt die einzelnen Dienste über eine REST-API zur Verfügung. Diese lässt sich über das Command-Line Interface aufrufen. Alternativ kann die Schnittstelle auch direkt angesprochen werden. Die Anwendung benötigt diese Funktionalität allerdings nicht, da keine speziellen Anforderungen an das Deployment bestehen und damit der Standard ausreicht.
+Im Gegensatz zu \ac{AWS} Amplify verwendet Firebase keine Stacks, sondern stellt die einzelnen Dienste über eine \ac{REST}-API zur Verfügung. Diese lässt sich über das Command-Line Interface aufrufen. Alternativ kann die Schnittstelle auch direkt angesprochen werden. Die Anwendung benötigt diese Funktionalität allerdings nicht, da keine speziellen Anforderungen an das Deployment bestehen und damit der Standard ausreicht.
 
 \section{Implementierung}
 
